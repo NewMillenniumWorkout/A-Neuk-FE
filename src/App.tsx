@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import BottomAppBar from './components/BottomAppBar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex h-screen w-screen justify-center items-center bg-gray-200 flex-col">
+      <div className="flex h-full w-full sm:max-w-[500px] bg-white justify-center items-center flex-col">
+        <div className="flex-grow">
+          dd
+        </div>
+        <BottomAppBar />
+      </div>
     </div>
   );
 }
