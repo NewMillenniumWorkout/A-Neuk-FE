@@ -5,7 +5,7 @@ import { IconProvider } from "../utils/IconProvider";
 function BottomAppBar() {
 	const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
 	return (
-		<div className="w-full h-16 bg-white text-white flex justify-around items-center">
+		<div className="w-full h-16 bg-white text-black-aneuk flex justify-around items-center">
 			<IconButton
 				icon={<IconProvider.CalendarIcon />}
 				label="Calendar"
