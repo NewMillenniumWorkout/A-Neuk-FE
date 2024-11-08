@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { messages, Message } from "./ChatData.ts";
+import ChatBubble from "./ChatBubble";
 
 function ChatPage() {
 	return (
-		<div>
+		<div className="w-full p-8">
 			{messages.map((message: Message, index: number) => (
-				<div key={index}>
-					<p>{message.content}</p>
-					<small>{message.send_time}</small>
-				</div>
+				<ChatBubble
+					key={index}
+					content={message.content}
+					sendTime={message.send_time}
+					sender={message.chat_id}
+				/>
 			))}
 		</div>
 	);
