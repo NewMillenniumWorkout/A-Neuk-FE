@@ -6,14 +6,14 @@ const TopAppBar: React.FC = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="w-full h-16 bg-white shadow-md flex items-center px-4">
+		<div className="w-full h-16 bg-white flex justify-center items-center px-4">
 			<button
 				onClick={() => {
 					navigate(-1);
 				}}
-				className="mr-4"
+				className="absolute left-4"
 			>
-				<IconProvider.LeftArrowIcon />
+				<IconProvider.LeftArrowIcon className="w-8 h-8" />
 			</button>
 			<h1 className="text-lg font-bold text-gray-800">아늑</h1>
 		</div>
