@@ -25,7 +25,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 				</small>
 			)}
 			<div
-				className={`max-w-xs p-3 rounded-2xl shadow-md ${
+				className={`max-w-xs p-3 rounded-2xl ${
 					sender === "MEMBER"
 						? "bg-white-aneuk text-gray-800"
 						: "bg-black-aneuk text-white"
