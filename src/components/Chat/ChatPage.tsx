@@ -13,7 +13,7 @@ function ChatPage() {
 						key={index}
 						content={message.content}
 						sendTime={message.send_time}
-						sender={message.chat_id}
+						sender={message.type}
 					/>
 				))}
 			</div>
