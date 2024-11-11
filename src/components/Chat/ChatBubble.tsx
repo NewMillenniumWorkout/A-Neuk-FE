@@ -1,4 +1,5 @@
 import React from "react";
+import { formatTime } from "../../utils/TimeFormatter";
 
 type ChatBubbleProps = {
 	content: string;
@@ -11,6 +12,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 	sendTime,
 	sender,
 }) => {
+	const formattedTime = formatTime(sendTime);
 	return (
 		<div
 			className={`flex ${
@@ -18,7 +20,9 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 			} items-end mb-3`}
 		>
 			{sender === "MEMBER" && (
-				<small className="text-xs text-gray-500 pr-2">{sendTime}</small>
+				<small className="text-xs text-gray-500 pr-2">
+					{formattedTime}
+				</small>
 			)}
 			<div
 				className={`max-w-xs p-3 rounded-2xl shadow-md ${
@@ -30,7 +34,9 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 				<p className="mb-1">{content}</p>
 			</div>
 			{sender === "ASSISTANT" && (
-				<small className="text-xs text-gray-500 pl-2">{sendTime}</small>
+				<small className="text-xs text-gray-500 pl-2">
+					{formattedTime}
+				</small>
 			)}
 		</div>
 	);

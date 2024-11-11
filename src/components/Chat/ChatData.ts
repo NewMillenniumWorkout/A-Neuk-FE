@@ -1,4 +1,3 @@
-// src/data/messages.ts
 export type Message = {
 	chat_id: number;
 	content: string;
