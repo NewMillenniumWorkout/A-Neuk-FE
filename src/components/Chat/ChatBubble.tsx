@@ -17,26 +17,26 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 		<div
 			className={`flex ${
 				sender === "MEMBER" ? "justify-end" : "justify-start"
-			} items-end mb-3`}
+			} items-end mb-4`}
 		>
 			{sender === "MEMBER" && (
-				<small className="text-xs text-gray-500 pr-2">
+				<div className="text-xs text-gray-aneuk pr-2">
 					{formattedTime}
-				</small>
+				</div>
 			)}
 			<div
-				className={`max-w-xs p-3 rounded-2xl ${
+				className={`max-w-xs pt-2 pb-2.5 px-4 rounded-3xl ${
 					sender === "MEMBER"
 						? "bg-white-aneuk text-gray-800"
 						: "bg-black-aneuk text-white"
 				}`}
 			>
-				<p className="mb-1">{content}</p>
+				{content}
 			</div>
 			{sender === "ASSISTANT" && (
-				<small className="text-xs text-gray-500 pl-2">
+				<div className="text-xs text-gray-aneuk pl-2">
 					{formattedTime}
-				</small>
+				</div>
 			)}
 		</div>
 	);
