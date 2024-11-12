@@ -7,6 +7,7 @@ module.exports = {
 				"black-aneuk": "#333333",
 				"white-aneuk": "#F7F4EE",
 				"text-aneuk": "#2c3e50",
+				"gray-aneuk": "#cccccc",
 				white: "#ffffff",
 			},
 		},
