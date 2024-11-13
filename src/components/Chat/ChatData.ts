@@ -41,7 +41,7 @@ export const messages: Message[] = [
 		chat_id: 123,
 		content: "하루가 지났군",
 		type: "MEMBER",
-		send_time: "2024-11-07T12:30:00Z",
+		send_time: "2024-11-06T15:00:00Z",
 	},
 	{
 		chat_id: 123,

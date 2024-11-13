@@ -17,7 +17,7 @@ function App() {
 	const location = useLocation();
 	return (
 		<div className="flex h-screen w-screen justify-center items-center bg-gray-200 flex-col">
-			<div className="relative flex h-full w-full sm:max-w-[500px] bg-white justify-center items-center flex-col">
+			<div className="relative flex h-full w-full sm:max-w-[440px] bg-white justify-center items-center flex-col">
 				<div className="relative w-full h-full">
 					<Routes>
 						<Route path="/calendar" element={<CalendarPage />} />

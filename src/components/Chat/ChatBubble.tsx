@@ -32,18 +32,18 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 				></img>
 			)}
 			{sender === "MEMBER" && (
-				<div className="text-xs text-gray-aneuk pr-2">
+				<div className="text-xs text-gray-aneuk pr-1">
 					{formattedTime}
 				</div>
 			)}
 			<div className="flex flex-col">
 				{sender === "ASSISTANT" && (
-					<div className="ml-1.5 mb-1 mt-0.5 text-black-aneuk">
+					<div className="ml-1.5 mb-1 mt-0.5 text-black-aneuk text-sm">
 						아늑
 					</div>
 				)}
 				<div
-					className={`max-w-xs pt-2 pb-2.5 px-4 rounded-3xl ${
+					className={`max-w-60 pt-2 pb-2.5 px-4 rounded-3xl ${
 						sender === "MEMBER"
 							? "bg-white-aneuk text-gray-800"
 							: "bg-black-aneuk text-white"
@@ -53,7 +53,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 				</div>
 			</div>
 			{sender === "ASSISTANT" && (
-				<div className="text-xs text-gray-aneuk pl-2">
+				<div className="text-xs text-gray-aneuk pl-1">
 					{formattedTime}
 				</div>
 			)}
