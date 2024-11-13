@@ -3,6 +3,9 @@ import { messages, Message } from "./ChatData.ts";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
 import { formatDate } from "../../utils/TimeFormatter.tsx";
+import IconButton from "../IconButton.tsx";
+import { IconProvider } from "../../utils/IconProvider.tsx";
+import { InputArea } from "./InputArea.tsx";
 
 function ChatPage() {
 	return (
@@ -37,13 +40,7 @@ function ChatPage() {
 					);
 				})}
 			</div>
-			<div className="p-2 border-t">
-				<input
-					type="text"
-					placeholder="메시지를 입력하세요"
-					className="w-full p-2 border rounded"
-				/>
-			</div>
+			<InputArea />
 		</div>
 	);
 }
