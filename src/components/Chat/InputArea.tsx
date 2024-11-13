@@ -18,7 +18,7 @@ function SendButton() {
 	return (
 		<button
 			className={
-				"flex flex-col items-center justify-center h-10 w-10 p-2 w-28 absolute top-2 right-2 bg-black-aneuk rounded-full "
+				"flex flex-col items-center justify-center h-10 w-10 p-2 absolute top-2 right-2 bg-black-aneuk rounded-full "
 			}
 			onClick={() => {}}
 		>
