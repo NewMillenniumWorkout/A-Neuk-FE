@@ -6,6 +6,7 @@ import { ReactComponent as UserIcon } from "../assets/icons/User_Empty.svg";
 import { ReactComponent as CalendarIcon } from "../assets/icons/Calendar_Days.svg";
 import { ReactComponent as SettingsIcon } from "../assets/icons/Settings.svg";
 import { ReactComponent as FileEditIcon } from "../assets/icons/File_Edit.svg";
+import { ReactComponent as SendIcon } from "../assets/icons/Send_Up_Right.svg";
 
 export const IconProvider = {
 	ChatIcon,
@@ -16,4 +17,5 @@ export const IconProvider = {
 	CalendarIcon,
 	SettingsIcon,
 	FileEditIcon,
+	SendIcon,
 };
