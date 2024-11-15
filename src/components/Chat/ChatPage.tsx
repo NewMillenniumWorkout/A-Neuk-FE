@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { messages, Message } from "./ChatData.ts";
+import { messages as initialMessages, Message } from "./ChatData.ts";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
 import { formatDate } from "../../utils/TimeFormatter.tsx";
@@ -8,6 +8,18 @@ import { IconProvider } from "../../utils/IconProvider.tsx";
 import { InputArea } from "./InputArea.tsx";
 
 function ChatPage() {
+	const [messages, setMessages] = useState<Message[]>(initialMessages);
+
+	const addMessage = (content: string) => {
+		const newMessage: Message = {
+			chat_id: 123,
+			content,
+			type: "MEMBER",
+			send_time: new Date().toISOString(),
+		};
+		setMessages((prevMessages) => [...prevMessages, newMessage]);
+	};
+
 	return (
 		<div className="absolute inset-0 w-full h-full bg-white flex flex-col">
 			<TopAppBar />
@@ -40,7 +52,7 @@ function ChatPage() {
 					);
 				})}
 			</div>
-			<InputArea />
+			<InputArea onSend={addMessage} />
 		</div>
 	);
 }

@@ -1,8 +1,10 @@
 import { IconProvider } from "../../utils/IconProvider";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { messages, Message } from "./ChatData";
 
-export function InputArea() {
+export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+	const [inputValue, setInputValue] = useState("");
 
 	const autoHeight = () => {
 		if (textareaRef.current) {
@@ -11,8 +13,15 @@ export function InputArea() {
 		}
 	};
 
+	const handleSend = () => {
+		if (inputValue.trim()) {
+			onSend(inputValue.trim());
+			setInputValue("");
+		}
+	};
+
 	return (
-		<div className="flex flex-row justify-end items-end relative p-2 ">
+		<div className="flex flex-row justify-end items-end relative p-2">
 			<textarea
 				ref={textareaRef}
 				placeholder="메시지를 입력하세요"
@@ -23,19 +32,21 @@ export function InputArea() {
 				}}
 				rows={1}
 				onInput={autoHeight}
+				value={inputValue}
+				onChange={(e) => setInputValue(e.target.value)}
 			/>
-			<SendButton />
+			<SendButton onClick={handleSend} />
 		</div>
 	);
 }
 
-function SendButton() {
+function SendButton({ onClick }: { onClick: () => void }) {
 	return (
 		<button
 			className={
 				"flex items-center justify-center h-11 w-11 min-w-11 bg-black-aneuk rounded-full "
 			}
-			onClick={() => {}}
+			onClick={onClick}
 		>
 			<div className={"text-white-aneuk"}>
 				<IconProvider.SendIcon />
