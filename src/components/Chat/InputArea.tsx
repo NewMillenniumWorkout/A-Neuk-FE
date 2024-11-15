@@ -13,10 +13,17 @@ export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 		}
 	};
 
+	const resetHeight = () => {
+		if (textareaRef.current) {
+			textareaRef.current.style.height = "auto";
+		}
+	};
+
 	const handleSend = () => {
 		if (inputValue.trim()) {
 			onSend(inputValue.trim());
 			setInputValue("");
+			resetHeight();
 		}
 	};
 
@@ -25,7 +32,6 @@ export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 		if (e.key === "Enter" && !e.shiftKey) {
 			e.preventDefault();
 			handleSend();
-			console.log("로그로그");
 		}
 	};
 
