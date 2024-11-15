@@ -50,4 +50,16 @@ export const messages: Message[] = [
 		type: "ASSISTANT",
 		send_time: "2024-11-07T12:30:00Z",
 	},
+	{
+		chat_id: 123,
+		content: "독도는",
+		type: "MEMBER",
+		send_time: "2024-11-07T13:00:00Z",
+	},
+	{
+		chat_id: 123,
+		content: "우리땅",
+		type: "ASSISTANT",
+		send_time: "2024-11-07T13:30:00Z",
+	},
 ];
