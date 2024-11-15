@@ -10,6 +10,9 @@ module.exports = {
 				"gray-aneuk": "#cccccc",
 				white: "#ffffff",
 			},
+			clipPath: {
+				"round-40": "inset(0 round 40%)",
+			},
 			keyframes: {
 				"slide-up": {
 					"0%": { opacity: "0", transform: "translateY(100%)" },
