@@ -34,11 +34,7 @@ export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 			<textarea
 				ref={textareaRef}
 				placeholder="메시지를 입력하세요"
-				className="w-full max-h-32 h-11 min-h-11 px-4 py-2.5 mr-2 border rounded-3xl resize-none overflow-y-auto break-words focus:outline-none"
-				style={{
-					lineHeight: "1.5",
-					boxSizing: "border-box",
-				}}
+				className="w-full max-h-32 h-11 min-h-11 px-4 py-2.5 mr-2 border leading-5 box-border rounded-3xl resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide"
 				rows={1}
 				value={inputValue}
 				onChange={(e) => {
