@@ -6,7 +6,7 @@ const TopAppBar: React.FC = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="w-full h-16 bg-white flex justify-center items-center px-4">
+		<div className="w-full min-h-14 h-14 bg-white flex justify-center items-center px-4">
 			<button
 				onClick={() => {
 					navigate(-1);
