@@ -16,7 +16,7 @@ import ChartPage from "./components/Chart/ChartPage";
 function App() {
 	const location = useLocation();
 	return (
-		<div className="flex h-screen w-screen justify-center items-center bg-gray-200 flex-col">
+		<div className="flex h-screen w-screen justify-center items-center bg-gray-200 flex-col overflow-hidden">
 			<div className="relative flex h-full w-full sm:max-w-[440px] bg-white justify-center items-center flex-col">
 				<div className="relative w-full h-full">
 					<Routes>
