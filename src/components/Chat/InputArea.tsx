@@ -21,7 +21,7 @@ export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 	};
 
 	return (
-		<div className="flex flex-row justify-end items-end relative p-2">
+		<div className="flex flex-row h-16 min-h-16 justify-end items-end relative p-2">
 			<textarea
 				ref={textareaRef}
 				placeholder="메시지를 입력하세요"
