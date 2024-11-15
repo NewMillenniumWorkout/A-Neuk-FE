@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { messages as initialMessages, Message } from "./ChatData.ts";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
@@ -9,6 +9,7 @@ import { InputArea } from "./InputArea.tsx";
 
 function ChatPage() {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
+	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
 
 	const addMessage = (content: string) => {
 		const newMessage: Message = {
@@ -20,10 +21,24 @@ function ChatPage() {
 		setMessages((prevMessages) => [...prevMessages, newMessage]);
 	};
 
+	const autoScroll = () => {
+		if (BubbleContainerRef.current) {
+			BubbleContainerRef.current.scrollTop =
+				BubbleContainerRef.current.scrollHeight;
+		}
+	};
+
+	useEffect(() => {
+		autoScroll();
+	}, [messages]);
+
 	return (
 		<div className="absolute inset-0 w-full h-full bg-white flex flex-col">
 			<TopAppBar />
-			<div className="flex-grow p-2 overflow-y-auto">
+			<div
+				className="flex-grow p-2 overflow-y-auto"
+				ref={BubbleContainerRef}
+			>
 				{messages.map((message: Message, index: number) => {
 					const currentDate = new Date(
 						message.send_time
