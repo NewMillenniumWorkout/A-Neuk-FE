@@ -16,6 +16,14 @@ const TopAppBar: React.FC = () => {
 				<IconProvider.LeftArrowIcon className="w-8 h-8" />
 			</button>
 			<h1 className="text-lg font-bold text-gray-800">아늑</h1>
+			<button
+				onClick={() => {
+					navigate(-1);
+				}}
+				className="absolute right-4"
+			>
+				<IconProvider.FileEditIcon className="w-7 h-7" />
+			</button>
 		</div>
 	);
 };
