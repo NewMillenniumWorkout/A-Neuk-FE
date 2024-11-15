@@ -6,6 +6,7 @@ import { formatDate } from "../../utils/TimeFormatter.tsx";
 import IconButton from "../IconButton.tsx";
 import { IconProvider } from "../../utils/IconProvider.tsx";
 import { InputArea } from "./InputArea.tsx";
+import { GenButton } from "./GenButton.tsx";
 
 function ChatPage() {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -72,14 +73,7 @@ function ChatPage() {
 					);
 				})}
 
-				{isGenAble && (
-					<div className="absolute bottom-16 inset-x-0 flex justify-center items-end z-50">
-						<button className="relative flex justify-center items-center rounded-full pr-2 w-44 h-12 bg-white text-black-aneuk shadow-sm border-2">
-							일기 생성하기
-							<IconProvider.RightArrowIcon className="absolute right-3 w-6 h-6 text-black-aneuk" />
-						</button>
-					</div>
-				)}
+				{isGenAble && <GenButton onClick={() => {}} />}
 			</div>
 			<InputArea onSend={addMessage} />
 		</div>
