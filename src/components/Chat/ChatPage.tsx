@@ -9,6 +9,8 @@ import { InputArea } from "./InputArea.tsx";
 
 function ChatPage() {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
+	const [isGenAble, setIsGenAble] = useState(false);
+
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
 
 	const addMessage = (content: string) => {
@@ -29,6 +31,9 @@ function ChatPage() {
 	};
 
 	useEffect(() => {
+		if (messages.length > 10) {
+			setIsGenAble(true);
+		}
 		autoScroll();
 	}, [messages]);
 
@@ -66,6 +71,15 @@ function ChatPage() {
 						</div>
 					);
 				})}
+
+				{isGenAble && (
+					<div className="absolute bottom-16 inset-x-0 flex justify-center items-end z-50">
+						<button className="relative flex justify-center items-center rounded-full pr-2 w-44 h-12 bg-white text-black-aneuk shadow-sm border-2">
+							일기 생성하기
+							<IconProvider.RightArrowIcon className="absolute right-3 w-6 h-6 text-black-aneuk" />
+						</button>
+					</div>
+				)}
 			</div>
 			<InputArea onSend={addMessage} />
 		</div>
