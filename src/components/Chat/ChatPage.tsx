@@ -7,6 +7,7 @@ import IconButton from "../IconButton.tsx";
 import { IconProvider } from "../../utils/IconProvider.tsx";
 import { InputArea } from "./InputArea.tsx";
 import { GenButton } from "./GenButton.tsx";
+import { ImageReceiver } from "./ImageReceiver.tsx";
 
 function ChatPage() {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -72,10 +73,10 @@ function ChatPage() {
 						</div>
 					);
 				})}
-
-				{isGenAble && <GenButton onClick={() => {}} />}
+				<ImageReceiver />
 			</div>
 			<InputArea onSend={addMessage} />
+			{isGenAble && <GenButton onClick={() => {}} />}
 		</div>
 	);
 }
