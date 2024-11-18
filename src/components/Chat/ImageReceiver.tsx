@@ -31,6 +31,7 @@ export function ImageReceiver() {
 				<div className="max-w-60 pt-2 pb-2.5 px-4 mt-1 rounded-3xl break-words box-border bg-black-aneuk text-white">
 					<div className="min-h-60 flex flex-col justify-center items-center">
 						<input
+							id="file-upload"
 							className="mt-2 w-52 hidden"
 							type="file"
 							accept="image/*"
