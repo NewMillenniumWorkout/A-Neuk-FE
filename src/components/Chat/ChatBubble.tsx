@@ -24,11 +24,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 				<img
 					src={profileImg}
 					alt="Profile"
-					className="self-start w-9 h-9 mr-1"
-					style={{
-						borderRadius: "16px",
-						clipPath: "inset(0 round 40%)",
-					}}
+					className="self-start w-9 h-9 mr-1 rounded-[16px] clip-round-40"
 				></img>
 			)}
 			{sender === "MEMBER" && (
@@ -43,7 +39,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 					</div>
 				)}
 				<div
-					className={`max-w-60 pt-2 pb-2.5 px-4 rounded-3xl ${
+					className={`max-w-60 pt-2 pb-2.5 px-4 rounded-3xl break-words whitespace-pre-wrap box-border ${
 						sender === "MEMBER"
 							? "bg-white-aneuk text-gray-800"
 							: "bg-black-aneuk text-white"

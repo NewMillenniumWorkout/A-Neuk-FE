@@ -10,7 +10,24 @@ module.exports = {
 				"gray-aneuk": "#cccccc",
 				white: "#ffffff",
 			},
+			clipPath: {
+				"round-40": "inset(0 round 40%)",
+			},
+			keyframes: {
+				"slide-up": {
+					"0%": { transform: "translateY(100%)" },
+					"100%": { transform: "translateY(0)" },
+				},
+				floating: {
+					"0%, 100%": { transform: "translateY(0)" },
+					"50%": { transform: "translateY(-5px)" },
+				},
+			},
+			animation: {
+				"slide-up": "slide-up 0.5s ease-out",
+				floating: "floating 2.5s ease-in-out infinite",
+			},
 		},
 	},
-	plugins: [],
+	plugins: [require("tailwind-scrollbar-hide")],
 };
