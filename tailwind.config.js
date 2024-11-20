@@ -30,6 +30,9 @@ module.exports = {
 			boxShadow: {
 				"custom-strong": "0 4px 8px rgba(0, 0, 0, 0.2)",
 			},
+			height: {
+				"screen-dynamic": "calc(var(--vh, 1vh) * 100)",
+			},
 		},
 	},
 	plugins: [require("tailwind-scrollbar-hide")],
