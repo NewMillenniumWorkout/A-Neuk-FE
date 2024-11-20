@@ -15,9 +15,8 @@ export function GenButton({ onClick }: { onClick: () => void }) {
 				isFloating ? "animate-floating" : "animate-slide-up"
 			}`}
 		>
-			<button className="relative flex justify-center items-center rounded-full pr-4 w-44 h-12 bg-white text-black-aneuk shadow-sm border-2">
-				일기 생성하기
-				<IconProvider.FileEditIcon className="absolute right-6 w-5 h-5 text-black-aneuk" />
+			<button className="relative flex justify-center items-center rounded-full w-44 h-12 bg-white text-black-aneuk shadow-sm border-2">
+				일기 생성 가능!
 			</button>
 		</div>
 	);
