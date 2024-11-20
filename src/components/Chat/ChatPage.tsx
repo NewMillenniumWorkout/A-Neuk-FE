@@ -39,6 +39,13 @@ function ChatPage() {
 		autoScroll();
 	}, [messages]);
 
+	useEffect(() => {
+		if (messages.length > 10) {
+			setIsGenAble(true);
+		}
+		autoScroll();
+	}, [isGenAble]);
+
 	return (
 		<div className="absolute inset-0 w-full h-full bg-white flex flex-col">
 			<TopAppBar />
@@ -75,8 +82,12 @@ function ChatPage() {
 				})}
 				<ImageReceiver />
 			</div>
+			{isGenAble && (
+				<div className="min-h-16">
+					<GenButton onClick={() => {}} />
+				</div>
+			)}
 			<InputArea onSend={addMessage} />
-			{isGenAble && <GenButton onClick={() => {}} />}
 		</div>
 	);
 }
