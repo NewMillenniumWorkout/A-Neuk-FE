@@ -27,7 +27,7 @@ export function ImageReceiver() {
 					아늑
 				</div>
 				<div className="min-w-60 min-h-80 pt-2 px-2 rounded-2xl break-words box-border bg-white shadow-custom-strong">
-					<div className="flex flex-col justify-center items-center min-w-56 min-h-64 rounded-xl bg-gray-aneuk opacity">
+					<div className="relative flex flex-col justify-center items-center min-w-56 min-h-64 w-56 h-64 rounded-xl bg-gray-aneuk opacity">
 						<input
 							id="file-upload"
 							className="mt-2 w-52 hidden"
@@ -35,19 +35,23 @@ export function ImageReceiver() {
 							accept="image/*"
 							onChange={handleImageChange}
 						/>
-						<label htmlFor="file-upload" className="cursor-pointer">
-							<div className="flex flex-col justify-center items-center min-w-56 min-h-64 w-max h-max text-white font-medium">
-								<IconProvider.ImageIcon className="mb-2 w-10 h-10" />
-								사진 추가하기
-							</div>
+						<label
+							htmlFor="file-upload"
+							className="cursor-pointer w-full h-full"
+						>
+							{userImage ? (
+								<img
+									src={userImage}
+									alt="Preview"
+									className="w-full h-full object-cover rounded-xl"
+								/>
+							) : (
+								<div className="flex flex-col justify-center items-center min-w-56 min-h-64 w-max h-max text-white font-medium">
+									<IconProvider.ImageIcon className="mb-2 w-10 h-10" />
+									사진 추가하기
+								</div>
+							)}
 						</label>
-						{userImage && (
-							<img
-								src={userImage}
-								alt="Preview"
-								className="py-1 w-56 aspect-square object-cover rounded-2xl"
-							/>
-						)}
 					</div>
 				</div>
 			</div>
