@@ -12,6 +12,7 @@ import { ImageReceiver } from "./ImageReceiver.tsx";
 function ChatPage() {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
 	const [isGenAble, setIsGenAble] = useState(false);
+	const [isGenStart, setIsGenStart] = useState(false);
 
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,11 +41,8 @@ function ChatPage() {
 	}, [messages]);
 
 	useEffect(() => {
-		if (messages.length > 10) {
-			setIsGenAble(true);
-		}
 		autoScroll();
-	}, [isGenAble]);
+	}, [isGenStart, isGenAble]);
 
 	return (
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
@@ -80,11 +78,15 @@ function ChatPage() {
 						</div>
 					);
 				})}
-				<ImageReceiver />
+				{isGenStart === true && <ImageReceiver />}
 			</div>
-			{isGenAble && (
+			{isGenAble && !isGenStart && (
 				<div className="min-h-16">
-					<GenButton onClick={() => {}} />
+					<GenButton
+						onClick={() => {
+							setIsGenStart(true);
+						}}
+					/>
 				</div>
 			)}
 			<InputArea onSend={addMessage} />

@@ -15,7 +15,10 @@ export function GenButton({ onClick }: { onClick: () => void }) {
 				isFloating ? "animate-floating" : "animate-slide-up"
 			}`}
 		>
-			<button className="relative flex justify-center items-center rounded-full w-44 h-12 bg-white text-black-aneuk shadow-sm border-2">
+			<button
+				className="relative flex justify-center items-center rounded-full w-44 h-12 bg-white text-black-aneuk shadow-sm border-2"
+				onClick={onClick}
+			>
 				일기 생성 가능!
 			</button>
 		</div>
