@@ -47,10 +47,10 @@ function ChatPage() {
 	}, [isGenAble]);
 
 	return (
-		<div className="absolute inset-0 w-full h-full bg-white flex flex-col">
+		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
 			<TopAppBar />
 			<div
-				className="flex-grow p-2 overflow-y-auto"
+				className="min-h-0 p-2 overflow-y-auto"
 				ref={BubbleContainerRef}
 			>
 				{messages.map((message: Message, index: number) => {

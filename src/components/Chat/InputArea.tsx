@@ -61,6 +61,7 @@ function SendButton({ onClick }: { onClick: () => void }) {
 				"flex items-center justify-center h-11 w-11 min-w-11 bg-black-aneuk rounded-full "
 			}
 			onClick={onClick}
+			onMouseDown={(e) => e.preventDefault()}
 		>
 			<div className={"text-white-aneuk"}>
 				<IconProvider.SendIcon />
