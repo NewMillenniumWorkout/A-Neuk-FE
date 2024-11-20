@@ -1,4 +1,5 @@
 import profileImg from "../../assets/images/aneuk_profile.png";
+import { IconProvider } from "../../utils/IconProvider";
 import { formatTime } from "../../utils/TimeFormatter";
 import { useState } from "react";
 
@@ -25,11 +26,8 @@ export function ImageReceiver() {
 				<div className="ml-1.5 mb-1 mt-0.5 text-black-aneuk text-sm">
 					아늑
 				</div>
-				<div className="w-44 pt-2 pb-2.5 px-4 rounded-3xl box-border bg-black-aneuk text-white">
-					일기 생성을 완료했어!
-				</div>
-				<div className="max-w-60 pt-2 pb-2.5 px-4 mt-1 rounded-3xl break-words box-border bg-black-aneuk text-white">
-					<div className="min-h-60 flex flex-col justify-center items-center">
+				<div className="min-w-60 min-h-80 pt-2 px-2 rounded-2xl break-words box-border bg-white shadow-custom-strong">
+					<div className="flex flex-col justify-center items-center min-w-56 min-h-64 rounded-xl bg-gray-aneuk opacity">
 						<input
 							id="file-upload"
 							className="mt-2 w-52 hidden"
@@ -37,11 +35,11 @@ export function ImageReceiver() {
 							accept="image/*"
 							onChange={handleImageChange}
 						/>
-						<label
-							htmlFor="file-upload"
-							className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 transition"
-						>
-							파일 선택
+						<label htmlFor="file-upload" className="cursor-pointer">
+							<div className="flex flex-col justify-center items-center min-w-56 min-h-64 w-max h-max text-white font-medium">
+								<IconProvider.ImageIcon className="mb-2 w-10 h-10" />
+								사진 추가하기
+							</div>
 						</label>
 						{userImage && (
 							<img
