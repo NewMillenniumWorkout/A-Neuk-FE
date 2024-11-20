@@ -1,4 +1,3 @@
-import React from "react";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -12,11 +11,27 @@ import FloatingActionButton from "./components/FloatingActionButton";
 import CalendarPage from "./components/Calendar/CalendarPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import ChartPage from "./components/Chart/ChartPage";
+import { useEffect } from "react";
 
 function App() {
 	const location = useLocation();
+
+	useEffect(() => {
+		const updateVh = () => {
+			document.documentElement.style.setProperty(
+				"--vh",
+				`${window.innerHeight * 0.01}px`
+			);
+		};
+
+		updateVh();
+		window.addEventListener("resize", updateVh);
+
+		return () => window.removeEventListener("resize", updateVh);
+	}, []);
+
 	return (
-		<div className="flex h-screen w-screen justify-center items-center bg-gray-200 flex-col overflow-hidden">
+		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col overflow-hidden">
 			<div className="relative flex h-full w-full sm:max-w-[440px] bg-white justify-center items-center flex-col">
 				<div className="relative w-full h-full">
 					<Routes>
