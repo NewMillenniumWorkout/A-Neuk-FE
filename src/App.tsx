@@ -11,6 +11,7 @@ import FloatingActionButton from "./components/FloatingActionButton";
 import CalendarPage from "./components/Calendar/CalendarPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import ChartPage from "./components/Chart/ChartPage";
+import TopAppBar from "./components/Chat/TopAppBar";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -44,8 +45,8 @@ function App() {
 	}, []);
 
 	return (
-		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col overflow-hidden">
-			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] bg-white justify-center items-center">
+		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
+			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
 				<div className="relative flex-grow w-full h-full">
 					<Routes>
 						<Route path="/calendar" element={<CalendarPage />} />
