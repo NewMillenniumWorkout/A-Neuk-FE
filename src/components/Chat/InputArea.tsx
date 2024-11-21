@@ -64,8 +64,7 @@ interface InputAreaButtonProps {
 const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
 	return (
 		<button
-			className="absolute flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full
-        bg-black-aneuk"
+			className="absolute flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full bg-black-aneuk"
 			onClick={onClick}
 			onMouseDown={(e) => e.preventDefault()}
 		>
