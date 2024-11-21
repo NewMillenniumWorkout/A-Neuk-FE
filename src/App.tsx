@@ -13,6 +13,7 @@ import ProfilePage from "./components/Profile/ProfilePage";
 import ChartPage from "./components/Chart/ChartPage";
 import TopAppBar from "./components/Chat/TopAppBar";
 import { useEffect, useState } from "react";
+import { ChatPageProvider } from "./components/Chat/ChatPageContext";
 
 function App() {
 	const location = useLocation();
@@ -55,7 +56,11 @@ function App() {
 					</Routes>
 					<FloatingActionButton />
 				</div>
-				{location.pathname === "/chat" && <ChatPage />}
+				{location.pathname === "/chat" && (
+					<ChatPageProvider>
+						<ChatPage />
+					</ChatPageProvider>
+				)}
 				<BottomAppBar />
 			</div>
 		</div>

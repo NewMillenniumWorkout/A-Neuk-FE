@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { messages as initialMessages, Message } from "./ChatData.ts";
 import { formatDate } from "../../utils/TimeFormatter.tsx";
+import { ChatPageProvider, useChatPage } from "./ChatPageContext.tsx";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
 import InputArea from "./InputArea.tsx";
@@ -8,21 +9,16 @@ import ToastButton from "./ToastButton.tsx";
 import ImageReceiver from "./ImageReceiver.tsx";
 
 const ChatPage: React.FC = () => {
-	const [messages, setMessages] = useState<Message[]>(initialMessages);
-	const [isGenAble, setIsGenAble] = useState(false);
-	const [isGenStart, setIsGenStart] = useState(false);
-
+	const {
+		messages,
+		setMessages,
+		isGenAble,
+		setIsGenAble,
+		isGenStart,
+		setIsGenStart,
+		addMessage,
+	} = useChatPage();
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
-
-	const addMessage = (content: string) => {
-		const newMessage: Message = {
-			chat_id: 123,
-			content,
-			type: "MEMBER",
-			send_time: new Date().toISOString(),
-		};
-		setMessages((prevMessages) => [...prevMessages, newMessage]);
-	};
 
 	const autoScroll = () => {
 		if (BubbleContainerRef.current) {
@@ -114,7 +110,7 @@ const ChatPage: React.FC = () => {
 					/>
 				</div>
 			)}
-			<InputArea onSend={addMessage} isGenStart={isGenStart} />
+			<InputArea onSend={addMessage} />
 		</div>
 	);
 };
