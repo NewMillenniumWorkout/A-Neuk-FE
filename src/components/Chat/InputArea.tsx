@@ -1,13 +1,11 @@
 import { IconProvider } from "../../utils/IconProvider";
 import { useRef, useState } from "react";
-import { messages, Message } from "./ChatData";
 
 interface InputAreaProps {
 	onSend: (content: string) => void;
-	isGenStart: boolean;
 }
 
-const InputArea: React.FC<InputAreaProps> = ({ onSend, isGenStart }) => {
+const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
 
@@ -54,25 +52,28 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, isGenStart }) => {
 				}}
 				onKeyDown={handleKeyDown}
 			/>
-			{!isGenStart && <SendButton onClick={handleSend} />}
+			<InputAreaButton onClick={handleSend} />
 		</div>
 	);
 };
 
-function SendButton({ onClick }: { onClick: () => void }) {
+interface InputAreaButtonProps {
+	onClick: () => void;
+}
+
+const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
 	return (
 		<button
-			className={
-				"absolute right-2.5 bottom-2.5 flex items-center justify-center h-10 w-10 min-w-10 bg-black-aneuk rounded-full "
-			}
+			className="absolute flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full
+        bg-black-aneuk"
 			onClick={onClick}
 			onMouseDown={(e) => e.preventDefault()}
 		>
-			<div className={"text-white-aneuk"}>
+			<div className="text-white-aneuk">
 				<IconProvider.SendIcon />
 			</div>
 		</button>
 	);
-}
+};
 
 export default InputArea;
