@@ -114,7 +114,7 @@ const ChatPage: React.FC = () => {
 					/>
 				</div>
 			)}
-			<InputArea onSend={addMessage} />
+			<InputArea onSend={addMessage} isGenStart={isGenStart} />
 		</div>
 	);
 };

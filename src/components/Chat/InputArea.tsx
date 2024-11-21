@@ -4,9 +4,10 @@ import { messages, Message } from "./ChatData";
 
 interface InputAreaProps {
 	onSend: (content: string) => void;
+	isGenStart: boolean;
 }
 
-const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
+const InputArea: React.FC<InputAreaProps> = ({ onSend, isGenStart }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
 
@@ -44,7 +45,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 			<textarea
 				ref={textareaRef}
 				placeholder="메시지를 입력하세요"
-				className="w-full max-h-32 h-11 min-h-11 px-4 py-2.5 mr-2 border leading-5 box-border rounded-3xl resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide"
+				className="w-full max-h-32 h-11 min-h-11 pl-4 pr-14 py-2.5 border leading-5 box-border rounded-[22px] resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide"
 				rows={1}
 				value={inputValue}
 				onChange={(e) => {
@@ -53,7 +54,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 				}}
 				onKeyDown={handleKeyDown}
 			/>
-			<SendButton onClick={handleSend} />
+			{!isGenStart && <SendButton onClick={handleSend} />}
 		</div>
 	);
 };
@@ -62,7 +63,7 @@ function SendButton({ onClick }: { onClick: () => void }) {
 	return (
 		<button
 			className={
-				"flex items-center justify-center h-11 w-11 min-w-11 bg-black-aneuk rounded-full "
+				"absolute right-2.5 bottom-2.5 flex items-center justify-center h-10 w-10 min-w-10 bg-black-aneuk rounded-full "
 			}
 			onClick={onClick}
 			onMouseDown={(e) => e.preventDefault()}
