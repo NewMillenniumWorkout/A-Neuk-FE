@@ -2,7 +2,11 @@ import { IconProvider } from "../../utils/IconProvider";
 import { useRef, useState } from "react";
 import { messages, Message } from "./ChatData";
 
-export function InputArea({ onSend }: { onSend: (content: string) => void }) {
+interface InputAreaProps {
+	onSend: (content: string) => void;
+}
+
+const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
 
@@ -52,7 +56,7 @@ export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 			<SendButton onClick={handleSend} />
 		</div>
 	);
-}
+};
 
 function SendButton({ onClick }: { onClick: () => void }) {
 	return (
@@ -69,3 +73,5 @@ function SendButton({ onClick }: { onClick: () => void }) {
 		</button>
 	);
 }
+
+export default InputArea;

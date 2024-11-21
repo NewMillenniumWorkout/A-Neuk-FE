@@ -2,11 +2,11 @@ import React from "react";
 import { formatTime } from "../../utils/TimeFormatter";
 import profileImg from "../../assets/images/aneuk_profile.png";
 
-type ChatBubbleProps = {
+interface ChatBubbleProps {
 	content: string;
 	sendTime: string;
 	sender: string;
-};
+}
 
 const ChatBubble: React.FC<ChatBubbleProps> = ({
 	content,

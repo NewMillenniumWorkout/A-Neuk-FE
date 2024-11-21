@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { messages as initialMessages, Message } from "./ChatData.ts";
+import { formatDate } from "../../utils/TimeFormatter.tsx";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
-import { formatDate } from "../../utils/TimeFormatter.tsx";
-import { InputArea } from "./InputArea.tsx";
-import { ToastButton } from "./ToastButton.tsx";
+import InputArea from "./InputArea.tsx";
+import ToastButton from "./ToastButton.tsx";
 import ImageReceiver from "./ImageReceiver.tsx";
 
 const ChatPage: React.FC = () => {

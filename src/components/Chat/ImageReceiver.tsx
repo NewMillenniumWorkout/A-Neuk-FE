@@ -3,7 +3,7 @@ import { IconProvider } from "../../utils/IconProvider";
 import { formatTime } from "../../utils/TimeFormatter";
 import { useState } from "react";
 
-export function ImageReceiver() {
+const ImageReceiver: React.FC = () => {
 	const [userImage, setUserImage] = useState<string | null>(null);
 	const formattedTime = formatTime(new Date().toISOString());
 
@@ -58,4 +58,6 @@ export function ImageReceiver() {
 			<div className="text-xs text-gray-aneuk pl-1">{formattedTime}</div>
 		</div>
 	);
-}
+};
+
+export default ImageReceiver;

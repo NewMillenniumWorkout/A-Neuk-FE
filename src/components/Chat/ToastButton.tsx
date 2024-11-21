@@ -6,7 +6,7 @@ interface ToastButtonProps {
 	onClick: () => void;
 }
 
-export const ToastButton: React.FC<ToastButtonProps> = ({ label, onClick }) => {
+const ToastButton: React.FC<ToastButtonProps> = ({ label, onClick }) => {
 	const [isFloating, setIsFloating] = useState(false);
 
 	useEffect(() => {
@@ -29,3 +29,5 @@ export const ToastButton: React.FC<ToastButtonProps> = ({ label, onClick }) => {
 		</div>
 	);
 };
+
+export default ToastButton;
