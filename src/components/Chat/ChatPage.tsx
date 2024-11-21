@@ -3,13 +3,11 @@ import { messages as initialMessages, Message } from "./ChatData.ts";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
 import { formatDate } from "../../utils/TimeFormatter.tsx";
-import IconButton from "../IconButton.tsx";
-import { IconProvider } from "../../utils/IconProvider.tsx";
 import { InputArea } from "./InputArea.tsx";
-import { GenButton } from "./GenButton.tsx";
-import { ImageReceiver } from "./ImageReceiver.tsx";
+import { ToastButton } from "./ToastButton.tsx";
+import ImageReceiver from "./ImageReceiver.tsx";
 
-function ChatPage() {
+const ChatPage: React.FC = () => {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
 	const [isGenAble, setIsGenAble] = useState(false);
 	const [isGenStart, setIsGenStart] = useState(false);
@@ -34,6 +32,32 @@ function ChatPage() {
 	};
 
 	useEffect(() => {
+		const updateVh = () => {
+			const viewportHeight = window.innerHeight;
+			document.documentElement.style.setProperty(
+				"--vh",
+				`${viewportHeight * 0.01}px`
+			);
+		};
+
+		updateVh();
+
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener("resize", updateVh);
+		} else {
+			window.addEventListener("resize", updateVh);
+		}
+
+		return () => {
+			if (window.visualViewport) {
+				window.visualViewport.removeEventListener("resize", updateVh);
+			} else {
+				window.removeEventListener("resize", updateVh);
+			}
+		};
+	}, []);
+
+	useEffect(() => {
 		if (messages.length > 10) {
 			setIsGenAble(true);
 		}
@@ -48,7 +72,7 @@ function ChatPage() {
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
 			<TopAppBar />
 			<div
-				className="min-h-0 p-2 overflow-y-auto"
+				className="flex-grow min-h-0 p-2 overflow-y-auto"
 				ref={BubbleContainerRef}
 			>
 				{messages.map((message: Message, index: number) => {
@@ -82,16 +106,17 @@ function ChatPage() {
 			</div>
 			{isGenAble && !isGenStart && (
 				<div className="min-h-16">
-					<GenButton
+					<ToastButton
 						onClick={() => {
 							setIsGenStart(true);
 						}}
+						label="일기 생성 가능!"
 					/>
 				</div>
 			)}
 			<InputArea onSend={addMessage} />
 		</div>
 	);
-}
+};
 
 export default ChatPage;
