@@ -1,5 +1,6 @@
 import { IconProvider } from "../../utils/IconProvider";
 import { useRef, useState } from "react";
+import { useChatPage } from "./ChatPageContext";
 
 interface InputAreaProps {
 	onSend: (content: string) => void;
@@ -8,6 +9,7 @@ interface InputAreaProps {
 const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
+	const { isGenStart } = useChatPage();
 
 	const autoHeight = () => {
 		if (textareaRef.current) {
@@ -42,8 +44,15 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 		<div className="flex flex-row justify-end items-end relative p-2 bg-white z-50">
 			<textarea
 				ref={textareaRef}
-				placeholder="메시지를 입력하세요"
-				className="w-full max-h-32 h-11 min-h-11 pl-4 pr-14 py-2.5 border leading-5 box-border rounded-[22px] resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide"
+				disabled={isGenStart}
+				placeholder={
+					isGenStart
+						? "일기 생성 중에는 채팅을 할 수 없습니다."
+						: "메시지를 입력하세요"
+				}
+				className={`w-full max-h-32 h-11 min-h-11 pl-4 pr-14 py-2.5 leading-5 box-border rounded-[22px] resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide ${
+					isGenStart ? "bg-gray-100 border-0" : "bg-white border"
+				}`}
 				rows={1}
 				value={inputValue}
 				onChange={(e) => {
@@ -62,9 +71,12 @@ interface InputAreaButtonProps {
 }
 
 const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
+	const { isGenStart } = useChatPage();
 	return (
 		<button
-			className="absolute flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full bg-black-aneuk"
+			className={`absolute right-2.5 flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full bg-black-aneuk ${
+				isGenStart && "scale-0"
+			} transition-all duration-500 ease-in-out`}
 			onClick={onClick}
 			onMouseDown={(e) => e.preventDefault()}
 		>
