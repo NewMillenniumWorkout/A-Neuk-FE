@@ -8,6 +8,8 @@ interface ChatPageContextType {
 	setIsGenAble: React.Dispatch<React.SetStateAction<boolean>>;
 	isGenStart: boolean;
 	setIsGenStart: React.Dispatch<React.SetStateAction<boolean>>;
+	isEmotionSelectAble: boolean;
+	setIsEmotionSelectAble: React.Dispatch<React.SetStateAction<boolean>>;
 	addMessage: (content: string) => void;
 }
 
@@ -33,6 +35,7 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [messages, setMessages] = useState<Message[]>(chatdata);
 	const [isGenAble, setIsGenAble] = useState(false);
 	const [isGenStart, setIsGenStart] = useState(false);
+	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
 
 	const addMessage = (content: string) => {
 		const newMessage: Message = {
@@ -53,6 +56,8 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 				setIsGenAble,
 				isGenStart,
 				setIsGenStart,
+				isEmotionSelectAble,
+				setIsEmotionSelectAble,
 				addMessage,
 			}}
 		>
