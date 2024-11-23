@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+	createContext,
+	ReactNode,
+	useContext,
+	useState,
+	useEffect,
+} from "react";
 import { messages as chatdata, Message } from "./ChatData";
 
 interface ChatPageContextType {
@@ -11,6 +17,8 @@ interface ChatPageContextType {
 	isEmotionSelectAble: boolean;
 	setIsEmotionSelectAble: React.Dispatch<React.SetStateAction<boolean>>;
 	addMessage: (content: string) => void;
+	userImage: string | null;
+	setUserImage: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const ChatPageContext = createContext<ChatPageContextType | undefined>(
@@ -36,6 +44,7 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [isGenAble, setIsGenAble] = useState(false);
 	const [isGenStart, setIsGenStart] = useState(false);
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
+	const [userImage, setUserImage] = useState<string | null>(null);
 
 	const addMessage = (content: string) => {
 		const newMessage: Message = {
@@ -46,6 +55,14 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 		};
 		setMessages((prevMessages) => [...prevMessages, newMessage]);
 	};
+
+	useEffect(() => {
+		if (userImage && isGenStart) {
+			setIsEmotionSelectAble(true);
+		} else {
+			setIsEmotionSelectAble(false);
+		}
+	}, [userImage, isGenStart]);
 
 	return (
 		<ChatPageContext.Provider
@@ -59,6 +76,8 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 				isEmotionSelectAble,
 				setIsEmotionSelectAble,
 				addMessage,
+				userImage,
+				setUserImage,
 			}}
 		>
 			{children}

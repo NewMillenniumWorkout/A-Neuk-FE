@@ -1,16 +1,16 @@
 import profileImg from "../../assets/images/aneuk_profile.png";
 import { IconProvider } from "../../utils/IconProvider";
 import { formatTime } from "../../utils/TimeFormatter";
-import { useState } from "react";
+import { useChatPage } from "./ChatPageContext";
 
 const ImageReceiver: React.FC = () => {
-	const [userImage, setUserImage] = useState<string | null>(null);
 	const formattedTime = formatTime(new Date().toISOString());
+	const { userImage, setUserImage } = useChatPage();
 
 	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files[0]) {
 			const file = event.target.files[0];
-			const imageUrl = URL.createObjectURL(file); // 미리보기 URL 생성
+			const imageUrl = URL.createObjectURL(file);
 			setUserImage(imageUrl);
 		}
 	};
