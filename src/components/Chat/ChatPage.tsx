@@ -7,6 +7,7 @@ import TopAppBar from "./TopAppBar.tsx";
 import InputArea from "./InputArea.tsx";
 import ToastButton from "./ToastButton.tsx";
 import ImageReceiver from "./ImageReceiver.tsx";
+import SlideArea from "./SlideArea.tsx";
 
 const ChatPage: React.FC = () => {
 	const {
@@ -16,6 +17,8 @@ const ChatPage: React.FC = () => {
 		setIsGenAble,
 		isGenStart,
 		setIsGenStart,
+		isEmotionSelectAble,
+		setIsEmotionSelectAble,
 		addMessage,
 	} = useChatPage();
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
@@ -110,7 +113,11 @@ const ChatPage: React.FC = () => {
 					/>
 				</div>
 			)}
-			<InputArea onSend={addMessage} />
+			{isEmotionSelectAble ? (
+				<SlideArea />
+			) : (
+				<InputArea onSend={addMessage} />
+			)}
 		</div>
 	);
 };
