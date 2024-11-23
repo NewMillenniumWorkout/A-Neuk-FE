@@ -71,7 +71,7 @@ const SlideArea: React.FC = () => {
 
 		const containerWidth = sliderContainerRef.current.offsetWidth;
 		if (sliderPos >= containerWidth - 44) {
-			navigate("/calendar");
+			navigate("/emotion-select");
 		} else {
 			setSliderPos(0);
 		}

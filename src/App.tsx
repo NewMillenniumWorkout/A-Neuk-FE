@@ -14,6 +14,7 @@ import ChartPage from "./components/Chart/ChartPage";
 import TopAppBar from "./components/Chat/TopAppBar";
 import { useEffect, useState } from "react";
 import { ChatPageProvider } from "./components/Chat/ChatPageContext";
+import EmotionSelectPage from "./components/EmotionSelect/EmotionSelectPage";
 
 function App() {
 	const location = useLocation();
@@ -60,6 +61,9 @@ function App() {
 					<ChatPageProvider>
 						<ChatPage />
 					</ChatPageProvider>
+				)}
+				{location.pathname === "/emotion-select" && (
+					<EmotionSelectPage />
 				)}
 				<BottomAppBar />
 			</div>
