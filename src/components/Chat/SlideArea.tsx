@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SlideArea: React.FC = () => {
@@ -8,8 +8,46 @@ const SlideArea: React.FC = () => {
 	const [sliderPos, setSliderPos] = useState(0);
 	const navigate = useNavigate();
 
+	const emojis = [
+		"🙂",
+		"😱",
+		"🥰",
+		"🫢",
+		"🤬",
+		"😢",
+		"😑",
+		"😖",
+		"🤔",
+		"🤩",
+		"😊",
+		"🤪",
+		"🥳",
+		"🫨",
+	];
+
+	const getRandomEmojis = (arr: string[], count: number) => {
+		const shuffled = [...arr]
+			.filter((emoji) => emoji !== "🙂")
+			.sort(() => 0.5 - Math.random());
+		return ["🙂", ...shuffled.slice(0, count - 1)]; // 첫 번째 요소는 🙂 고정
+	};
+
+	let randomEmojis = useMemo(() => getRandomEmojis(emojis, 5), []);
+
+	const currentEmoji = (): string => {
+		if (!sliderContainerRef.current) return randomEmojis[0];
+		const containerWidth = sliderContainerRef.current.offsetWidth;
+		const percentage = sliderPos / containerWidth;
+		const index = Math.min(
+			Math.floor(percentage * randomEmojis.length),
+			randomEmojis.length - 1
+		);
+		return randomEmojis[index];
+	};
+
 	const handleStart = () => {
 		setIsDragging(true);
+		document.body.style.userSelect = "none";
 	};
 
 	const handleMove = (clientX: number) => {
@@ -39,6 +77,7 @@ const SlideArea: React.FC = () => {
 		}
 
 		setIsDragging(false);
+		document.body.style.userSelect = "auto";
 	};
 
 	useEffect(() => {
@@ -82,12 +121,12 @@ const SlideArea: React.FC = () => {
 			</div>
 			<div
 				ref={sliderRef}
-				className="slider absolute left-2.5 top-2.5 h-10 w-10 bg-white rounded-full cursor-pointer z-50 flex justify-center items-center text-2xl"
+				className="slider absolute left-2.5 top-2.5 h-10 w-10 bg-transparent rounded-full cursor-pointer z-50 flex justify-center items-center text-3xl"
 				style={{ transform: `translateX(${sliderPos}px)` }}
 				onMouseDown={handleStart}
 				onTouchStart={handleStart}
 			>
-				🤯
+				{currentEmoji()}
 			</div>
 		</div>
 	);
