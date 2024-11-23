@@ -29,7 +29,7 @@ const SlideArea: React.FC = () => {
 		const shuffled = [...arr]
 			.filter((emoji) => emoji !== "🙂")
 			.sort(() => 0.5 - Math.random());
-		return ["🙂", ...shuffled.slice(0, count - 1)]; // 첫 번째 요소는 🙂 고정
+		return ["🙂", ...shuffled.slice(0, count - 1)];
 	};
 
 	let randomEmojis = useMemo(() => getRandomEmojis(emojis, 5), []);
