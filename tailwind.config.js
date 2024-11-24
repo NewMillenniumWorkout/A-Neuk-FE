@@ -27,6 +27,12 @@ module.exports = {
 				"slide-up": "slide-up 0.5s ease-out",
 				floating: "floating 2.5s ease-in-out infinite",
 			},
+			boxShadow: {
+				"custom-strong": "0 4px 8px rgba(0, 0, 0, 0.2)",
+			},
+			height: {
+				"screen-dynamic": "calc(var(--vh, 1vh) * 100)",
+			},
 		},
 	},
 	plugins: [require("tailwind-scrollbar-hide")],

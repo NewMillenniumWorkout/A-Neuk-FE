@@ -1,10 +1,15 @@
 import { IconProvider } from "../../utils/IconProvider";
 import { useRef, useState } from "react";
-import { messages, Message } from "./ChatData";
+import { useChatPage } from "./ChatPageContext";
 
-export function InputArea({ onSend }: { onSend: (content: string) => void }) {
+interface InputAreaProps {
+	onSend: (content: string) => void;
+}
+
+const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
+	const { isGenStart } = useChatPage();
 
 	const autoHeight = () => {
 		if (textareaRef.current) {
@@ -39,8 +44,15 @@ export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 		<div className="flex flex-row justify-end items-end relative p-2 bg-white z-50">
 			<textarea
 				ref={textareaRef}
-				placeholder="메시지를 입력하세요"
-				className="w-full max-h-32 h-11 min-h-11 px-4 py-2.5 mr-2 border leading-5 box-border rounded-3xl resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide"
+				disabled={isGenStart}
+				placeholder={
+					isGenStart
+						? "지금은 일기를 작성하고 있어요!"
+						: "메시지를 입력하세요"
+				}
+				className={`w-full max-h-32 h-11 min-h-11 pl-4 pr-14 py-2.5 leading-5 box-border rounded-[22px] resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide ${
+					isGenStart ? "bg-gray-100 border-0" : "bg-white border"
+				}`}
 				rows={1}
 				value={inputValue}
 				onChange={(e) => {
@@ -49,22 +61,30 @@ export function InputArea({ onSend }: { onSend: (content: string) => void }) {
 				}}
 				onKeyDown={handleKeyDown}
 			/>
-			<SendButton onClick={handleSend} />
+			<InputAreaButton onClick={handleSend} />
 		</div>
 	);
+};
+
+interface InputAreaButtonProps {
+	onClick: () => void;
 }
 
-function SendButton({ onClick }: { onClick: () => void }) {
+const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
+	const { isGenStart } = useChatPage();
 	return (
 		<button
-			className={
-				"flex items-center justify-center h-11 w-11 min-w-11 bg-black-aneuk rounded-full "
-			}
+			className={`absolute right-2.5 flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full bg-black-aneuk ${
+				isGenStart && "scale-0"
+			} transition-all duration-500 ease-in-out`}
 			onClick={onClick}
+			onMouseDown={(e) => e.preventDefault()}
 		>
-			<div className={"text-white-aneuk"}>
+			<div className="text-white-aneuk">
 				<IconProvider.SendIcon />
 			</div>
 		</button>
 	);
-}
+};
+
+export default InputArea;

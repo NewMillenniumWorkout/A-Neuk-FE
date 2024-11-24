@@ -1,29 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import { messages as initialMessages, Message } from "./ChatData.ts";
+import { formatDate } from "../../utils/TimeFormatter.tsx";
+import { ChatPageProvider, useChatPage } from "./ChatPageContext.tsx";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
-import { formatDate } from "../../utils/TimeFormatter.tsx";
-import IconButton from "../IconButton.tsx";
-import { IconProvider } from "../../utils/IconProvider.tsx";
-import { InputArea } from "./InputArea.tsx";
-import { GenButton } from "./GenButton.tsx";
-import { ImageReceiver } from "./ImageReceiver.tsx";
+import InputArea from "./InputArea.tsx";
+import ToastButton from "./ToastButton.tsx";
+import ImageReceiver from "./ImageReceiver.tsx";
+import SlideArea from "./SlideArea.tsx";
 
-function ChatPage() {
-	const [messages, setMessages] = useState<Message[]>(initialMessages);
-	const [isGenAble, setIsGenAble] = useState(false);
-
+const ChatPage: React.FC = () => {
+	const {
+		messages,
+		setMessages,
+		isGenAble,
+		setIsGenAble,
+		isGenStart,
+		setIsGenStart,
+		isEmotionSelectAble,
+		setIsEmotionSelectAble,
+		addMessage,
+	} = useChatPage();
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
-
-	const addMessage = (content: string) => {
-		const newMessage: Message = {
-			chat_id: 123,
-			content,
-			type: "MEMBER",
-			send_time: new Date().toISOString(),
-		};
-		setMessages((prevMessages) => [...prevMessages, newMessage]);
-	};
 
 	const autoScroll = () => {
 		if (BubbleContainerRef.current) {
@@ -33,17 +31,47 @@ function ChatPage() {
 	};
 
 	useEffect(() => {
+		const updateVh = () => {
+			const viewportHeight = window.innerHeight;
+			document.documentElement.style.setProperty(
+				"--vh",
+				`${viewportHeight * 0.01}px`
+			);
+		};
+
+		updateVh();
+
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener("resize", updateVh);
+		} else {
+			window.addEventListener("resize", updateVh);
+		}
+
+		return () => {
+			if (window.visualViewport) {
+				window.visualViewport.removeEventListener("resize", updateVh);
+			} else {
+				window.removeEventListener("resize", updateVh);
+			}
+		};
+	}, []);
+
+	useEffect(() => {
 		if (messages.length > 10) {
 			setIsGenAble(true);
 		}
 		autoScroll();
 	}, [messages]);
 
+	useEffect(() => {
+		autoScroll();
+	}, [isGenStart, isGenAble]);
+
 	return (
-		<div className="absolute inset-0 w-full h-full bg-white flex flex-col">
+		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
 			<TopAppBar />
 			<div
-				className="flex-grow p-2 overflow-y-auto"
+				className="flex-grow min-h-0 p-2 overflow-y-auto"
 				ref={BubbleContainerRef}
 			>
 				{messages.map((message: Message, index: number) => {
@@ -73,12 +101,25 @@ function ChatPage() {
 						</div>
 					);
 				})}
-				<ImageReceiver />
+				{isGenStart === true && <ImageReceiver />}
 			</div>
-			<InputArea onSend={addMessage} />
-			{isGenAble && <GenButton onClick={() => {}} />}
+			{isGenAble && !isGenStart && (
+				<div className="min-h-16">
+					<ToastButton
+						onClick={() => {
+							setIsGenStart(true);
+						}}
+						label="일기 생성 가능!"
+					/>
+				</div>
+			)}
+			{isEmotionSelectAble ? (
+				<SlideArea />
+			) : (
+				<InputArea onSend={addMessage} />
+			)}
 		</div>
 	);
-}
+};
 
 export default ChatPage;
