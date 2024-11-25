@@ -30,6 +30,10 @@ module.exports = {
 			height: {
 				"screen-dynamic": "calc(var(--vh, 1vh) * 100)",
 			},
+			fontFamily: {
+				"gowun-regular": ["gowun-regular", "sans-serif"],
+				"gowun-bold": ["gowun-bold", "sans-serif"],
+			},
 		},
 	},
 	plugins: [require("tailwind-scrollbar-hide")],
