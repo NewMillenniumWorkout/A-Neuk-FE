@@ -17,7 +17,20 @@ const EmotionSelectPage = () => {
 			</div>
 			<div className="w-full h-full flex flex-col justify-center items-center">
 				<div className="w-80 aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong">
-					#1/17
+					<div className="mb-5 font-gowun-bold text-lg text-black-aneuk text-opacity-80">
+						# 1 / 17
+					</div>
+					<div className="min-h-32 max-h-60 mb-6 px-3 overflow-y-auto">
+						<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-">
+							오후에는 친구와 함께 카페에 가서 커피를 마셨다.
+						</div>
+					</div>
+					<div className="px-5">
+						<div className="mb-2 font-gowun-regular text-[#6F6F6F] text-xs">
+							추천 단어
+						</div>
+						<div className="w-full h-6 bg-red-200"></div>
+					</div>
 				</div>
 			</div>
 		</div>
