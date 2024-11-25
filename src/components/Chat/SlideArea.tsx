@@ -116,12 +116,12 @@ const SlideArea: React.FC = () => {
 				className="relative w-full h-11 pl-4 pr-14 py-2.5 rounded-[22px] bg-white border overflow-hidden"
 			>
 				<span className="absolute inset-0 flex items-center justify-center text-gray-700 font-medium">
-					감정 선택하러 가기 →
+					밀어서 감정 선택하러 가기 →
 				</span>
 			</div>
 			<div
 				ref={sliderRef}
-				className="slider absolute left-2.5 top-2.5 h-10 w-10 bg-transparent rounded-full cursor-pointer z-50 flex justify-center items-center text-3xl"
+				className="slider absolute left-2.5 top-2.5 h-10 w-10 bg-transparent rounded-full cursor-pointer z-50 flex justify-center items-center text-[2.5rem]"
 				style={{ transform: `translateX(${sliderPos}px)` }}
 				onMouseDown={handleStart}
 				onTouchStart={handleStart}
