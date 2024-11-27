@@ -43,24 +43,24 @@ const EmotionSelectPage = () => {
 					<IconProvider.LeftArrowIcon className="w-8 h-8" />
 				</button>
 			</div>
-			<div className="w-full flex-1 flex-col pt-[10%] justify-center items-center">
+			<div className="w-full flex-1 flex-col pt-[5%] justify-center items-center">
 				<div className="w-full flex flex-col items-center pb-36">
-					<div className="font-pretendard font-bold text-xl text-[#6F6F6F] mb-8">
+					<div className="font-pretendard font-bold text-2xl text-[#6F6F6F] mb-8">
 						느꼈던 감정에 가까운 단어가 있나요?
 					</div>
-					<div className="flex flex-col w-[80%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
-						<div className="mb-5 ml-1 font-gowun-bold text-lg text-black-aneuk text-opacity-80 tracking-widest">
+					<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
+						<div className="mb-5 ml-1 font-gowun-bold text-xl text-black-aneuk text-opacity-80 tracking-widest">
 							#{curIndex + 1}/{contentList.length}
 						</div>
-						<div className="min-h-[20%] max-h-[40%] mb-6 px-3 overflow-y-auto">
-							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-">
+						<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
+							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
 								{contentList[curIndex].original_content}
 							</div>
 						</div>
-						<div className="ml-5 mb-2 font-gowun-regular text-[#6F6F6F] text-xs">
+						<div className="ml-2 mb-2 font-gowun-regular text-[#6F6F6F] text-sm">
 							추천 단어
 						</div>
-						<div className="flex-1 px-5 overflow-y-auto">
+						<div className="flex-1 px-2 overflow-y-auto">
 							<CheckboxGroup />
 						</div>
 

@@ -27,8 +27,8 @@ const CheckboxGroup: React.FC = ({}) => {
 		<div>
 			{options.map((option, index) => (
 				<div key={option.id} className="flex flex-col">
-					<div className="flex flex-row">
-						<label className="flex w-full items-center cursor-pointer space-x-2">
+					<div className="flex flex-row items-center mb-4">
+						<label className="flex w-full items-center cursor-pointer space-x-3">
 							<input
 								type="checkbox"
 								checked={selectedEmotions.includes(
@@ -37,10 +37,10 @@ const CheckboxGroup: React.FC = ({}) => {
 								onChange={() =>
 									handleCheckboxChange(option.title)
 								}
-								className="form-checkbox text-blue-600"
+								className="form-checkbox size-4 text-blue-600"
 							/>
-							<div className="h-6 my-2 justify-between items-center">
-								<span className="text-black-aneuk text-md font-gowun-bold">
+							<div className="h-6 justify-between items-center">
+								<span className="text-black-aneuk text-xl font-gowun-bold">
 									{option.title}
 								</span>
 							</div>
@@ -61,10 +61,10 @@ const CheckboxGroup: React.FC = ({}) => {
 						<div
 							className={`flex flex-col items-center w-full p-1`}
 						>
-							<div className="font-pretendard text-sm text-black-aneuk mb-2">
+							<div className="font-pretendard text-lg text-black-aneuk mb-2 text-center">
 								{option.description}
 							</div>
-							<div className="font-pretendard text-sm text-gray-aneuk">
+							<div className="font-pretendard text-lg text-gray-aneuk text-center">
 								"{option.example}"
 							</div>
 						</div>
