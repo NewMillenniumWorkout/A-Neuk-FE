@@ -2,6 +2,8 @@ import { ReactComponent as ChatIcon } from "../assets/icons/Chat_Circle.svg";
 import { ReactComponent as ChartIcon } from "../assets/icons/Chart_Bar_Vertical.svg";
 import { ReactComponent as LeftArrowIcon } from "../assets/icons/Chevron_Left.svg";
 import { ReactComponent as RightArrowIcon } from "../assets/icons/Chevron_Right.svg";
+import { ReactComponent as UpArrowIcon } from "../assets/icons/Chevron_Up.svg";
+import { ReactComponent as DownArrowIcon } from "../assets/icons/Chevron_Down.svg";
 import { ReactComponent as UserIcon } from "../assets/icons/User_Empty.svg";
 import { ReactComponent as CalendarIcon } from "../assets/icons/Calendar_Days.svg";
 import { ReactComponent as SettingsIcon } from "../assets/icons/Settings.svg";
@@ -14,6 +16,8 @@ export const IconProvider = {
 	ChartIcon,
 	LeftArrowIcon,
 	RightArrowIcon,
+	UpArrowIcon,
+	DownArrowIcon,
 	UserIcon,
 	CalendarIcon,
 	SettingsIcon,
