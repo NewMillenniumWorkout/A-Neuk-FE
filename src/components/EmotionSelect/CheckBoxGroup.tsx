@@ -3,8 +3,14 @@ import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
 
 const CheckboxGroup: React.FC = ({}) => {
-	const { emotionData, curIndex, selectedEmotions, setSelectedEmotions } =
-		useEmotionSelectPage();
+	const {
+		emotionData,
+		curIndex,
+		curDescIndex,
+		setCurDescIndex,
+		selectedEmotions,
+		setSelectedEmotions,
+	} = useEmotionSelectPage();
 	const handleCheckboxChange = (label: string) => {
 		if (selectedEmotions.includes(label)) {
 			setSelectedEmotions(
@@ -19,7 +25,7 @@ const CheckboxGroup: React.FC = ({}) => {
 
 	return (
 		<div>
-			{options.map((option) => (
+			{options.map((option, index) => (
 				<div className="flex flex-col">
 					<div className="flex flex-row">
 						<label
@@ -43,15 +49,24 @@ const CheckboxGroup: React.FC = ({}) => {
 							</div>
 						</label>
 
-						<button onClick={() => {}} className="text-gray-aneuk">
+						<button
+							onClick={() => {
+								if (curDescIndex !== index)
+									setCurDescIndex(index);
+								else setCurDescIndex(null);
+							}}
+							className="text-gray-aneuk"
+						>
 							<IconProvider.DownArrowIcon className="ml-0.5" />
 						</button>
 					</div>
-					<div className={`w-full`}>
-						<div className="font-pretendard font-normal">
-							{option.description}
+					{curDescIndex === index && (
+						<div className={`w-full`}>
+							<div className="font-pretendard font-normal">
+								{option.description}
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 			))}
 		</div>

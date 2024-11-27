@@ -49,8 +49,8 @@ const EmotionSelectPage = () => {
 						느꼈던 감정에 가까운 단어가 있나요?
 					</div>
 					<div className="flex flex-col w-[80%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
-						<div className="mb-5 font-gowun-bold text-lg text-black-aneuk text-opacity-80">
-							# {curIndex + 1} / {contentList.length}
+						<div className="mb-5 ml-1 font-gowun-bold text-lg text-black-aneuk text-opacity-80 tracking-widest">
+							#{curIndex + 1}/{contentList.length}
 						</div>
 						<div className="min-h-[20%] max-h-[40%] mb-6 px-3 overflow-y-auto">
 							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-">
