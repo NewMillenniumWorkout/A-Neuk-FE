@@ -49,10 +49,10 @@ const EmotionSelectPage = () => {
 						</div>
 						<div className="min-h-[20%] max-h-[40%] mb-6 px-3 overflow-y-auto">
 							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-">
-								오후에는 친구와 함께 카페에 가서 커피를 마셨다.
+								{contentList[curIndex].original_content}
 							</div>
 						</div>
-						<div className="mb-2 font-gowun-regular text-[#6F6F6F] text-xs">
+						<div className="ml-5 mb-2 font-gowun-regular text-[#6F6F6F] text-xs">
 							추천 단어
 						</div>
 						<div className="flex-1 px-5 overflow-y-auto">
