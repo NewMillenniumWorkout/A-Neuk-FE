@@ -8,8 +8,8 @@ interface CheckboxOption {
 
 interface CheckboxGroupProps {
 	options: CheckboxOption[];
-	selectedOptions: number[];
-	onChange: (selected: number[]) => void;
+	selectedOptions: string[];
+	onChange: (selected: string[]) => void;
 }
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
@@ -17,37 +17,39 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
 	selectedOptions,
 	onChange,
 }) => {
-	const handleCheckboxChange = (id: number) => {
-		if (selectedOptions.includes(id)) {
-			onChange(selectedOptions.filter((optionId) => optionId !== id));
+	const handleCheckboxChange = (label: string) => {
+		if (selectedOptions.includes(label)) {
+			onChange(selectedOptions.filter((option) => option !== label));
 		} else {
-			onChange([...selectedOptions, id]);
+			onChange([...selectedOptions, label]);
 		}
 	};
 
 	return (
-		<div className="space-y-2">
+		<div>
 			{options.map((option) => (
-				<label
-					key={option.id}
-					className="flex items-center cursor-pointer space-x-2"
-				>
-					<input
-						type="checkbox"
-						checked={selectedOptions.includes(option.id)}
-						onChange={() => handleCheckboxChange(option.id)}
-						className="form-checkbox text-blue-600"
-					/>
-					<div className="flex flex-row w-full h-6 my-2 justify-between items-center">
-						<span className="text-black-aneuk text-md font-gowun-bold">
-							{option.label}
-						</span>
+				<div className="flex flex-row">
+					<label
+						key={option.id}
+						className="flex w-full items-center cursor-pointer space-x-2"
+					>
+						<input
+							type="checkbox"
+							checked={selectedOptions.includes(option.label)}
+							onChange={() => handleCheckboxChange(option.label)}
+							className="form-checkbox text-blue-600"
+						/>
+						<div className="h-6 my-2 justify-between items-center">
+							<span className="text-black-aneuk text-md font-gowun-bold">
+								{option.label}
+							</span>
+						</div>
+					</label>
 
-						<button onClick={() => {}} className="text-black-aneuk">
-							<IconProvider.RightArrowIcon className="ml-0.5" />
-						</button>
-					</div>
-				</label>
+					<button onClick={() => {}} className="text-gray-aneuk">
+						<IconProvider.DownArrowIcon className="ml-0.5" />
+					</button>
+				</div>
 			))}
 		</div>
 	);

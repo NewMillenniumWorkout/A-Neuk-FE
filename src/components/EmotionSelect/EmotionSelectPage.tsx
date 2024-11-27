@@ -8,13 +8,14 @@ const EmotionSelectPage = () => {
 	const navigate = useNavigate();
 	const { emotionData } = useEmotionSelectPage();
 	const [curIndex, setCurIndex] = useState(0);
-	const [selectedEmotions, setSelectedEmotions] = useState<number[]>([]);
+	const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
 	const contentList = emotionData.data.content_list;
 
 	const handleNext = () => {
 		if (curIndex < contentList.length - 1) {
 			setCurIndex((prevIndex) => prevIndex + 1);
+			console.log(selectedEmotions);
 			setSelectedEmotions([]);
 		}
 	};
@@ -38,9 +39,9 @@ const EmotionSelectPage = () => {
 					<IconProvider.LeftArrowIcon className="w-8 h-8" />
 				</button>
 			</div>
-			<div className="w-full flex-1 flex-col pt-[10%] bg-blue-200 justify-center items-center">
+			<div className="w-full flex-1 flex-col pt-[10%] justify-center items-center">
 				<div className="w-full flex flex-col items-center pb-36">
-					<div className="font-pretendard font-bold text-xl text-black-aneuk mb-8">
+					<div className="font-pretendard font-bold text-xl text-[#6F6F6F] mb-8">
 						느꼈던 감정에 가까운 단어가 있나요?
 					</div>
 					<div className="flex flex-col w-[80%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
