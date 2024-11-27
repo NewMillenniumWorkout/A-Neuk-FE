@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IconProvider } from "../../utils/IconProvider";
 
 interface CheckboxOption {
 	id: number;
@@ -37,9 +38,15 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
 						onChange={() => handleCheckboxChange(option.id)}
 						className="form-checkbox text-blue-600"
 					/>
-					<span className="text-black-aneuk text-sm">
-						{option.label}
-					</span>
+					<div className="flex flex-row w-full h-6 my-2 justify-between items-center">
+						<span className="text-black-aneuk text-md font-gowun-bold">
+							{option.label}
+						</span>
+
+						<button onClick={() => {}} className="text-black-aneuk">
+							<IconProvider.RightArrowIcon className="ml-0.5" />
+						</button>
+					</div>
 				</label>
 			))}
 		</div>
