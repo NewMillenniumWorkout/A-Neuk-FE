@@ -5,6 +5,8 @@ interface EmotionSelectPageContextType {
 	emotionData: EmotionSelectData;
 	curIndex: number;
 	setCurIndex: React.Dispatch<React.SetStateAction<number>>;
+	curDescIndex: number | null;
+	setCurDescIndex: React.Dispatch<React.SetStateAction<number | null>>;
 	selectedEmotions: string[];
 	setSelectedEmotions: React.Dispatch<React.SetStateAction<string[]>>;
 }
@@ -31,6 +33,7 @@ export const EmotionSelectPageProvider: React.FC<
 	EmotionSelectPageProviderProps
 > = ({ children }) => {
 	const [curIndex, setCurIndex] = useState(0);
+	const [curDescIndex, setCurDescIndex] = useState<number | null>(null);
 	const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
 	return (
@@ -39,6 +42,8 @@ export const EmotionSelectPageProvider: React.FC<
 				emotionData: emotionSelectData,
 				curIndex,
 				setCurIndex,
+				curDescIndex,
+				setCurDescIndex,
 				selectedEmotions,
 				setSelectedEmotions,
 			}}
