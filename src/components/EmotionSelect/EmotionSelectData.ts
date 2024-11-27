@@ -1,4 +1,3 @@
-// 타입 정의
 export interface Emotion {
 	id: number;
 	title: string;
@@ -21,7 +20,6 @@ export interface EmotionSelectData {
 	};
 }
 
-// 데이터 정리
 export const emotionSelectData: EmotionSelectData = {
 	status: 200,
 	data: {
