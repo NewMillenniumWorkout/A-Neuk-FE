@@ -2,7 +2,7 @@ import React, { createContext, ReactNode, useContext } from "react";
 import { emotionSelectData, EmotionSelectData } from "./EmotionSelectData";
 
 interface EmotionSelectPageContextType {
-	data: EmotionSelectData;
+	emotionData: EmotionSelectData;
 }
 
 const EmotionSelectPageContext = createContext<
@@ -27,7 +27,9 @@ export const EmotionSelectPageProvider: React.FC<
 	EmotionSelectPageProviderProps
 > = ({ children }) => {
 	return (
-		<EmotionSelectPageContext.Provider value={{ data: emotionSelectData }}>
+		<EmotionSelectPageContext.Provider
+			value={{ emotionData: emotionSelectData }}
+		>
 			{children}
 		</EmotionSelectPageContext.Provider>
 	);
