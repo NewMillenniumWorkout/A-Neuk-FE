@@ -31,7 +31,10 @@ module.exports = {
 				"screen-dynamic": "calc(var(--vh, 1vh) * 100)",
 			},
 			fontFamily: {
-				pretendard: ["Pretendard"],
+				"pretendard-light": ["Pretendard Light"],
+				"pretendard-regular": ["Pretendard Regular"],
+				"pretendard-medium": ["Pretendard Medium"],
+				"pretendard-bold": ["Pretendard Bold"],
 				"gowun-regular": ["gowun-regular", "sans-serif"],
 				"gowun-bold": ["gowun-bold", "sans-serif"],
 			},
