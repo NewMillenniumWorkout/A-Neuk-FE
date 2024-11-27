@@ -10,9 +10,6 @@ module.exports = {
 				"gray-aneuk": "#cccccc",
 				white: "#ffffff",
 			},
-			clipPath: {
-				"round-40": "inset(0 round 40%)",
-			},
 			keyframes: {
 				"slide-up": {
 					"0%": { transform: "translateY(100%)" },
@@ -32,6 +29,14 @@ module.exports = {
 			},
 			height: {
 				"screen-dynamic": "calc(var(--vh, 1vh) * 100)",
+			},
+			fontFamily: {
+				"pretendard-light": ["Pretendard Light"],
+				"pretendard-regular": ["Pretendard Regular"],
+				"pretendard-medium": ["Pretendard Medium"],
+				"pretendard-bold": ["Pretendard Bold"],
+				"gowun-regular": ["gowun-regular", "sans-serif"],
+				"gowun-bold": ["gowun-bold", "sans-serif"],
 			},
 		},
 	},

@@ -24,7 +24,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 				<img
 					src={profileImg}
 					alt="Profile"
-					className="self-start w-9 h-9 mr-1 rounded-[16px] clip-round-40"
+					className="self-start w-9 h-9 mr-1 rounded-[16px]"
 				></img>
 			)}
 			{sender === "MEMBER" && (
