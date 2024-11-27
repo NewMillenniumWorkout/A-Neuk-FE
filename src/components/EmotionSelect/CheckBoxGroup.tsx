@@ -1,54 +1,57 @@
 import React, { useState } from "react";
 import { IconProvider } from "../../utils/IconProvider";
+import { useEmotionSelectPage } from "./EmotionSelectPageContext";
 
-interface CheckboxOption {
-	id: number;
-	label: string;
-}
-
-interface CheckboxGroupProps {
-	options: CheckboxOption[];
-	selectedOptions: string[];
-	onChange: (selected: string[]) => void;
-}
-
-const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
-	options,
-	selectedOptions,
-	onChange,
-}) => {
+const CheckboxGroup: React.FC = ({}) => {
+	const { emotionData, curIndex, selectedEmotions, setSelectedEmotions } =
+		useEmotionSelectPage();
 	const handleCheckboxChange = (label: string) => {
-		if (selectedOptions.includes(label)) {
-			onChange(selectedOptions.filter((option) => option !== label));
+		if (selectedEmotions.includes(label)) {
+			setSelectedEmotions(
+				selectedEmotions.filter((option) => option !== label)
+			);
 		} else {
-			onChange([...selectedOptions, label]);
+			setSelectedEmotions([...selectedEmotions, label]);
 		}
 	};
+	const contentList = emotionData.data.content_list;
+	const options = contentList[curIndex].recommend_emotion;
 
 	return (
 		<div>
 			{options.map((option) => (
-				<div className="flex flex-row">
-					<label
-						key={option.id}
-						className="flex w-full items-center cursor-pointer space-x-2"
-					>
-						<input
-							type="checkbox"
-							checked={selectedOptions.includes(option.label)}
-							onChange={() => handleCheckboxChange(option.label)}
-							className="form-checkbox text-blue-600"
-						/>
-						<div className="h-6 my-2 justify-between items-center">
-							<span className="text-black-aneuk text-md font-gowun-bold">
-								{option.label}
-							</span>
-						</div>
-					</label>
+				<div className="flex flex-col">
+					<div className="flex flex-row">
+						<label
+							key={option.id}
+							className="flex w-full items-center cursor-pointer space-x-2"
+						>
+							<input
+								type="checkbox"
+								checked={selectedEmotions.includes(
+									option.title
+								)}
+								onChange={() =>
+									handleCheckboxChange(option.title)
+								}
+								className="form-checkbox text-blue-600"
+							/>
+							<div className="h-6 my-2 justify-between items-center">
+								<span className="text-black-aneuk text-md font-gowun-bold">
+									{option.title}
+								</span>
+							</div>
+						</label>
 
-					<button onClick={() => {}} className="text-gray-aneuk">
-						<IconProvider.DownArrowIcon className="ml-0.5" />
-					</button>
+						<button onClick={() => {}} className="text-gray-aneuk">
+							<IconProvider.DownArrowIcon className="ml-0.5" />
+						</button>
+					</div>
+					<div className={`w-full`}>
+						<div className="font-pretendard font-normal">
+							{option.description}
+						</div>
+					</div>
 				</div>
 			))}
 		</div>

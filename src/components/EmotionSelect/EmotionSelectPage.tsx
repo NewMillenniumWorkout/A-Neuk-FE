@@ -6,9 +6,13 @@ import CheckboxGroup from "./CheckBoxGroup";
 
 const EmotionSelectPage = () => {
 	const navigate = useNavigate();
-	const { emotionData } = useEmotionSelectPage();
-	const [curIndex, setCurIndex] = useState(0);
-	const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
+	const {
+		emotionData,
+		curIndex,
+		setCurIndex,
+		selectedEmotions,
+		setSelectedEmotions,
+	} = useEmotionSelectPage();
 
 	const contentList = emotionData.data.content_list;
 
@@ -57,16 +61,7 @@ const EmotionSelectPage = () => {
 							추천 단어
 						</div>
 						<div className="flex-1 px-5 overflow-y-auto">
-							<CheckboxGroup
-								options={contentList[
-									curIndex
-								].recommend_emotion.map((emotion) => ({
-									id: emotion.id,
-									label: emotion.title,
-								}))}
-								selectedOptions={selectedEmotions}
-								onChange={setSelectedEmotions}
-							/>
+							<CheckboxGroup />
 						</div>
 
 						<div className="flex justify-between mt-4">
