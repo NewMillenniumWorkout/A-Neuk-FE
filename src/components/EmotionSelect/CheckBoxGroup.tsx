@@ -26,12 +26,9 @@ const CheckboxGroup: React.FC = ({}) => {
 	return (
 		<div>
 			{options.map((option, index) => (
-				<div className="flex flex-col">
+				<div key={option.id} className="flex flex-col">
 					<div className="flex flex-row">
-						<label
-							key={option.id}
-							className="flex w-full items-center cursor-pointer space-x-2"
-						>
+						<label className="flex w-full items-center cursor-pointer space-x-2">
 							<input
 								type="checkbox"
 								checked={selectedEmotions.includes(
@@ -61,9 +58,14 @@ const CheckboxGroup: React.FC = ({}) => {
 						</button>
 					</div>
 					{curDescIndex === index && (
-						<div className={`w-full`}>
-							<div className="font-pretendard font-normal">
+						<div
+							className={`flex flex-col items-center w-full p-1`}
+						>
+							<div className="font-pretendard text-sm text-black-aneuk mb-2">
 								{option.description}
+							</div>
+							<div className="font-pretendard text-sm text-gray-aneuk">
+								"{option.example}"
 							</div>
 						</div>
 					)}
