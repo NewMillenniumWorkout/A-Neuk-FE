@@ -9,6 +9,8 @@ interface EmotionSelectPageContextType {
 	setCurDescIndex: React.Dispatch<React.SetStateAction<number | null>>;
 	selectedEmotions: string[];
 	setSelectedEmotions: React.Dispatch<React.SetStateAction<string[]>>;
+	isSelectComplete: boolean;
+	setIsSelectComplete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const EmotionSelectPageContext = createContext<
@@ -34,6 +36,7 @@ export const EmotionSelectPageProvider: React.FC<
 > = ({ children }) => {
 	const [curIndex, setCurIndex] = useState(0);
 	const [curDescIndex, setCurDescIndex] = useState<number | null>(null);
+	const [isSelectComplete, setIsSelectComplete] = useState(false);
 	const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
 	return (
@@ -46,6 +49,8 @@ export const EmotionSelectPageProvider: React.FC<
 				setCurDescIndex,
 				selectedEmotions,
 				setSelectedEmotions,
+				isSelectComplete,
+				setIsSelectComplete,
 			}}
 		>
 			{children}
