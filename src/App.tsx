@@ -16,9 +16,12 @@ import { useEffect, useState } from "react";
 import { ChatPageProvider } from "./components/Chat/ChatPageContext";
 import EmotionSelectPage from "./components/EmotionSelect/EmotionSelectPage";
 import { EmotionSelectPageProvider } from "./components/EmotionSelect/EmotionSelectPageContext";
+import { DataProvider, useDataContext } from "./DataContext";
+import LoginPage from "./components/Login/LoginPage";
 
 function App() {
 	const location = useLocation();
+	const { userToken } = useDataContext();
 
 	useEffect(() => {
 		const updateVh = () => {
@@ -48,36 +51,55 @@ function App() {
 	}, []);
 
 	return (
-		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
-			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
-				<div className="relative flex-grow w-full h-full">
-					<Routes>
-						<Route path="/calendar" element={<CalendarPage />} />
-						<Route path="/chart" element={<ChartPage />} />
-						<Route path="/profile" element={<ProfilePage />} />
-					</Routes>
-					<FloatingActionButton />
+		<DataProvider>
+			<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
+				<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
+					{userToken === null ? (
+						<LoginPage />
+					) : (
+						<>
+							<div className="relative flex-grow w-full h-full">
+								<Routes>
+									<Route
+										path="/calendar"
+										element={<CalendarPage />}
+									/>
+									<Route
+										path="/chart"
+										element={<ChartPage />}
+									/>
+									<Route
+										path="/profile"
+										element={<ProfilePage />}
+									/>
+								</Routes>
+								<FloatingActionButton />
+							</div>
+							{location.pathname === "/chat" && (
+								<ChatPageProvider>
+									<ChatPage />
+								</ChatPageProvider>
+							)}
+							{location.pathname === "/emotion-select" && (
+								<EmotionSelectPageProvider>
+									<EmotionSelectPage />
+								</EmotionSelectPageProvider>
+							)}
+							<BottomAppBar />
+						</>
+					)}
 				</div>
-				{location.pathname === "/chat" && (
-					<ChatPageProvider>
-						<ChatPage />
-					</ChatPageProvider>
-				)}
-				{location.pathname === "/emotion-select" && (
-					<EmotionSelectPageProvider>
-						<EmotionSelectPage />
-					</EmotionSelectPageProvider>
-				)}
-				<BottomAppBar />
 			</div>
-		</div>
+		</DataProvider>
 	);
 }
 
 export default function WrappedApp() {
 	return (
 		<Router>
-			<App />
+			<DataProvider>
+				<App />
+			</DataProvider>
 		</Router>
 	);
 }
