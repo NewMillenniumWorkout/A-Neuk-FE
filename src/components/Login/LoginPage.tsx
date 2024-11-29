@@ -22,7 +22,7 @@ const LoginPage = () => {
 	return (
 		<div className="flex flex-col justify-center items-center w-full h-full p-8">
 			<img src={aneukImg} className="w-[25%] rounded-full mb-2" />
-			<div className="font-pretendard-bold text-2xl mb-32">아늑</div>
+			<div className="font-pretendard-bold text-2xl mb-44">아늑</div>
 			<div className="font-pretendard-light text-gray-aneuk text-base mb-4">
 				- 로그인하여 나의 감정 알아보러 가기 -
 			</div>
