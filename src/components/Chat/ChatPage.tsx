@@ -8,8 +8,30 @@ import InputArea from "./InputArea.tsx";
 import ToastButton from "./ToastButton.tsx";
 import ImageReceiver from "./ImageReceiver.tsx";
 import SlideArea from "./SlideArea.tsx";
+import axios from "axios";
 
 const ChatPage: React.FC = () => {
+	const userToken = sessionStorage.getItem("userToken");
+
+	const fetchData = async () => {
+		try {
+			const response = await axios.get(
+				"https://aneuk-api.dev-lr.com/chat/init-message",
+				{
+					headers: {
+						Authorization: `Bearer ${userToken}`,
+					},
+				}
+			);
+			console.log();
+			console.log(response.data);
+		} catch (error) {
+			console.error("Error fetching data", error);
+		}
+	};
+
+	fetchData();
+
 	const {
 		messages,
 		setMessages,

@@ -3,6 +3,7 @@ import {
 	Route,
 	Routes,
 	useLocation,
+	useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import BottomAppBar from "./components/BottomAppBar";
@@ -11,7 +12,6 @@ import FloatingActionButton from "./components/FloatingActionButton";
 import CalendarPage from "./components/Calendar/CalendarPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import ChartPage from "./components/Chart/ChartPage";
-import TopAppBar from "./components/Chat/TopAppBar";
 import { useEffect, useState } from "react";
 import { ChatPageProvider } from "./components/Chat/ChatPageContext";
 import EmotionSelectPage from "./components/EmotionSelect/EmotionSelectPage";
@@ -21,7 +21,7 @@ import LoginPage from "./components/Login/LoginPage";
 
 function App() {
 	const location = useLocation();
-	const { userToken } = useDataContext();
+	const userToken = sessionStorage.getItem("userToken");
 
 	useEffect(() => {
 		const updateVh = () => {
@@ -50,47 +50,34 @@ function App() {
 		};
 	}, []);
 
+	if (userToken === null) {
+		return <LoginPage />;
+	}
+
 	return (
-		<DataProvider>
-			<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
-				<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
-					{userToken === null ? (
-						<LoginPage />
-					) : (
-						<>
-							<div className="relative flex-grow w-full h-full">
-								<Routes>
-									<Route
-										path="/calendar"
-										element={<CalendarPage />}
-									/>
-									<Route
-										path="/chart"
-										element={<ChartPage />}
-									/>
-									<Route
-										path="/profile"
-										element={<ProfilePage />}
-									/>
-								</Routes>
-								<FloatingActionButton />
-							</div>
-							{location.pathname === "/chat" && (
-								<ChatPageProvider>
-									<ChatPage />
-								</ChatPageProvider>
-							)}
-							{location.pathname === "/emotion-select" && (
-								<EmotionSelectPageProvider>
-									<EmotionSelectPage />
-								</EmotionSelectPageProvider>
-							)}
-							<BottomAppBar />
-						</>
-					)}
+		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
+			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
+				<div className="relative flex-grow w-full h-full">
+					<Routes>
+						<Route path="/calendar" element={<CalendarPage />} />
+						<Route path="/chart" element={<ChartPage />} />
+						<Route path="/profile" element={<ProfilePage />} />
+					</Routes>
+					<FloatingActionButton />
 				</div>
+				{location.pathname === "/chat" && (
+					<ChatPageProvider>
+						<ChatPage />
+					</ChatPageProvider>
+				)}
+				{location.pathname === "/emotion-select" && (
+					<EmotionSelectPageProvider>
+						<EmotionSelectPage />
+					</EmotionSelectPageProvider>
+				)}
+				<BottomAppBar />
 			</div>
-		</DataProvider>
+		</div>
 	);
 }
 
