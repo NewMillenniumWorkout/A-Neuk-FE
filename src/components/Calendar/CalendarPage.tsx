@@ -17,31 +17,18 @@ function CalendarPage() {
 	const [date, setDate] = React.useState<Date | undefined>(new Date());
 
 	return (
-		<div className="w-full h-full p-8">
-			<Calendar
-				mode="single"
-				selected={date}
-				onSelect={setDate}
-				className="w-full"
-			/>
-			<WeeklyCalendar />
-			{/* <Drawer>
-				<DrawerTrigger>Open</DrawerTrigger>
-				<DrawerContent>
-					<DrawerHeader>
-						<DrawerTitle>Are you absolutely sure?</DrawerTitle>
-						<DrawerDescription>
-							This action cannot be undone.
-						</DrawerDescription>
-					</DrawerHeader>
-					<DrawerFooter>
-						<Button>Submit</Button>
-						<DrawerClose>
-							<Button variant="outline">Cancel</Button>
-						</DrawerClose>
-					</DrawerFooter>
-				</DrawerContent>
-			</Drawer> */}
+		<div className="flex flex-col h-full">
+			<div className="w-full px-8 py-4">
+				<WeeklyCalendar
+					mode="single"
+					selected={date}
+					onSelect={setDate}
+					className="w-full"
+				/>
+			</div>
+			<div className="flex flex-col justify-start items-center pt-8 h-full bg-white-aneuk">
+				<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden"></div>
+			</div>
 		</div>
 	);
 }
