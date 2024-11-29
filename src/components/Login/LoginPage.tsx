@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import IconButton from "../IconButton";
 import axios from "axios";
 import { IconProvider } from "../../utils/IconProvider";
+import naverImg from "../../assets/images/naver.png";
+import kakaoImg from "../../assets/images/kakao.png";
+import googleImg from "../../assets/images/google.png";
+import aneukImg from "../../assets/images/aneuk_profile.png";
 
 const LoginPage = () => {
 	const path = "http://10.210.60.64:7010";
@@ -17,21 +21,33 @@ const LoginPage = () => {
 
 	return (
 		<div className="flex flex-col justify-center items-center w-full h-full p-8">
+			<img src={aneukImg} className="w-[25%] rounded-full mb-2" />
+			<div className="font-pretendard-bold text-2xl mb-32">아늑</div>
+			<div className="font-pretendard-light text-gray-aneuk text-base mb-4">
+				로그인하여 나의 감정 알아보러 가기
+			</div>
 			<div className="flex flex-col w-full space-y-2">
-				<button
-					className="bg-green-500 text-white w-full h-11 rounded-lg"
-					onClick={sendGetRequest}
-				>
-					네이버 로그인
-				</button>
-
-				<button className="bg-yellow-400 text-amber-950 w-full h-10 rounded-xl">
-					카카오 로그인
-				</button>
-
-				<button className="bg-white border-2 w-full h-10 rounded-xl">
-					구글 로그인
-				</button>
+				<SocialLoginButton
+					handleLogin={() => {}}
+					img={naverImg}
+					label="네이버 로그인"
+					labelColor="text-white"
+					bgColor="bg-[#03C75A]"
+				/>
+				<SocialLoginButton
+					handleLogin={() => {}}
+					img={kakaoImg}
+					label="Kakao 로그인"
+					labelColor="text-amber-950"
+					bgColor="bg-[#FEE500]"
+				/>
+				<SocialLoginButton
+					handleLogin={() => {}}
+					img={googleImg}
+					label="Google 로그인"
+					labelColor="text-black"
+					bgColor="bg-white border"
+				/>
 			</div>
 		</div>
 	);
@@ -39,17 +55,28 @@ const LoginPage = () => {
 
 interface SocialLoginButtonProps {
 	handleLogin: () => void;
+	img: string;
+	label: string;
+	labelColor: string;
+	bgColor: string;
 }
 
 const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
 	handleLogin,
+	img,
+	label,
+	labelColor,
+	bgColor,
 }) => {
 	return (
 		<button
-			className="bg-green-500 text-white w-full h-11 rounded-lg"
+			className={`flex justify-center items-center ${labelColor} ${bgColor} w-full h-11 rounded-[12px] px-4`}
 			onClick={handleLogin}
 		>
-			네이버 로그인
+			<div className="flex flex-row justify-start items-center">
+				<img src={img} className="w-10" />
+				<div className="w-28">{label}</div>
+			</div>
 		</button>
 	);
 };
