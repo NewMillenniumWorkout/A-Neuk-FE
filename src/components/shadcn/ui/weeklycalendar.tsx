@@ -61,17 +61,19 @@ function WeeklyCalendar({
 			</div>
 
 			<div className="grid grid-cols-7 gap-2">
-				{weekDays.map((date) => (
+				{weekDays.map((date, index) => (
 					<button
 						key={date.toISOString()}
 						onClick={() => handleDateChange(date)}
 						className={cn(
-							"aspect-square text-center rounded-md",
+							"aspect-square text-center rounded-xl",
 							selectedDate &&
 								date.toDateString() ===
 									selectedDate.toDateString()
 								? "bg-black-aneuk text-white"
-								: "bg-white hover:bg-gray-100"
+								: index === 0 || index === 6
+								? "bg-white text-red-500 hover:bg-gray-100"
+								: "bg-white text-black-aneuk hover:bg-gray-100"
 						)}
 					>
 						{format(date, "dd")}
