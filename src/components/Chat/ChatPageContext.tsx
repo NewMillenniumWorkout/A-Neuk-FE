@@ -5,9 +5,11 @@ import React, {
 	useState,
 	useEffect,
 } from "react";
-import { messages as chatdata, Message } from "./ChatData";
+import { Message } from "./ChatData";
 
 interface ChatPageContextType {
+	curChatId: number | null;
+	setCurChatId: React.Dispatch<React.SetStateAction<number | null>>;
 	messages: Message[];
 	setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
 	isGenAble: boolean;
@@ -16,7 +18,7 @@ interface ChatPageContextType {
 	setIsGenStart: React.Dispatch<React.SetStateAction<boolean>>;
 	isEmotionSelectAble: boolean;
 	setIsEmotionSelectAble: React.Dispatch<React.SetStateAction<boolean>>;
-	addMessage: (content: string) => void;
+	addMessage: (chatId: number, content: string, type: string) => void;
 	userImage: string | null;
 	setUserImage: React.Dispatch<React.SetStateAction<string | null>>;
 }
@@ -40,18 +42,19 @@ interface ChatPageProviderProps {
 export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	children,
 }) => {
-	const [messages, setMessages] = useState<Message[]>(chatdata);
+	const [curChatId, setCurChatId] = useState<number | null>(null);
+	const [messages, setMessages] = useState<Message[]>([]);
 	const [isGenAble, setIsGenAble] = useState(false);
 	const [isGenStart, setIsGenStart] = useState(false);
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
 	const [userImage, setUserImage] = useState<string | null>(null);
 
-	const addMessage = (content: string) => {
+	const addMessage = (chatId: number, content: string, type: string) => {
 		const newMessage: Message = {
-			chat_id: 123,
+			id: chatId,
 			content,
-			type: "MEMBER",
-			send_time: new Date().toISOString(),
+			type: type,
+			sentTime: new Date().toISOString(),
 		};
 		setMessages((prevMessages) => [...prevMessages, newMessage]);
 	};
@@ -67,6 +70,8 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	return (
 		<ChatPageContext.Provider
 			value={{
+				curChatId,
+				setCurChatId,
 				messages,
 				setMessages,
 				isGenAble,
