@@ -3,13 +3,13 @@ import { useRef, useState } from "react";
 import { useChatPage } from "./ChatPageContext";
 
 interface InputAreaProps {
-	onSend: (chatId: number, content: string, type: string) => void;
+	onSend: (chatId: number, content: string) => void;
 }
 
 const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
-	const { isGenStart } = useChatPage();
+	const { curChatId, isGenStart } = useChatPage();
 
 	const autoHeight = () => {
 		if (textareaRef.current) {
@@ -26,8 +26,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 
 	const handleSend = () => {
 		if (inputValue.trim()) {
-			//API로 바꿔야 함
-			// onSend(inputValue.trim());
+			onSend(curChatId!, inputValue.trim());
 			setInputValue("");
 			resetHeight();
 		}

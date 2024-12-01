@@ -78,14 +78,6 @@ const ChatPage: React.FC = () => {
 				setCurChatId(response.data.chatId);
 				if (response.data.type === "SYSTEM") {
 					console.log(response.data.message);
-				} else {
-					//api로 바꿔야 함
-					console.log(response.data);
-					addMessage(
-						response.data.chatId,
-						response.data.message,
-						response.data.type
-					);
 				}
 			} catch (error) {
 				console.error("Error fetching initial messages:", error);
