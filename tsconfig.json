@@ -16,6 +16,5 @@
 		"noEmit": true,
 		"jsx": "react-jsx",
 		"allowImportingTsExtensions": true
-	},
-	"include": ["src", "components/ui/button.tsx", "components/ui/calendar.tsx"]
+	}
 }

@@ -1,16 +1,4 @@
-import { Button } from "../shadcn/ui/button";
-import { Calendar } from "../shadcn/ui/calendar";
-import { WeeklyCalendar } from "../shadcn/ui/weeklycalendar";
-import {
-	Drawer,
-	DrawerClose,
-	DrawerContent,
-	DrawerDescription,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerTitle,
-	DrawerTrigger,
-} from "../shadcn/ui/drawer";
+import { WeeklyCalendar } from "./WeeklyCalendar";
 import React, { useState } from "react";
 
 function CalendarPage() {
