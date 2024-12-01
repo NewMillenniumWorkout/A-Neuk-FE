@@ -26,11 +26,10 @@ apiClient.interceptors.response.use(
 	(response) => response,
 	(error) => {
 		console.error("API Error:", error.response || error.message);
-		console.log(sessionStorage.getItem("userToken"));
 		if (error.response && error.response.status === 403) {
 			console.error("Token is invalid or expired. Redirecting to login.");
 			sessionStorage.clear();
-			window.location.href = "/login";
+			window.location.replace("/login");
 		}
 		return Promise.reject(error);
 	}

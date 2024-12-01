@@ -23,9 +23,9 @@ export const API_CHAT = {
 		}
 	},
 
-	sendMessage: async (data: { chatId: number; message: string }) => {
+	sendMessage: async (data: { chatId: number; content: string }) => {
 		try {
-			await apiClient.post<void>("/chat/send", {
+			await apiClient.post<void>("/chat/submit-message", {
 				body: JSON.stringify(data),
 			});
 		} catch (error: any) {
