@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useChatPage } from "./ChatPageContext";
 
 interface InputAreaProps {
-	onSend: (content: string) => void;
+	onSend: (chatId: number, content: string, type: string) => void;
 }
 
 const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
@@ -26,7 +26,8 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 
 	const handleSend = () => {
 		if (inputValue.trim()) {
-			onSend(inputValue.trim());
+			//API로 바꿔야 함
+			// onSend(inputValue.trim());
 			setInputValue("");
 			resetHeight();
 		}
