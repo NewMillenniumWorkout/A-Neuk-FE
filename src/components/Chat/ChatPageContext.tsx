@@ -6,6 +6,7 @@ import React, {
 	useEffect,
 } from "react";
 import { Message } from "./ChatData";
+import { API_CHAT } from "../../api/chat";
 
 interface ChatPageContextType {
 	curChatId: number | null;
@@ -18,7 +19,7 @@ interface ChatPageContextType {
 	setIsGenStart: React.Dispatch<React.SetStateAction<boolean>>;
 	isEmotionSelectAble: boolean;
 	setIsEmotionSelectAble: React.Dispatch<React.SetStateAction<boolean>>;
-	addMessage: (chatId: number, content: string, type: string) => void;
+	addMessage: (chatId: number, content: string) => void;
 	userImage: string | null;
 	setUserImage: React.Dispatch<React.SetStateAction<string | null>>;
 }
@@ -39,6 +40,11 @@ interface ChatPageProviderProps {
 	children: ReactNode;
 }
 
+interface MessageSend {
+	chatId: number;
+	content: string;
+}
+
 export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	children,
 }) => {
@@ -49,14 +55,21 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
 	const [userImage, setUserImage] = useState<string | null>(null);
 
-	const addMessage = (chatId: number, content: string, type: string) => {
-		const newMessage: Message = {
-			id: chatId,
-			content,
-			type: type,
-			sentTime: new Date().toISOString(),
+	const addMessage = (chatId: number, content: string) => {
+		const newMessage: MessageSend = {
+			chatId: chatId,
+			content: content,
 		};
-		setMessages((prevMessages) => [...prevMessages, newMessage]);
+		const loadInitialMessage = async () => {
+			try {
+				const response = await API_CHAT.sendMessage(newMessage);
+				console.log(response);
+			} catch (error) {
+				console.error("Error fetching initial messages:", error);
+			}
+		};
+
+		loadInitialMessage();
 	};
 
 	useEffect(() => {
