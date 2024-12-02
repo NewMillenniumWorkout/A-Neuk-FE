@@ -66,16 +66,16 @@ function App() {
 				</div>
 
 				{location.pathname === "/login" && <LoginPage />}
-				{location.pathname === "/chat" && (
-					<ChatPageProvider>
-						<ChatPage />
-					</ChatPageProvider>
-				)}
-				{location.pathname === "/emotion-select" && (
-					<EmotionSelectPageProvider>
+				<EmotionSelectPageProvider>
+					{location.pathname === "/chat" && (
+						<ChatPageProvider>
+							<ChatPage />
+						</ChatPageProvider>
+					)}
+					{location.pathname === "/emotion-select" && (
 						<EmotionSelectPage />
-					</EmotionSelectPageProvider>
-				)}
+					)}
+				</EmotionSelectPageProvider>
 				<BottomAppBar />
 			</div>
 		</div>

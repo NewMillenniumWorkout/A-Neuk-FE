@@ -6,7 +6,7 @@ export const API_DIARY = {
 			const response = await apiClient.post<void>(
 				`/diary/emotion/list?chatId=${chatId}`
 			);
-			console.log(response.data);
+			return response.data;
 		} catch (error: any) {
 			console.error("Error generating first diary:", error.message);
 			throw error;
