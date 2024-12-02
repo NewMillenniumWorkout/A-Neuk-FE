@@ -61,10 +61,9 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 			content: content,
 		};
 		try {
-			const response = await API_CHAT.sendMessage(newMessage);
-			console.log(response);
+			await API_CHAT.sendMessage(newMessage);
 		} catch (error) {
-			console.error("Error sending messages:", error);
+			// console.error("Error sending messages:", error);
 		}
 	};
 
