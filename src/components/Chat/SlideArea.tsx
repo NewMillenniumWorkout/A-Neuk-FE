@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_CHAT } from "../../api/chat";
 import { useChatPage } from "./ChatPageContext";
+import { API_DIARY } from "../../api/diary";
 
 const SlideArea: React.FC = () => {
 	const sliderContainerRef = useRef<HTMLDivElement>(null);
@@ -74,13 +75,17 @@ const SlideArea: React.FC = () => {
 
 		const containerWidth = sliderContainerRef.current.offsetWidth;
 		if (sliderPos >= containerWidth - 44) {
-			// navigate("/emotion-select");
-			console.log("100");
 			try {
 				await API_CHAT.sendImage(curChatId!, userImage!);
 			} catch (error) {
 				console.error("Error sending image:", error);
 			}
+			try {
+				await API_DIARY.getEmotions(curChatId!);
+			} catch (error) {
+				console.log("Error gen");
+			}
+			navigate("/emotion-select");
 		} else {
 			setSliderPos(0);
 		}
