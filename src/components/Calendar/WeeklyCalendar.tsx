@@ -44,6 +44,8 @@ function WeeklyCalendar({
 		setCurrentWeek(nextWeek);
 	};
 
+	const dayNames = ["일", "월", "화", "수", "목", "금", "토"]; // 요일 이름 배열
+
 	return (
 		<div>
 			<div className="flex justify-between items-center mb-4">
@@ -58,12 +60,21 @@ function WeeklyCalendar({
 				</button>
 			</div>
 
-			<div className="grid grid-cols-7 gap-2">
+			<div className="grid grid-cols-7 gap-y-1 gap-x-2 place-items-center">
+				{dayNames.map((dayName, index) => (
+					<div
+						key={index}
+						className="font-pretendard-regular text-center text-xs text-gray-aneuk"
+					>
+						{dayName}
+					</div>
+				))}
+
 				{weekDays.map((date, index) => (
 					<button
 						key={date.toISOString()}
 						onClick={() => handleDateChange(date)}
-						className={`aspect-square text-center rounded-xl
+						className={`w-12 aspect-square rounded-xl
 							${
 								selectedDate &&
 								date.toDateString() ===
@@ -74,7 +85,7 @@ function WeeklyCalendar({
 									: "bg-white text-black-aneuk hover:bg-gray-100"
 							}`}
 					>
-						{format(date, "dd")}
+						<span className="text-lg">{format(date, "d")}</span>
 					</button>
 				))}
 			</div>
