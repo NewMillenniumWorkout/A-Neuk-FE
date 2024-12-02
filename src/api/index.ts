@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 
 const apiClient = axios.create({
 	baseURL: "https://aneuk-api.dev-lr.com",
+	withCredentials: true,
 	headers: {
 		"Content-Type": "application/json",
 	},
@@ -27,7 +28,6 @@ apiClient.interceptors.response.use(
 	(response) => response,
 	(error) => {
 		console.error("API Error:", error.response || error.message);
-		console.error(error);
 		if (error.response && error.response.status === 403) {
 			console.error("Token is invalid or expired. Redirecting to login.");
 			Cookies.remove("userToken");

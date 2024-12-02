@@ -29,7 +29,7 @@ export const API_CHAT = {
 				body: JSON.stringify(data),
 			});
 		} catch (error: any) {
-			console.error("Error sending message:", error.message);
+			// console.error("Error sending message:", error.message);
 			throw error;
 		}
 	},
