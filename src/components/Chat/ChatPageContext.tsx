@@ -20,8 +20,8 @@ interface ChatPageContextType {
 	isEmotionSelectAble: boolean;
 	setIsEmotionSelectAble: React.Dispatch<React.SetStateAction<boolean>>;
 	addMessage: (chatId: number, content: string) => void;
-	userImage: string | null;
-	setUserImage: React.Dispatch<React.SetStateAction<string | null>>;
+	userImage: File | null;
+	setUserImage: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
 const ChatPageContext = createContext<ChatPageContextType | undefined>(
@@ -53,7 +53,7 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [isGenAble, setIsGenAble] = useState(false);
 	const [isGenStart, setIsGenStart] = useState(false);
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
-	const [userImage, setUserImage] = useState<string | null>(null);
+	const [userImage, setUserImage] = useState<File | null>(null);
 
 	const addMessage = async (chatId: number, content: string) => {
 		const newMessage: MessageSend = {

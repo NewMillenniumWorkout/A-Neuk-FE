@@ -31,4 +31,27 @@ export const API_CHAT = {
 			throw error;
 		}
 	},
+
+	sendImage: async (chatId: number, image: File) => {
+		try {
+			const formData = new FormData();
+			formData.append("image", image);
+
+			await apiClient.post<void>(
+				`/chat/submit-image?chat_id=${chatId}`,
+				formData,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				}
+			);
+		} catch (error: any) {
+			console.error(
+				"Error sending image:",
+				error.response?.data || error.message
+			);
+			throw error;
+		}
+	},
 };
