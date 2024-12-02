@@ -59,10 +59,6 @@ function App() {
 		}
 	}, [userToken, navigate]);
 
-	if (!userToken) {
-		return <LoginPage />;
-	}
-
 	return (
 		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
 			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
@@ -74,6 +70,8 @@ function App() {
 					</Routes>
 					<FloatingActionButton />
 				</div>
+
+				{location.pathname === "/login" && <LoginPage />}
 				{location.pathname === "/chat" && (
 					<ChatPageProvider>
 						<ChatPage />
