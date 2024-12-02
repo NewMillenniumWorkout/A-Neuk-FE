@@ -85,7 +85,7 @@ function WeeklyCalendar({
 									: "bg-white text-black-aneuk hover:bg-gray-100"
 							}`}
 					>
-						<span className="text-lg">{format(date, "d")}</span>
+						<span className="text-base">{format(date, "d")}</span>
 					</button>
 				))}
 			</div>
