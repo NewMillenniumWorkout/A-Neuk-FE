@@ -1,16 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
-import { messages as initialMessages, Message } from "./ChatData.ts";
+import { Message } from "./ChatData.ts";
 import { formatDate } from "../../utils/TimeFormatter.tsx";
 import { ChatPageProvider, useChatPage } from "./ChatPageContext.tsx";
+import { API_CHAT } from "../../api/chat.ts";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
 import InputArea from "./InputArea.tsx";
 import ToastButton from "./ToastButton.tsx";
 import ImageReceiver from "./ImageReceiver.tsx";
 import SlideArea from "./SlideArea.tsx";
+import axios from "axios";
 
 const ChatPage: React.FC = () => {
 	const {
+		curChatId,
+		setCurChatId,
 		messages,
 		setMessages,
 		isGenAble,
@@ -67,6 +71,37 @@ const ChatPage: React.FC = () => {
 		autoScroll();
 	}, [isGenStart, isGenAble]);
 
+	useEffect(() => {
+		const loadInitialMessage = async () => {
+			try {
+				const response = await API_CHAT.fetchInitialMessage();
+				setCurChatId(response.data.chatId);
+				if (response.data.type === "SYSTEM") {
+					console.log(response.data.message);
+				}
+			} catch (error) {
+				console.error("Error fetching initial messages:", error);
+			}
+		};
+
+		loadInitialMessage();
+	}, [setMessages]);
+
+	useEffect(() => {
+		const loadChatHistory = async () => {
+			if (curChatId !== null) {
+				try {
+					const response = await API_CHAT.fetchChatHistory(curChatId);
+					setMessages(response.data.data);
+				} catch (error) {
+					console.error("Error fetching chat history:", error);
+				}
+			}
+		};
+
+		loadChatHistory();
+	}, [curChatId, setMessages]);
+
 	return (
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
 			<TopAppBar />
@@ -76,12 +111,12 @@ const ChatPage: React.FC = () => {
 			>
 				{messages.map((message: Message, index: number) => {
 					const currentDate = new Date(
-						message.send_time
+						message.sentTime
 					).toDateString();
 					const previousDate =
 						index > 0
 							? new Date(
-									messages[index - 1].send_time
+									messages[index - 1].sentTime
 							  ).toDateString()
 							: null;
 					const isNewDate = currentDate !== previousDate;
@@ -90,12 +125,12 @@ const ChatPage: React.FC = () => {
 						<div key={index}>
 							{isNewDate && (
 								<div className="text-center text-sm text-gray-aneuk mb-4 pt-4">
-									{formatDate(new Date(message.send_time))}
+									{formatDate(new Date(message.sentTime))}
 								</div>
 							)}
 							<ChatBubble
 								content={message.content}
-								sendTime={message.send_time}
+								sendTime={message.sentTime}
 								sender={message.type}
 							/>
 						</div>

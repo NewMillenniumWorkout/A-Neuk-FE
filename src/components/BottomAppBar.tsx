@@ -7,7 +7,7 @@ function BottomAppBar() {
 	const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
 	const navigate = useNavigate();
 	return (
-		<div className="w-full h-16 bg-white text-black-aneuk flex justify-around items-center">
+		<div className="w-full h-16 bg-white text-black-aneuk flex flex-shrink-0 justify-around items-center">
 			<IconButton
 				icon={<IconProvider.CalendarIcon />}
 				label="Calendar"

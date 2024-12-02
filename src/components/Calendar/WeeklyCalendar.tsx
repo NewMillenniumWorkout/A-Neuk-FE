@@ -1,8 +1,6 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
-import { cn } from "../utils";
-import { buttonVariants } from "./button";
 import { startOfWeek, endOfWeek, format } from "date-fns";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
@@ -46,6 +44,8 @@ function WeeklyCalendar({
 		setCurrentWeek(nextWeek);
 	};
 
+	const dayNames = ["일", "월", "화", "수", "목", "금", "토"]; // 요일 이름 배열
+
 	return (
 		<div>
 			<div className="flex justify-between items-center mb-4">
@@ -60,23 +60,32 @@ function WeeklyCalendar({
 				</button>
 			</div>
 
-			<div className="grid grid-cols-7 gap-2">
+			<div className="grid grid-cols-7 gap-y-1 gap-x-2 place-items-center">
+				{dayNames.map((dayName, index) => (
+					<div
+						key={index}
+						className="font-pretendard-regular text-center text-xs text-gray-aneuk"
+					>
+						{dayName}
+					</div>
+				))}
+
 				{weekDays.map((date, index) => (
 					<button
 						key={date.toISOString()}
 						onClick={() => handleDateChange(date)}
-						className={cn(
-							"aspect-square text-center rounded-xl",
-							selectedDate &&
+						className={`w-[100%] aspect-square rounded-xl
+							${
+								selectedDate &&
 								date.toDateString() ===
 									selectedDate.toDateString()
-								? "bg-black-aneuk text-white"
-								: index === 0 || index === 6
-								? "bg-white text-red-500 hover:bg-gray-100"
-								: "bg-white text-black-aneuk hover:bg-gray-100"
-						)}
+									? "bg-black-aneuk text-white"
+									: index === 0 || index === 6
+									? "bg-white text-red-500 hover:bg-gray-100"
+									: "bg-white text-black-aneuk hover:bg-gray-100"
+							}`}
 					>
-						{format(date, "dd")}
+						<span className="text-base">{format(date, "d")}</span>
 					</button>
 				))}
 			</div>

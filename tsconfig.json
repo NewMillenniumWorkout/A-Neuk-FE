@@ -15,11 +15,6 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"allowImportingTsExtensions": true,
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["./*"]
-		}
-	},
-	"include": ["src", "components/ui/button.tsx", "components/ui/calendar.tsx"]
+		"allowImportingTsExtensions": true
+	}
 }
