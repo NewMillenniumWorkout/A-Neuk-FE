@@ -1,4 +1,5 @@
 import { WeeklyCalendar } from "./WeeklyCalendar";
+import Card from "./Card";
 import React, { useState } from "react";
 
 function CalendarPage() {
@@ -15,8 +16,7 @@ function CalendarPage() {
 				/>
 			</div>
 			<div className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto pb-24">
-				<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 mt-[5%] bg-white rounded-[32px] shadow-custom-strong"></div>
-				<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 mt-[5%] bg-white rounded-[32px] shadow-custom-strong"></div>
+				<Card />
 			</div>
 		</div>
 	);
