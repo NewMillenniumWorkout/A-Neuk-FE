@@ -12,16 +12,18 @@ import FloatingActionButton from "./components/FloatingActionButton";
 import CalendarPage from "./components/Calendar/CalendarPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import ChartPage from "./components/Chart/ChartPage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ChatPageProvider } from "./components/Chat/ChatPageContext";
 import EmotionSelectPage from "./components/EmotionSelect/EmotionSelectPage";
 import { EmotionSelectPageProvider } from "./components/EmotionSelect/EmotionSelectPageContext";
-import { DataProvider, useDataContext } from "./DataContext";
+import { AuthProvider } from "./AuthContext";
 import LoginPage from "./components/Login/LoginPage";
+import Cookies from "js-cookie";
 
 function App() {
 	const location = useLocation();
-	const userToken = sessionStorage.getItem("userToken");
+	const navigate = useNavigate();
+	const userToken = Cookies.get("userToken");
 
 	useEffect(() => {
 		const updateVh = () => {
@@ -50,7 +52,14 @@ function App() {
 		};
 	}, []);
 
-	if (userToken === null) {
+	useEffect(() => {
+		if (!userToken) {
+			navigate("/login", { replace: true });
+		} else {
+		}
+	}, [userToken, navigate]);
+
+	if (!userToken) {
 		return <LoginPage />;
 	}
 
@@ -84,9 +93,9 @@ function App() {
 export default function WrappedApp() {
 	return (
 		<Router>
-			<DataProvider>
+			<AuthProvider>
 				<App />
-			</DataProvider>
+			</AuthProvider>
 		</Router>
 	);
 }

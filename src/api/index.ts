@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const apiClient = axios.create({
 	baseURL: "https://aneuk-api.dev-lr.com",
@@ -9,9 +10,9 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
 	(config) => {
-		const token = sessionStorage.getItem("userToken");
+		const token = Cookies.get("userToken");
 		if (!token) {
-			console.error("No user token found in sessionStorage.");
+			console.error("No user token found in cookies.");
 			return Promise.reject(new Error("Authorization token is missing"));
 		}
 		if (token) {
@@ -26,9 +27,11 @@ apiClient.interceptors.response.use(
 	(response) => response,
 	(error) => {
 		console.error("API Error:", error.response || error.message);
+		console.error(error);
 		if (error.response && error.response.status === 403) {
 			console.error("Token is invalid or expired. Redirecting to login.");
-			sessionStorage.clear();
+			Cookies.remove("userToken");
+			Cookies.remove("userEmail");
 			window.location.replace("/login");
 		}
 		return Promise.reject(error);

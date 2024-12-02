@@ -4,6 +4,7 @@ import kakaoImg from "../../assets/images/kakao.png";
 import googleImg from "../../assets/images/google.png";
 import aneukImg from "../../assets/images/aneuk_profile.png";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 import { useDataContext } from "../../DataContext";
 
 const LoginPage = () => {
@@ -12,14 +13,14 @@ const LoginPage = () => {
 	const accessToken = searchParams.get("accessToken");
 
 	const navigate = useNavigate();
+	const { setAuth } = useAuth();
 
 	useEffect(() => {
 		if (email && accessToken) {
-			sessionStorage.setItem("userToken", accessToken);
-			sessionStorage.setItem("userEmail", email);
+			setAuth(accessToken, email);
 			navigate("/calendar", { replace: true });
 		}
-	}, [email, accessToken, navigate]);
+	}, [email, accessToken, navigate, setAuth]);
 
 	return (
 		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">

@@ -55,21 +55,17 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
 	const [userImage, setUserImage] = useState<string | null>(null);
 
-	const addMessage = (chatId: number, content: string) => {
+	const addMessage = async (chatId: number, content: string) => {
 		const newMessage: MessageSend = {
 			chatId: chatId,
 			content: content,
 		};
-		const loadInitialMessage = async () => {
-			try {
-				const response = await API_CHAT.sendMessage(newMessage);
-				console.log(response);
-			} catch (error) {
-				console.error("Error fetching initial messages:", error);
-			}
-		};
-
-		loadInitialMessage();
+		try {
+			const response = await API_CHAT.sendMessage(newMessage);
+			console.log(response);
+		} catch (error) {
+			console.error("Error sending messages:", error);
+		}
 	};
 
 	useEffect(() => {
