@@ -23,13 +23,11 @@ export const API_CHAT = {
 		}
 	},
 
-	sendMessage: async (data: { chatId: number; content: string }) => {
+	sendMessage: async (data: { chat_id: number; content: string }) => {
 		try {
-			await apiClient.post<void>("/chat/submit-message", {
-				body: JSON.stringify(data),
-			});
+			await apiClient.post<void>("/chat/submit-message", data);
 		} catch (error: any) {
-			// console.error("Error sending message:", error.message);
+			console.error("Error sending message:", error.message);
 			throw error;
 		}
 	},
