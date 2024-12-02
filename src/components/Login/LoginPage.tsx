@@ -5,7 +5,6 @@ import googleImg from "../../assets/images/google.png";
 import aneukImg from "../../assets/images/aneuk_profile.png";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-import { useDataContext } from "../../DataContext";
 
 const LoginPage = () => {
 	const [searchParams] = useSearchParams();

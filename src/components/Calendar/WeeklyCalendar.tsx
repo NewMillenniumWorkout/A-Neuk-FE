@@ -74,7 +74,7 @@ function WeeklyCalendar({
 					<button
 						key={date.toISOString()}
 						onClick={() => handleDateChange(date)}
-						className={`w-12 aspect-square rounded-xl
+						className={`w-[100%] aspect-square rounded-xl
 							${
 								selectedDate &&
 								date.toDateString() ===

@@ -66,7 +66,7 @@ function App() {
 	return (
 		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
 			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
-				<div className="relative flex-grow w-full h-full">
+				<div className="relative flex-grow min-h-0 w-full">
 					<Routes>
 						<Route path="/calendar" element={<CalendarPage />} />
 						<Route path="/chart" element={<ChartPage />} />
