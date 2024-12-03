@@ -14,13 +14,14 @@ const EmotionSelectPage = () => {
 		setSelectedEmotions,
 	} = useEmotionSelectPage();
 
-	const contentList = emotionData.data.content_list;
+	const contentList = emotionData?.data.content_list;
 
 	const handleNext = () => {
-		if (curIndex < contentList.length - 1) {
-			setCurIndex((prevIndex) => prevIndex + 1);
-			console.log(selectedEmotions);
-			setSelectedEmotions([]);
+		if (contentList !== undefined) {
+			if (curIndex < contentList.length - 1) {
+				setCurIndex((prevIndex) => prevIndex + 1);
+				setSelectedEmotions([]);
+			}
 		}
 	};
 
@@ -30,6 +31,10 @@ const EmotionSelectPage = () => {
 			setSelectedEmotions([]);
 		}
 	};
+
+	if (contentList === undefined) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<div className="absolute inset-0 bg-white-aneuk flex flex-col overflow-hidden">
