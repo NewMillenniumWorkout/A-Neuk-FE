@@ -31,6 +31,6 @@ export const formatToYYYYMMDD = (serverDate: Date): string => {
 	const koreanDate = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000);
 	const year = koreanDate.getFullYear();
 	const month = String(koreanDate.getMonth() + 1).padStart(2, "0");
-	const date = String(koreanDate.getDate() + 1).padStart(2, "0");
+	const date = String(koreanDate.getDate()).padStart(2, "0");
 	return `${year}-${month}-${date}`;
 };
