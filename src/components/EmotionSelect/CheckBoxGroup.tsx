@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
 

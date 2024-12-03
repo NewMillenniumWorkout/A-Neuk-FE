@@ -4,9 +4,10 @@ import { useChatPage } from "./ChatPageContext";
 
 interface InputAreaProps {
 	onSend: (chatId: number, content: string) => void;
+	isLoading: boolean;
 }
 
-const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
+const InputArea: React.FC<InputAreaProps> = ({ onSend, isLoading }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
 	const { curChatId, isGenStart } = useChatPage();
@@ -61,16 +62,20 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 				}}
 				onKeyDown={handleKeyDown}
 			/>
-			<InputAreaButton onClick={handleSend} />
+			<InputAreaButton onClick={handleSend} isLoading={isLoading} />
 		</div>
 	);
 };
 
 interface InputAreaButtonProps {
 	onClick: () => void;
+	isLoading: boolean;
 }
 
-const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
+const InputAreaButton: React.FC<InputAreaButtonProps> = ({
+	onClick,
+	isLoading,
+}) => {
 	const { isGenStart } = useChatPage();
 	return (
 		<button
@@ -79,6 +84,7 @@ const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
 			} transition-all duration-500 ease-in-out`}
 			onClick={onClick}
 			onMouseDown={(e) => e.preventDefault()}
+			disabled={isLoading}
 		>
 			<div className="text-white-aneuk">
 				<IconProvider.SendIcon />

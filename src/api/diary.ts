@@ -9,12 +9,31 @@ interface NewContent {
 	};
 }
 
+interface Emotion {
+	id: number;
+	title: string;
+	category: string;
+	description: string;
+	example: string;
+}
+
+export interface FinalDiary {
+	data: {
+		diary_id: number;
+		date: string;
+		content: string;
+		imageUrl: string;
+		emotionList: Emotion[];
+	};
+}
+
 export const API_DIARY = {
 	getEmotions: async (chatId: number): Promise<EmotionSelectData> => {
 		try {
 			const response = await apiClient.post<EmotionSelectData>(
 				`/diary/emotion/list?chatId=${chatId}`
 			);
+			// console.log(response.data);
 			return response.data;
 		} catch (error: any) {
 			console.error("Error generating first diary:", error.message);
@@ -42,6 +61,18 @@ export const API_DIARY = {
 			return response.data;
 		} catch (error: any) {
 			console.error("Error generating new content:", error.message);
+			throw error;
+		}
+	},
+	genFinalDiary: async (diaryId: number): Promise<FinalDiary> => {
+		try {
+			const response = await apiClient.get<FinalDiary>(
+				`/diary/second-generate?diaryId=${diaryId}`
+			);
+			console.log(response.data);
+			return response.data;
+		} catch (error: any) {
+			console.error("Error generating final diary:", error.message);
 			throw error;
 		}
 	},
