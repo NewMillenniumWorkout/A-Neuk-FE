@@ -5,12 +5,13 @@ import { startOfWeek, endOfWeek, format } from "date-fns";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
-function WeeklyCalendar({
+export function WeeklyCalendar({
 	className,
 	classNames,
 	showOutsideDays = false,
+	diaryDates = [],
 	...props
-}: CalendarProps) {
+}: CalendarProps & { diaryDates?: string[] }) {
 	const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
 		undefined
 	);
@@ -44,7 +45,7 @@ function WeeklyCalendar({
 		setCurrentWeek(nextWeek);
 	};
 
-	const dayNames = ["일", "월", "화", "수", "목", "금", "토"]; // 요일 이름 배열
+	const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
 	return (
 		<div>
@@ -86,13 +87,12 @@ function WeeklyCalendar({
 							}`}
 					>
 						<span className="text-base">{format(date, "d")}</span>
+						{diaryDates.includes(format(date, "yyyy-MM-dd")) && (
+							<div className="w-2 h-2 mt-1 bg-blue-500 rounded-full mx-auto"></div>
+						)}
 					</button>
 				))}
 			</div>
 		</div>
 	);
 }
-
-WeeklyCalendar.displayName = "WeeklyCalendar";
-
-export { WeeklyCalendar };
