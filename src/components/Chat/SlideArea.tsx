@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { API_CHAT } from "../../api/chat";
 import { useChatPage } from "./ChatPageContext";
 import { API_DIARY } from "../../api/diary";
+import { useEmotionSelectPage } from "../EmotionSelect/EmotionSelectPageContext";
 
 const SlideArea: React.FC = () => {
 	const sliderContainerRef = useRef<HTMLDivElement>(null);
@@ -10,6 +11,7 @@ const SlideArea: React.FC = () => {
 	const [isDragging, setIsDragging] = useState(false);
 	const [sliderPos, setSliderPos] = useState(0);
 	const { curChatId, userImage } = useChatPage();
+	const { setEmotionData } = useEmotionSelectPage();
 	const navigate = useNavigate();
 
 	const emojis = [
@@ -81,7 +83,10 @@ const SlideArea: React.FC = () => {
 				console.error("Error sending image:", error);
 			}
 			try {
-				await API_DIARY.getEmotions(curChatId!);
+				if (curChatId !== null) {
+					const emotionData = await API_DIARY.getEmotions(curChatId);
+					setEmotionData(emotionData);
+				}
 			} catch (error) {
 				console.log("Error gen");
 			}
