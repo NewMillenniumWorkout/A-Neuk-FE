@@ -10,6 +10,8 @@ interface EmotionSelectPageContextType {
 	setCurIndex: React.Dispatch<React.SetStateAction<number>>;
 	curDescIndex: number | null;
 	setCurDescIndex: React.Dispatch<React.SetStateAction<number | null>>;
+	displayContent: string | null;
+	setDisplayContent: React.Dispatch<React.SetStateAction<string | null>>;
 	selectedEmotions: string[];
 	setSelectedEmotions: React.Dispatch<React.SetStateAction<string[]>>;
 }
@@ -40,6 +42,7 @@ export const EmotionSelectPageProvider: React.FC<
 		null
 	);
 	const [curDescIndex, setCurDescIndex] = useState<number | null>(null);
+	const [displayContent, setDisplayContent] = useState<string | null>(null);
 	const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
 	return (
@@ -51,6 +54,8 @@ export const EmotionSelectPageProvider: React.FC<
 				setCurIndex,
 				curDescIndex,
 				setCurDescIndex,
+				displayContent,
+				setDisplayContent,
 				selectedEmotions,
 				setSelectedEmotions,
 			}}
