@@ -15,11 +15,9 @@ export const API_CALENDAR = {
 	},
 	getDateDiary: async (date: string): Promise<FinalDiary> => {
 		try {
-			console.log(date);
 			const response = await apiClient.get<FinalDiary>(
 				`/get-diary/day?date=${date}`
 			);
-			console.log(response.data);
 			return response.data;
 		} catch (error: any) {
 			console.error("Error get date diary:", error.message);
