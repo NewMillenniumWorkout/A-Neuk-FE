@@ -44,7 +44,7 @@ const CheckboxGroup: React.FC = ({}) => {
 								className="form-checkbox size-4 text-blue-600"
 							/>
 							<div className="h-6 justify-between items-center">
-								<span className="text-black-aneuk text-xl font-gowun-bold">
+								<span className="text-black-aneuk text-xl font-gowun-regular">
 									{option.title}
 								</span>
 							</div>
