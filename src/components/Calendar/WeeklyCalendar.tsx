@@ -11,11 +11,14 @@ export function WeeklyCalendar({
 	classNames,
 	showOutsideDays = false,
 	diaryDates = [],
+	selectedDate,
+	onDateChange,
 	...props
-}: CalendarProps & { diaryDates?: string[] }) {
-	const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
-		new Date()
-	);
+}: CalendarProps & {
+	diaryDates?: string[];
+	selectedDate: Date | undefined;
+	onDateChange: (date: Date) => void;
+}) {
 	const [currentWeek, setCurrentWeek] = React.useState<Date>(new Date());
 
 	const startWeek = startOfWeek(currentWeek, { weekStartsOn: 0 });
@@ -29,10 +32,6 @@ export function WeeklyCalendar({
 	) {
 		weekDays.push(new Date(date));
 	}
-
-	const handleDateChange = (date: Date) => {
-		setSelectedDate(date);
-	};
 
 	const handlePrevWeek = () => {
 		const prevWeek = new Date(currentWeek);
@@ -84,7 +83,7 @@ export function WeeklyCalendar({
 				{weekDays.map((date, index) => (
 					<button
 						key={index}
-						onClick={() => handleDateChange(date)}
+						onClick={() => onDateChange(date)}
 						className={`m-2 w-[90%] aspect-square rounded-xl
 							${
 								selectedDate &&
