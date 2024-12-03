@@ -41,7 +41,7 @@ interface ChatPageProviderProps {
 }
 
 interface MessageSend {
-	chatId: number;
+	chat_id: number;
 	content: string;
 }
 
@@ -57,13 +57,22 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 
 	const addMessage = async (chatId: number, content: string) => {
 		const newMessage: MessageSend = {
-			chatId: chatId,
+			chat_id: chatId,
 			content: content,
 		};
+		const tempMessage = {
+			id: chatId,
+			content: content,
+			type: "MEMBER",
+			sentTime: new Date().toISOString(),
+		};
 		try {
+			setMessages((prevMessages) => [...prevMessages, tempMessage]);
 			await API_CHAT.sendMessage(newMessage);
+			const response = await API_CHAT.fetchChatHistory(chatId);
+			setMessages(response.data.data);
 		} catch (error) {
-			// console.error("Error sending messages:", error);
+			console.error("Error sending messages:", error);
 		}
 	};
 
