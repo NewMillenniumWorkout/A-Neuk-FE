@@ -12,6 +12,7 @@ const EmotionSelectPage = () => {
 		setCurIndex,
 		selectedEmotions,
 		setSelectedEmotions,
+		setIsSelectComplete,
 	} = useEmotionSelectPage();
 
 	const contentList = emotionData.data.content_list;
@@ -19,7 +20,6 @@ const EmotionSelectPage = () => {
 	const handleNext = () => {
 		if (curIndex < contentList.length - 1) {
 			setCurIndex((prevIndex) => prevIndex + 1);
-			console.log(selectedEmotions);
 			setSelectedEmotions([]);
 		}
 	};
@@ -36,7 +36,7 @@ const EmotionSelectPage = () => {
 			<div className="w-full min-h-14 h-14 bg-transparent flex justify-center items-center px-4">
 				<button
 					onClick={() => {
-						navigate(-1);
+						navigate(-1); // 감정 선택 상황 저장해놓고 나가야함
 					}}
 					className="absolute left-4"
 				>
@@ -72,13 +72,29 @@ const EmotionSelectPage = () => {
 							>
 								<IconProvider.LeftArrowIcon className="mr-0.5" />
 							</button>
-							<button
-								onClick={handleNext}
-								disabled={curIndex === contentList.length - 1}
-								className="pl-2 pr-2.5 py-2.5 text-black-aneuk border-[1px] rounded-full disabled:opacity-50"
-							>
-								<IconProvider.RightArrowIcon className="ml-0.5" />
-							</button>
+							{curIndex + 1 === contentList.length ? (
+								<button
+									onClick={() => {
+										setIsSelectComplete(true); //일기 생성 요청으로 바꿔야 함
+									}}
+									disabled={
+										curIndex === contentList.length - 1
+									}
+									className="pl-2 pr-2.5 py-2.5 text-white bg-black-aneuk border-[1px] rounded-full disabled:opacity-50"
+								>
+									<IconProvider.SendIcon className="ml-0.5" />
+								</button>
+							) : (
+								<button
+									onClick={handleNext}
+									disabled={
+										curIndex === contentList.length - 1
+									}
+									className="pl-2 pr-2.5 py-2.5 text-black-aneuk border-[1px] rounded-full disabled:opacity-50"
+								>
+									<IconProvider.RightArrowIcon className="ml-0.5" />
+								</button>
+							)}
 						</div>
 					</div>
 				</div>
