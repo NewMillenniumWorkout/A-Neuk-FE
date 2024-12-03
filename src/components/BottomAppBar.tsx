@@ -10,7 +10,6 @@ const BottomAppBar: React.FC = () => {
 
 	useEffect(() => {
 		const path = location.pathname;
-		console.log(path);
 		if (path.includes("calendar")) {
 			setSelectedIcon("calendar");
 		} else if (path.includes("chart")) {
