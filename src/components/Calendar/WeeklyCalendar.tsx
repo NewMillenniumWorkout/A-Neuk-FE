@@ -1,7 +1,8 @@
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Icon } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import { startOfWeek, endOfWeek, format } from "date-fns";
+import { IconProvider } from "../../utils/IconProvider";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -13,7 +14,7 @@ export function WeeklyCalendar({
 	...props
 }: CalendarProps & { diaryDates?: string[] }) {
 	const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
-		undefined
+		new Date()
 	);
 	const [currentWeek, setCurrentWeek] = React.useState<Date>(new Date());
 
@@ -49,23 +50,32 @@ export function WeeklyCalendar({
 
 	return (
 		<div>
-			<div className="flex justify-between items-center mb-4">
-				<button onClick={handlePrevWeek} className="text-gray-600">
-					<ChevronLeft className="h-4 w-4" />
-				</button>
-				<span className="font-semibold text-lg">
-					{format(endWeek, "M월")}
+			<div className="flex justify-between h-16 items-center mb-2 px-3">
+				<span className="font-pretendard-bold text-xl">
+					{format(endWeek, "yyyy년 M월")}
 				</span>
-				<button onClick={handleNextWeek} className="text-gray-600">
-					<ChevronRight className="h-4 w-4" />
-				</button>
+				<div className="flex flex-row space-x-6">
+					<button
+						onClick={handlePrevWeek}
+						className="flex justify-center items-center text-black-aneuk rounded-lg h-[28px] w-[28px]"
+					>
+						<IconProvider.LeftArrowIcon className="h-[28px] w-[28px]" />
+					</button>
+					<button
+						onClick={handleNextWeek}
+						className="flex justify-center items-center text-black-aneuk rounded-lg h-[28px] w-[28px]"
+					>
+						<IconProvider.RightArrowIcon className="h-[28px] w-[28px]" />
+					</button>
+				</div>
 			</div>
 
-			<div className="grid grid-cols-7 gap-y-1 gap-x-2 place-items-center">
+			<div className="grid grid-cols-7 gap-x-2 place-items-center">
 				{dayNames.map((dayName, index) => (
 					<div
 						key={index}
-						className="font-pretendard-regular text-center text-xs text-gray-aneuk"
+						className={`font-pretendard-regular text-center text-xs 
+							${index === 0 || index === 6 ? "text-[#ED6A5B]" : "text-black-aneuk"}`}
 					>
 						{dayName}
 					</div>
@@ -73,24 +83,30 @@ export function WeeklyCalendar({
 
 				{weekDays.map((date, index) => (
 					<button
-						key={date.toISOString()}
+						key={index}
 						onClick={() => handleDateChange(date)}
-						className={`w-[100%] aspect-square rounded-xl
+						className={`m-2 w-[90%] aspect-square rounded-xl
 							${
 								selectedDate &&
 								date.toDateString() ===
 									selectedDate.toDateString()
 									? "bg-black-aneuk text-white"
 									: index === 0 || index === 6
-									? "bg-white text-red-500 hover:bg-gray-100"
+									? "bg-white text-[#ED6A5B] hover:bg-gray-100"
 									: "bg-white text-black-aneuk hover:bg-gray-100"
 							}`}
 					>
-						<span className="text-base">{format(date, "d")}</span>
-						{diaryDates.includes(format(date, "yyyy-MM-dd")) && (
-							<div className="w-2 h-2 mt-1 bg-blue-500 rounded-full mx-auto"></div>
-						)}
+						<span className="text-lg font-pretendard-light">
+							{format(date, "d")}
+						</span>
 					</button>
+				))}
+				{weekDays.map((date, index) => (
+					<div key={index} className="w-1.5 h-1.5">
+						{diaryDates.includes(format(date, "yyyy-MM-dd")) && (
+							<div className="w-1.5 h-1.5 bg-black-aneuk rounded-full mx-auto"></div>
+						)}
+					</div>
 				))}
 			</div>
 		</div>
