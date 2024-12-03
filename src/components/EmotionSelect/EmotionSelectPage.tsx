@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
@@ -10,6 +10,8 @@ const EmotionSelectPage = () => {
 		emotionData,
 		curIndex,
 		setCurIndex,
+		displayContent,
+		setDisplayContent,
 		selectedEmotions,
 		setSelectedEmotions,
 	} = useEmotionSelectPage();
@@ -32,8 +34,14 @@ const EmotionSelectPage = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (contentList !== undefined)
+			setDisplayContent(contentList[curIndex].original_content);
+	}, [curIndex]);
+
 	if (contentList === undefined) {
-		return <div>Loading...</div>;
+		window.location.replace("/chat");
+		return;
 	}
 
 	return (
@@ -59,7 +67,7 @@ const EmotionSelectPage = () => {
 						</div>
 						<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
 							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
-								{contentList[curIndex].original_content}
+								{displayContent}
 							</div>
 						</div>
 						<div className="ml-2 mb-2 font-gowun-regular text-[#6F6F6F] text-sm">
