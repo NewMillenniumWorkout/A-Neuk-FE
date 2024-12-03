@@ -2,7 +2,10 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 import { emotionSelectData, EmotionSelectData } from "./EmotionSelectData";
 
 interface EmotionSelectPageContextType {
-	emotionData: EmotionSelectData;
+	emotionData: EmotionSelectData | null;
+	setEmotionData: React.Dispatch<
+		React.SetStateAction<EmotionSelectData | null>
+	>;
 	curIndex: number;
 	setCurIndex: React.Dispatch<React.SetStateAction<number>>;
 	curDescIndex: number | null;
@@ -33,13 +36,17 @@ export const EmotionSelectPageProvider: React.FC<
 	EmotionSelectPageProviderProps
 > = ({ children }) => {
 	const [curIndex, setCurIndex] = useState(0);
+	const [emotionData, setEmotionData] = useState<EmotionSelectData | null>(
+		null
+	);
 	const [curDescIndex, setCurDescIndex] = useState<number | null>(null);
 	const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
 	return (
 		<EmotionSelectPageContext.Provider
 			value={{
-				emotionData: emotionSelectData,
+				emotionData,
+				setEmotionData,
 				curIndex,
 				setCurIndex,
 				curDescIndex,
