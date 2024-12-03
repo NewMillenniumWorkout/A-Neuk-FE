@@ -1,9 +1,25 @@
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import Card from "./Card";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { API_CALENDAR } from "../../api/calendar";
+import { formatToYYYYMM } from "../../utils/TimeFormatter";
 
 function CalendarPage() {
 	const [date, setDate] = React.useState<Date | undefined>(new Date());
+
+	useEffect(() => {
+		const loadMonthlyDiaries = async () => {
+			if (!date) return;
+			const month = formatToYYYYMM(date);
+			try {
+				const response = await API_CALENDAR.getMonthDiary(month);
+				console.log(response);
+			} catch (error: any) {
+				console.error("Error load monthly diaries: ", error);
+			}
+		};
+		loadMonthlyDiaries();
+	}, [date]);
 
 	return (
 		<div className="flex flex-col w-full h-full">
