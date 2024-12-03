@@ -23,7 +23,7 @@ const CalendarPage: React.FC = () => {
 				const diaryDates = diaries.map((diary: any) =>
 					formatToYYYYMMDD(new Date(diary.month))
 				);
-				setCurDiaryId(diaries[diaries.length - 1].diary_id);
+				setCurDiaryId(diaries[diaries.length - 1]?.diary_id || null);
 				setDiaryDates(diaryDates);
 			} catch (error: any) {
 				console.error("Error loading monthly diaries: ", error);
@@ -31,7 +31,13 @@ const CalendarPage: React.FC = () => {
 		};
 		const loadDateDiary = async () => {
 			if (!date) return;
+
 			const formattedDate = formatToYYYYMMDD(date);
+			if (!diaryDates.includes(formattedDate)) {
+				if (curDiary != null) setCurDiary(null);
+				return;
+			}
+
 			try {
 				const response = await API_CALENDAR.getDateDiary(formattedDate);
 				console.log("API Response:", response);
@@ -40,6 +46,7 @@ const CalendarPage: React.FC = () => {
 				console.error("Error loading date diary: ", error);
 			}
 		};
+
 		loadMonthlyDiaries();
 		loadDateDiary();
 	}, [date]);
