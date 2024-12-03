@@ -36,6 +36,18 @@ const EmotionSelectPage = () => {
 		}
 	};
 
+	const handelGen = async () => {
+		try {
+			if (emotionData !== null) {
+				const response = await API_DIARY.genFinalDiary(
+					emotionData.data.diary_id
+				);
+			}
+		} catch (error) {
+			console.error("Error fetching new content:", error);
+		}
+	};
+
 	useEffect(() => {
 		if (emotionData !== null && contentList !== undefined) {
 			const fetchContent = async () => {
@@ -98,22 +110,22 @@ const EmotionSelectPage = () => {
 							<CheckboxGroup />
 						</div>
 
-						<div className="flex justify-between mt-4">
-							<button
+						<div className="flex justify-end mt-4">
+							{/* <button
 								onClick={handlePrevious}
 								disabled={curIndex === 0}
 								className="pr-2 pl-2.5 py-2.5 text-black-aneuk border-[1px] rounded-full disabled:opacity-50"
 							>
 								<IconProvider.LeftArrowIcon className="mr-0.5" />
-							</button>
+							</button> */}
 							{curIndex + 1 === contentList.length ? (
 								<button
 									onClick={() => {
-										setIsSelectComplete(true); //일기 생성 요청으로 바꿔야 함
+										setIsSelectComplete(true);
+										setCurIndex(0);
+										handelGen();
+										navigate("/calendar");
 									}}
-									disabled={
-										curIndex === contentList.length - 1
-									}
 									className="pl-2 pr-2.5 py-2.5 text-white bg-black-aneuk border-[1px] rounded-full disabled:opacity-50"
 								>
 									<IconProvider.SendIcon className="ml-0.5" />
@@ -121,9 +133,6 @@ const EmotionSelectPage = () => {
 							) : (
 								<button
 									onClick={handleNext}
-									disabled={
-										curIndex === contentList.length - 1
-									}
 									className="pl-2 pr-2.5 py-2.5 text-black-aneuk border-[1px] rounded-full disabled:opacity-50"
 								>
 									<IconProvider.RightArrowIcon className="ml-0.5" />
