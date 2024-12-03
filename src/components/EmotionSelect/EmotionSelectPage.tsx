@@ -153,7 +153,7 @@ const EmotionSelectPage = () => {
 							</div>
 						</div>
 					) : (
-						<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
+						<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-y-auto">
 							<h2 className="font-bold text-xl mb-4">
 								최종 일기
 							</h2>
