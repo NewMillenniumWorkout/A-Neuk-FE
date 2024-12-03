@@ -20,8 +20,17 @@ export function formatDate(serverDate: Date): string {
 	}).format(koreanDate);
 }
 
-export const formatToYYYYMM = (date: Date): string => {
-	const year = date.getFullYear();
-	const month = String(date.getMonth() + 1).padStart(2, "0");
+export const formatToYYYYMM = (serverDate: Date): string => {
+	const koreanDate = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000);
+	const year = koreanDate.getFullYear();
+	const month = String(koreanDate.getMonth() + 1).padStart(2, "0");
 	return `${year}-${month}`;
+};
+
+export const formatToYYYYMMDD = (serverDate: Date): string => {
+	const koreanDate = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000);
+	const year = koreanDate.getFullYear();
+	const month = String(koreanDate.getMonth() + 1).padStart(2, "0");
+	const date = String(koreanDate.getDate() + 1).padStart(2, "0");
+	return `${year}-${month}-${date}`;
 };
