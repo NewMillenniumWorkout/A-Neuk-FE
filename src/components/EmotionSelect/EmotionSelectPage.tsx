@@ -80,7 +80,7 @@ const EmotionSelectPage = () => {
 									disabled={
 										curIndex === contentList.length - 1
 									}
-									className="pl-2 pr-2.5 py-2.5 text-white bg-green-500 border-[1px] rounded-full disabled:opacity-50"
+									className="pl-2 pr-2.5 py-2.5 text-white bg-black-aneuk border-[1px] rounded-full disabled:opacity-50"
 								>
 									<IconProvider.SendIcon className="ml-0.5" />
 								</button>
