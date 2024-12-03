@@ -20,12 +20,16 @@ const CheckboxGroup: React.FC = ({}) => {
 			setSelectedEmotions([...selectedEmotions, label]);
 		}
 	};
-	const contentList = emotionData.data.content_list;
-	const options = contentList[curIndex].recommend_emotion;
+	const contentList = emotionData?.data.content_list;
+	if (contentList !== undefined) console.log(contentList);
+
+	if (contentList === undefined) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<div>
-			{options.map((option, index) => (
+			{contentList[curIndex].recommend_emotion.map((option, index) => (
 				<div key={option.id} className="flex flex-col">
 					<div className="flex flex-row items-center mb-4">
 						<label className="flex w-full items-center cursor-pointer space-x-3">
