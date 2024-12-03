@@ -26,6 +26,7 @@ const ChatPage: React.FC = () => {
 		addMessage,
 	} = useChatPage();
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const autoScroll = () => {
 		if (BubbleContainerRef.current) {
@@ -89,12 +90,15 @@ const ChatPage: React.FC = () => {
 
 	useEffect(() => {
 		const loadChatHistory = async () => {
+			setIsLoading(true);
 			if (curChatId !== null) {
 				try {
 					const response = await API_CHAT.fetchChatHistory(curChatId);
 					setMessages(response.data.data);
 				} catch (error) {
 					console.error("Error fetching chat history:", error);
+				} finally {
+					setIsLoading(false);
 				}
 			}
 		};
@@ -149,9 +153,9 @@ const ChatPage: React.FC = () => {
 				</div>
 			)}
 			{isEmotionSelectAble ? (
-				<SlideArea />
+				<SlideArea isLoading={isLoading} />
 			) : (
-				<InputArea onSend={addMessage} />
+				<InputArea onSend={addMessage} isLoading={isLoading} />
 			)}
 		</div>
 	);

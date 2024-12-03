@@ -5,7 +5,11 @@ import { useChatPage } from "./ChatPageContext";
 import { API_DIARY } from "../../api/diary";
 import { useEmotionSelectPage } from "../EmotionSelect/EmotionSelectPageContext";
 
-const SlideArea: React.FC = () => {
+interface SlideAreaProps {
+	isLoading: boolean;
+}
+
+const SlideArea: React.FC<SlideAreaProps> = ({ isLoading }) => {
 	const sliderContainerRef = useRef<HTMLDivElement>(null);
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const [isDragging, setIsDragging] = useState(false);
@@ -52,12 +56,14 @@ const SlideArea: React.FC = () => {
 	};
 
 	const handleStart = () => {
-		setIsDragging(true);
-		document.body.style.userSelect = "none";
+		if (!isLoading) {
+			setIsDragging(true);
+			document.body.style.userSelect = "none";
+		}
 	};
 
 	const handleMove = (clientX: number) => {
-		if (!isDragging || !sliderContainerRef.current) return;
+		if (!isDragging || !sliderContainerRef.current || isLoading) return;
 
 		const containerRect =
 			sliderContainerRef.current.getBoundingClientRect();
@@ -73,7 +79,7 @@ const SlideArea: React.FC = () => {
 	};
 
 	const handleEnd = async () => {
-		if (!sliderContainerRef.current) return;
+		if (!sliderContainerRef.current || isLoading) return;
 
 		const containerWidth = sliderContainerRef.current.offsetWidth;
 		if (sliderPos >= containerWidth - 44) {
@@ -140,7 +146,8 @@ const SlideArea: React.FC = () => {
 			</div>
 			<div
 				ref={sliderRef}
-				className="slider absolute left-2.5 top-2.5 h-10 w-10 bg-transparent rounded-full cursor-pointer z-50 flex justify-center items-center text-[2.5rem]"
+				className={`slider absolute left-2.5 top-2.5 h-10 w-10 bg-transparent rounded-full cursor-pointer z-50 flex justify-center items-center text-[2.5rem]
+					${isLoading ? "spinner" : ""}`}
 				style={{ transform: `translateX(${sliderPos}px)` }}
 				onMouseDown={handleStart}
 				onTouchStart={handleStart}
