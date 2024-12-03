@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
 import CheckboxGroup from "./CheckBoxGroup";
+import { API_DIARY } from "../../api/diary";
 
 const EmotionSelectPage = () => {
 	const navigate = useNavigate();
@@ -35,9 +36,28 @@ const EmotionSelectPage = () => {
 	};
 
 	useEffect(() => {
-		if (contentList !== undefined)
-			setDisplayContent(contentList[curIndex].original_content);
-	}, [curIndex]);
+		if (emotionData !== null && contentList !== undefined) {
+			const fetchContent = async () => {
+				if (selectedEmotions.length === 0) {
+					setDisplayContent(contentList[curIndex].original_content);
+				} else {
+					try {
+						const response = await API_DIARY.genNewContent(
+							emotionData.data.diary_id,
+							curIndex,
+							contentList[curIndex].original_content,
+							selectedEmotions
+						);
+						setDisplayContent(response.data.final_content);
+					} catch (error) {
+						console.error("Error fetching new content:", error);
+					}
+				}
+			};
+
+			fetchContent();
+		}
+	}, [curIndex, selectedEmotions]);
 
 	if (contentList === undefined) {
 		window.location.replace("/chat");
