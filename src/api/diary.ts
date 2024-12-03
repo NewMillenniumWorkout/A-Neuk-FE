@@ -1,9 +1,10 @@
+import { EmotionSelectData } from "../components/EmotionSelect/EmotionSelectData";
 import apiClient from "./index";
 
 export const API_DIARY = {
-	getEmotions: async (chatId: number) => {
+	getEmotions: async (chatId: number): Promise<EmotionSelectData> => {
 		try {
-			const response = await apiClient.post<void>(
+			const response = await apiClient.post<EmotionSelectData>(
 				`/diary/emotion/list?chatId=${chatId}`
 			);
 			return response.data;
