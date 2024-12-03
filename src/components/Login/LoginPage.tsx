@@ -22,43 +22,37 @@ const LoginPage = () => {
 	}, [email, accessToken, navigate, setAuth]);
 
 	return (
-		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
-			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
-				<div className="flex flex-col justify-center items-center w-full h-full p-8">
-					<img src={aneukImg} className="w-[25%] rounded-full mb-2" />
-					<div className="font-pretendard-bold text-2xl mb-44">
-						아늑
-					</div>
-					<div className="font-pretendard-light text-gray-aneuk text-base mb-4">
-						- 로그인하여 나의 감정 알아보러 가기 -
-					</div>
-					<div className="flex flex-col w-full space-y-2">
-						<SocialLoginButton
-							handleLogin={() => {
-								window.location.href =
-									"https://aneuk-api.dev-lr.com/oauth2/authorization/naver";
-							}}
-							img={naverImg}
-							label="네이버 로그인"
-							labelColor="text-white"
-							bgColor="bg-[#03C75A]"
-						/>
-						<SocialLoginButton
-							handleLogin={() => {}}
-							img={kakaoImg}
-							label="Kakao 로그인"
-							labelColor="text-black"
-							bgColor="bg-[#FEE500]"
-						/>
-						<SocialLoginButton
-							handleLogin={() => {}}
-							img={googleImg}
-							label="Google 로그인"
-							labelColor="text-black"
-							bgColor="bg-white border"
-						/>
-					</div>
-				</div>
+		<div className="absolute inset-0 z-50 bg-white flex flex-col justify-center items-center w-full h-full p-8">
+			<img src={aneukImg} className="w-[25%] rounded-full mb-2" />
+			<div className="font-pretendard-bold text-2xl mb-44">아늑</div>
+			<div className="font-pretendard-light text-gray-aneuk text-base mb-4">
+				- 로그인하여 나의 감정 알아보러 가기 -
+			</div>
+			<div className="flex flex-col w-full space-y-2">
+				<SocialLoginButton
+					handleLogin={() => {
+						window.location.href =
+							"https://aneuk-api.dev-lr.com/oauth2/authorization/naver";
+					}}
+					img={naverImg}
+					label="네이버 로그인"
+					labelColor="text-white"
+					bgColor="bg-[#03C75A]"
+				/>
+				<SocialLoginButton
+					handleLogin={() => {}}
+					img={kakaoImg}
+					label="Kakao 로그인"
+					labelColor="text-black"
+					bgColor="bg-[#FEE500]"
+				/>
+				<SocialLoginButton
+					handleLogin={() => {}}
+					img={googleImg}
+					label="Google 로그인"
+					labelColor="text-black"
+					bgColor="bg-white border"
+				/>
 			</div>
 		</div>
 	);

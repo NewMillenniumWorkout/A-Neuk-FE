@@ -1,11 +1,17 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_CHAT } from "../../api/chat";
+import { useChatPage } from "./ChatPageContext";
+import { API_DIARY } from "../../api/diary";
+import { useEmotionSelectPage } from "../EmotionSelect/EmotionSelectPageContext";
 
 const SlideArea: React.FC = () => {
 	const sliderContainerRef = useRef<HTMLDivElement>(null);
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const [isDragging, setIsDragging] = useState(false);
 	const [sliderPos, setSliderPos] = useState(0);
+	const { curChatId, userImage } = useChatPage();
+	const { setEmotionData } = useEmotionSelectPage();
 	const navigate = useNavigate();
 
 	const emojis = [
@@ -66,11 +72,24 @@ const SlideArea: React.FC = () => {
 		setSliderPos(newSliderPos);
 	};
 
-	const handleEnd = () => {
+	const handleEnd = async () => {
 		if (!sliderContainerRef.current) return;
 
 		const containerWidth = sliderContainerRef.current.offsetWidth;
 		if (sliderPos >= containerWidth - 44) {
+			try {
+				await API_CHAT.sendImage(curChatId!, userImage!);
+			} catch (error) {
+				console.error("Error sending image:", error);
+			}
+			try {
+				if (curChatId !== null) {
+					const emotionData = await API_DIARY.getEmotions(curChatId);
+					setEmotionData(emotionData);
+				}
+			} catch (error) {
+				console.log("Error gen");
+			}
 			navigate("/emotion-select");
 		} else {
 			setSliderPos(0);

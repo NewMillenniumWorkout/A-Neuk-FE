@@ -1,7 +1,8 @@
-export function formatTime(time: string) {
-	const date = new Date(time);
-	const hours = date.getHours();
-	const minutes = date.getMinutes();
+export function formatTime(serverDate: string) {
+	const date = new Date(serverDate);
+	const koreanDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+	const hours = koreanDate.getHours();
+	const minutes = koreanDate.getMinutes();
 	const period = hours < 12 ? "오전" : "오후";
 	const formattedHours = hours % 12 || 12;
 
@@ -10,10 +11,11 @@ export function formatTime(time: string) {
 		.padStart(2, "0")}`;
 }
 
-export function formatDate(date: Date): string {
+export function formatDate(serverDate: Date): string {
+	const koreanDate = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000);
 	return new Intl.DateTimeFormat("ko-KR", {
 		year: "numeric",
 		month: "long",
 		day: "numeric",
-	}).format(date);
+	}).format(koreanDate);
 }

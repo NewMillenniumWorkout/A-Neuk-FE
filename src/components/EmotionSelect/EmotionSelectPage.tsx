@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
 import CheckboxGroup from "./CheckBoxGroup";
+import { API_DIARY } from "../../api/diary";
 
 const EmotionSelectPage = () => {
 	const navigate = useNavigate();
@@ -10,17 +11,21 @@ const EmotionSelectPage = () => {
 		emotionData,
 		curIndex,
 		setCurIndex,
+		displayContent,
+		setDisplayContent,
 		selectedEmotions,
 		setSelectedEmotions,
 		setIsSelectComplete,
 	} = useEmotionSelectPage();
 
-	const contentList = emotionData.data.content_list;
+	const contentList = emotionData?.data.content_list;
 
 	const handleNext = () => {
-		if (curIndex < contentList.length - 1) {
-			setCurIndex((prevIndex) => prevIndex + 1);
-			setSelectedEmotions([]);
+		if (contentList !== undefined) {
+			if (curIndex < contentList.length - 1) {
+				setCurIndex((prevIndex) => prevIndex + 1);
+				setSelectedEmotions([]);
+			}
 		}
 	};
 
@@ -30,6 +35,35 @@ const EmotionSelectPage = () => {
 			setSelectedEmotions([]);
 		}
 	};
+
+	useEffect(() => {
+		if (emotionData !== null && contentList !== undefined) {
+			const fetchContent = async () => {
+				if (selectedEmotions.length === 0) {
+					setDisplayContent(contentList[curIndex].original_content);
+				} else {
+					try {
+						const response = await API_DIARY.genNewContent(
+							emotionData.data.diary_id,
+							curIndex,
+							contentList[curIndex].original_content,
+							selectedEmotions
+						);
+						setDisplayContent(response.data.final_content);
+					} catch (error) {
+						console.error("Error fetching new content:", error);
+					}
+				}
+			};
+
+			fetchContent();
+		}
+	}, [curIndex, selectedEmotions]);
+
+	if (contentList === undefined) {
+		window.location.replace("/chat");
+		return;
+	}
 
 	return (
 		<div className="absolute inset-0 bg-white-aneuk flex flex-col overflow-hidden">
@@ -54,7 +88,7 @@ const EmotionSelectPage = () => {
 						</div>
 						<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
 							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
-								{contentList[curIndex].original_content}
+								{displayContent}
 							</div>
 						</div>
 						<div className="ml-2 mb-2 font-gowun-regular text-[#6F6F6F] text-sm">

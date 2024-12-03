@@ -14,6 +14,7 @@ apiClient.interceptors.request.use(
 		const token = Cookies.get("userToken");
 		if (!token) {
 			console.error("No user token found in cookies.");
+			window.location.replace("/login");
 			return Promise.reject(new Error("Authorization token is missing"));
 		}
 		if (token) {

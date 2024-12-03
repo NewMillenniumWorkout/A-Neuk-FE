@@ -28,12 +28,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const setAuth = (newToken: string, newEmail: string) => {
 		Cookies.set("userToken", newToken, {
 			expires: 1,
-			secure: true,
+			secure: false,
 			sameSite: "Strict",
 		});
 		Cookies.set("userEmail", newEmail, {
 			expires: 1,
-			secure: true,
+			secure: false,
 			sameSite: "Strict",
 		});
 		setToken(newToken);

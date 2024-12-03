@@ -10,8 +10,7 @@ const ImageReceiver: React.FC = () => {
 	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files && event.target.files[0]) {
 			const file = event.target.files[0];
-			const imageUrl = URL.createObjectURL(file);
-			setUserImage(imageUrl);
+			setUserImage(file);
 		}
 	};
 
@@ -21,7 +20,7 @@ const ImageReceiver: React.FC = () => {
 				src={profileImg}
 				alt="Profile"
 				className="self-start w-9 h-9 mr-1 rounded-[16px] clip-round-40"
-			></img>
+			/>
 			<div className="flex flex-col min-w-60">
 				<div className="ml-1.5 mb-1 mt-0.5 text-black-aneuk text-sm">
 					아늑
@@ -41,7 +40,7 @@ const ImageReceiver: React.FC = () => {
 						>
 							{userImage ? (
 								<img
-									src={userImage}
+									src={URL.createObjectURL(userImage)}
 									alt="Preview"
 									className="w-full h-full object-cover rounded-xl"
 								/>

@@ -3,7 +3,6 @@ import {
 	Route,
 	Routes,
 	useLocation,
-	useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import BottomAppBar from "./components/BottomAppBar";
@@ -18,11 +17,11 @@ import EmotionSelectPage from "./components/EmotionSelect/EmotionSelectPage";
 import { EmotionSelectPageProvider } from "./components/EmotionSelect/EmotionSelectPageContext";
 import { AuthProvider } from "./AuthContext";
 import LoginPage from "./components/Login/LoginPage";
+import HomePage from "./components/Home/HomePage";
 import Cookies from "js-cookie";
 
 function App() {
 	const location = useLocation();
-	const navigate = useNavigate();
 	const userToken = Cookies.get("userToken");
 
 	useEffect(() => {
@@ -52,39 +51,32 @@ function App() {
 		};
 	}, []);
 
-	useEffect(() => {
-		if (!userToken) {
-			navigate("/login", { replace: true });
-		} else {
-		}
-	}, [userToken, navigate]);
-
-	if (!userToken) {
-		return <LoginPage />;
-	}
-
 	return (
 		<div className="flex h-screen-dynamic w-screen justify-center items-center bg-gray-200 flex-col">
 			<div className="relative flex flex-col h-screen-dynamic w-screen sm:max-w-[440px] sm:max-h-[940px] bg-white justify-center items-center">
 				<div className="relative flex-grow min-h-0 w-full">
 					<Routes>
+						<Route path="/" element={<LoginPage />} />
+						<Route path="/home" element={<HomePage />} />
 						<Route path="/calendar" element={<CalendarPage />} />
 						<Route path="/chart" element={<ChartPage />} />
 						<Route path="/profile" element={<ProfilePage />} />
 					</Routes>
 					<FloatingActionButton />
 				</div>
-				{location.pathname === "/chat" && (
-					<ChatPageProvider>
-						<ChatPage />
-					</ChatPageProvider>
-				)}
-				{location.pathname === "/emotion-select" && (
-					<EmotionSelectPageProvider>
+
+				{location.pathname === "/login" && <LoginPage />}
+				<EmotionSelectPageProvider>
+					{location.pathname === "/chat" && (
+						<ChatPageProvider>
+							<ChatPage />
+						</ChatPageProvider>
+					)}
+					{location.pathname === "/emotion-select" && (
 						<EmotionSelectPage />
-					</EmotionSelectPageProvider>
-				)}
-				<BottomAppBar />
+					)}
+				</EmotionSelectPageProvider>
+				{location.pathname !== "/" && <BottomAppBar />}
 			</div>
 		</div>
 	);

@@ -2,11 +2,16 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 import { emotionSelectData, EmotionSelectData } from "./EmotionSelectData";
 
 interface EmotionSelectPageContextType {
-	emotionData: EmotionSelectData;
+	emotionData: EmotionSelectData | null;
+	setEmotionData: React.Dispatch<
+		React.SetStateAction<EmotionSelectData | null>
+	>;
 	curIndex: number;
 	setCurIndex: React.Dispatch<React.SetStateAction<number>>;
 	curDescIndex: number | null;
 	setCurDescIndex: React.Dispatch<React.SetStateAction<number | null>>;
+	displayContent: string | null;
+	setDisplayContent: React.Dispatch<React.SetStateAction<string | null>>;
 	selectedEmotions: string[];
 	setSelectedEmotions: React.Dispatch<React.SetStateAction<string[]>>;
 	isSelectComplete: boolean;
@@ -35,18 +40,25 @@ export const EmotionSelectPageProvider: React.FC<
 	EmotionSelectPageProviderProps
 > = ({ children }) => {
 	const [curIndex, setCurIndex] = useState(0);
+	const [emotionData, setEmotionData] = useState<EmotionSelectData | null>(
+		null
+	);
 	const [curDescIndex, setCurDescIndex] = useState<number | null>(null);
+	const [displayContent, setDisplayContent] = useState<string | null>(null);
 	const [isSelectComplete, setIsSelectComplete] = useState(false);
 	const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
 	return (
 		<EmotionSelectPageContext.Provider
 			value={{
-				emotionData: emotionSelectData,
+				emotionData,
+				setEmotionData,
 				curIndex,
 				setCurIndex,
 				curDescIndex,
 				setCurDescIndex,
+				displayContent,
+				setDisplayContent,
 				selectedEmotions,
 				setSelectedEmotions,
 				isSelectComplete,
