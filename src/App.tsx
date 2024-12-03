@@ -76,7 +76,7 @@ function App() {
 						<EmotionSelectPage />
 					)}
 				</EmotionSelectPageProvider>
-				<BottomAppBar />
+				{location.pathname !== "/" && <BottomAppBar />}
 			</div>
 		</div>
 	);
