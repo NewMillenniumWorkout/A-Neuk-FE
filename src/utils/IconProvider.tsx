@@ -10,6 +10,7 @@ import { ReactComponent as SettingsIcon } from "../assets/icons/Settings.svg";
 import { ReactComponent as FileEditIcon } from "../assets/icons/File_Edit.svg";
 import { ReactComponent as SendIcon } from "../assets/icons/Send_Up_Right.svg";
 import { ReactComponent as ImageIcon } from "../assets/icons/Image.svg";
+import { ReactComponent as HomeIcon } from "../assets/icons/Home.svg";
 
 export const IconProvider = {
 	ChatIcon,
@@ -24,4 +25,5 @@ export const IconProvider = {
 	FileEditIcon,
 	SendIcon,
 	ImageIcon,
+	HomeIcon,
 };
