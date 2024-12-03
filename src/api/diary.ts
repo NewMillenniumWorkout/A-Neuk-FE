@@ -9,11 +9,21 @@ interface NewContent {
 	};
 }
 
-interface FinalDiary {
+interface Emotion {
+	id: number;
+	title: string;
+	category: string;
+	description: string;
+	example: string;
+}
+
+export interface FinalDiary {
 	data: {
 		diary_id: number;
 		date: string;
 		content: string;
+		imageUrl: string;
+		emotionList: Emotion[];
 	};
 }
 
@@ -59,7 +69,7 @@ export const API_DIARY = {
 			const response = await apiClient.get<FinalDiary>(
 				`/diary/second-generate?diaryId=${diaryId}`
 			);
-			// console.log(response.data.data.content);
+			console.log(response.data);
 			return response.data;
 		} catch (error: any) {
 			console.error("Error generating final diary:", error.message);
