@@ -63,7 +63,7 @@ const CalendarPage: React.FC = () => {
 				/>
 			</div>
 			<div className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto pb-24">
-				<Card />
+				<Card curDiary={curDiary} />
 			</div>
 		</div>
 	);
