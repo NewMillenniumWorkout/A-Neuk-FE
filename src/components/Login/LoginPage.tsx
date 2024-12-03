@@ -22,7 +22,7 @@ const LoginPage = () => {
 	}, [email, accessToken, navigate, setAuth]);
 
 	return (
-		<div className="absolute inset-0 bg-white flex flex-col justify-center items-center w-full h-full p-8">
+		<div className="absolute inset-0 z-50 bg-white flex flex-col justify-center items-center w-full h-full p-8">
 			<img src={aneukImg} className="w-[25%] rounded-full mb-2" />
 			<div className="font-pretendard-bold text-2xl mb-44">아늑</div>
 			<div className="font-pretendard-light text-gray-aneuk text-base mb-4">
