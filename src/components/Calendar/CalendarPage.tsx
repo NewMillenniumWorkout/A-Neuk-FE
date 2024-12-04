@@ -6,27 +6,48 @@ import { formatToYYYYMM, formatToYYYYMMDD } from "../../utils/TimeFormatter";
 import { FinalDiary } from "../../api/diary";
 
 const CalendarPage: React.FC = () => {
-	const [date, setDate] = useState<Date | undefined>(new Date());
+	const [date, setDate] = useState<Date | undefined>(
+		new Date(new Date().getTime() - 9 * 60 * 60 * 1000)
+	);
 	const [diaryDates, setDiaryDates] = useState<string[]>([]);
 	const [curDiary, setCurDiary] = useState<FinalDiary | null>(null);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const loadMonthlyDiaries = async () => {
+		const loadInitialData = async () => {
 			if (!date) return;
-			const formattedMonth = formatToYYYYMM(date);
+
 			try {
-				const response = await API_CALENDAR.getMonthDiary(
+				const formattedMonth = formatToYYYYMM(date);
+				const monthResponse = await API_CALENDAR.getMonthDiary(
 					formattedMonth
 				);
-				const diaries = response.data.diaries_with_diary || [];
+				const diaries = monthResponse.data.diaries_with_diary || [];
 				const diaryDates = diaries.map((diary: any) =>
 					formatToYYYYMMDD(new Date(diary.month))
 				);
 				setDiaryDates(diaryDates);
+
+				const formattedDate = formatToYYYYMMDD(date);
+				console.log(formattedDate);
+				if (diaryDates.includes(formattedDate)) {
+					const dateResponse = await API_CALENDAR.getDateDiary(
+						formattedDate
+					);
+					setCurDiary(dateResponse);
+				}
+
+				setIsLoading(false);
 			} catch (error: any) {
-				console.error("Error loading monthly diaries: ", error);
+				console.error("Error loading initial data: ", error);
+				setIsLoading(false);
 			}
 		};
+
+		loadInitialData();
+	}, []);
+
+	useEffect(() => {
 		const loadDateDiary = async () => {
 			if (!date) return;
 
@@ -38,16 +59,16 @@ const CalendarPage: React.FC = () => {
 
 			try {
 				const response = await API_CALENDAR.getDateDiary(formattedDate);
-				console.log("API Response:", response);
 				setCurDiary(response);
 			} catch (error: any) {
 				console.error("Error loading date diary: ", error);
 			}
 		};
 
-		loadMonthlyDiaries();
-		loadDateDiary();
-	}, [date]);
+		if (diaryDates.length > 0) {
+			loadDateDiary();
+		}
+	}, [date, diaryDates]);
 
 	return (
 		<div className="flex flex-col w-full h-full bg-white-aneuk">
@@ -61,7 +82,7 @@ const CalendarPage: React.FC = () => {
 				/>
 			</div>
 			<div className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto">
-				<Card curDiary={curDiary} />
+				{!isLoading && <Card curDiary={curDiary} />}
 			</div>
 		</div>
 	);
