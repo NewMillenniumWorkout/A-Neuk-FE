@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FinalDiary } from "../../api/diary";
+import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 import sampleImg from "/Users/minsik/Documents/Projects/A-Neuk-FE/src/assets/images/odocat.png";
 
 interface CardProps {
@@ -81,9 +83,16 @@ const Card: React.FC<CardProps> = ({ curDiary }) => {
 					</div>
 				</div>
 				<div
-					className={`absolute inset-0 flex flex-col justify-start items-start w-full h-full bg-white rounded-[32px] [transform:rotateY(-180deg)] [backface-visibility:hidden]`}
+					className={`absolute inset-0 flex flex-col justify-start items-start w-full h-full p-7 bg-white rounded-[32px] [transform:rotateY(-180deg)] [backface-visibility:hidden]`}
 				>
-					<div className="text-start p-4">
+					<div className="font-gowun-bold text-lg text-black-aneuk mb-2">
+						{format(
+							new Date(sampleContent.data.date),
+							"yyyy.MM.dd EEEE",
+							{ locale: ko }
+						)}
+					</div>
+					<div className="font-gowun-regular text-black-aneuk text-base text-start overflow-y-auto">
 						{sampleContent.data.content}
 					</div>
 				</div>
