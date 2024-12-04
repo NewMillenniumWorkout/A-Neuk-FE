@@ -5,16 +5,12 @@ import { useChatPage } from "./ChatPageContext";
 import { API_DIARY } from "../../api/diary";
 import { useEmotionSelectPage } from "../EmotionSelect/EmotionSelectPageContext";
 
-interface SlideAreaProps {
-	isLoading: boolean;
-}
-
-const SlideArea: React.FC<SlideAreaProps> = ({ isLoading }) => {
+const SlideArea: React.FC = () => {
 	const sliderContainerRef = useRef<HTMLDivElement>(null);
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const [isDragging, setIsDragging] = useState(false);
 	const [sliderPos, setSliderPos] = useState(0);
-	const { curChatId, userImage } = useChatPage();
+	const { curChatId, userImage, isLoading } = useChatPage();
 	const { setEmotionData } = useEmotionSelectPage();
 	const navigate = useNavigate();
 

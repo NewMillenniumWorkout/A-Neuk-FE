@@ -4,13 +4,12 @@ import { useChatPage } from "./ChatPageContext";
 
 interface InputAreaProps {
 	onSend: (chatId: number, content: string) => void;
-	isLoading: boolean;
 }
 
-const InputArea: React.FC<InputAreaProps> = ({ onSend, isLoading }) => {
+const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [inputValue, setInputValue] = useState("");
-	const { curChatId, isGenStart } = useChatPage();
+	const { curChatId, isGenStart, isLoading } = useChatPage();
 
 	const autoHeight = () => {
 		if (textareaRef.current) {
@@ -62,21 +61,17 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, isLoading }) => {
 				}}
 				onKeyDown={handleKeyDown}
 			/>
-			<InputAreaButton onClick={handleSend} isLoading={isLoading} />
+			<InputAreaButton onClick={handleSend} />
 		</div>
 	);
 };
 
 interface InputAreaButtonProps {
 	onClick: () => void;
-	isLoading: boolean;
 }
 
-const InputAreaButton: React.FC<InputAreaButtonProps> = ({
-	onClick,
-	isLoading,
-}) => {
-	const { isGenStart } = useChatPage();
+const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
+	const { isGenStart, isLoading } = useChatPage();
 	return (
 		<button
 			className={`absolute right-2.5 flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full bg-black-aneuk ${

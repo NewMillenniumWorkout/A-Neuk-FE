@@ -24,9 +24,10 @@ const ChatPage: React.FC = () => {
 		isEmotionSelectAble,
 		setIsEmotionSelectAble,
 		addMessage,
+		isLoading,
+		setIsLoading,
 	} = useChatPage();
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
-	const [isLoading, setIsLoading] = useState(false);
 
 	const autoScroll = () => {
 		if (BubbleContainerRef.current) {
@@ -153,9 +154,9 @@ const ChatPage: React.FC = () => {
 				</div>
 			)}
 			{isEmotionSelectAble ? (
-				<SlideArea isLoading={isLoading} />
+				<SlideArea />
 			) : (
-				<InputArea onSend={addMessage} isLoading={isLoading} />
+				<InputArea onSend={addMessage} />
 			)}
 		</div>
 	);

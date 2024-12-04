@@ -22,6 +22,8 @@ interface ChatPageContextType {
 	addMessage: (chatId: number, content: string) => void;
 	userImage: File | null;
 	setUserImage: React.Dispatch<React.SetStateAction<File | null>>;
+	isLoading: boolean;
+	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ChatPageContext = createContext<ChatPageContextType | undefined>(
@@ -54,6 +56,7 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [isGenStart, setIsGenStart] = useState(false);
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
 	const [userImage, setUserImage] = useState<File | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const addMessage = async (chatId: number, content: string) => {
 		const newMessage: MessageSend = {
@@ -102,6 +105,8 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 				addMessage,
 				userImage,
 				setUserImage,
+				isLoading,
+				setIsLoading,
 			}}
 		>
 			{children}
