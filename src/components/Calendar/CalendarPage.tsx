@@ -6,9 +6,7 @@ import { formatToYYYYMM, formatToYYYYMMDD } from "../../utils/TimeFormatter";
 import { FinalDiary } from "../../api/diary";
 
 const CalendarPage: React.FC = () => {
-	const [date, setDate] = useState<Date | undefined>(
-		new Date(new Date().getTime() - 9 * 60 * 60 * 1000)
-	);
+	const [date, setDate] = useState<Date | undefined>(new Date());
 	const [diaryDates, setDiaryDates] = useState<string[]>([]);
 	const [curDiary, setCurDiary] = useState<FinalDiary | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
@@ -16,9 +14,9 @@ const CalendarPage: React.FC = () => {
 	useEffect(() => {
 		const loadInitialData = async () => {
 			if (!date) return;
-
+			const tempDate = new Date(date.getTime() - 9 * 60 * 60 * 1000);
 			try {
-				const formattedMonth = formatToYYYYMM(date);
+				const formattedMonth = formatToYYYYMM(tempDate);
 				const monthResponse = await API_CALENDAR.getMonthDiary(
 					formattedMonth
 				);
@@ -28,7 +26,7 @@ const CalendarPage: React.FC = () => {
 				);
 				setDiaryDates(diaryDates);
 
-				const formattedDate = formatToYYYYMMDD(date);
+				const formattedDate = formatToYYYYMMDD(tempDate);
 				if (diaryDates.includes(formattedDate)) {
 					const dateResponse = await API_CALENDAR.getDateDiary(
 						formattedDate
@@ -49,8 +47,9 @@ const CalendarPage: React.FC = () => {
 	useEffect(() => {
 		const loadDateDiary = async () => {
 			if (!date) return;
+			const tempDate = new Date(date.getTime() - 9 * 60 * 60 * 1000);
 
-			const formattedDate = formatToYYYYMMDD(date);
+			const formattedDate = formatToYYYYMMDD(tempDate);
 			if (!diaryDates.includes(formattedDate)) {
 				if (curDiary != null) setCurDiary(null);
 				return;
