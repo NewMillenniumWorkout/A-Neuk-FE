@@ -29,7 +29,6 @@ const CalendarPage: React.FC = () => {
 				setDiaryDates(diaryDates);
 
 				const formattedDate = formatToYYYYMMDD(date);
-				console.log(formattedDate);
 				if (diaryDates.includes(formattedDate)) {
 					const dateResponse = await API_CALENDAR.getDateDiary(
 						formattedDate
