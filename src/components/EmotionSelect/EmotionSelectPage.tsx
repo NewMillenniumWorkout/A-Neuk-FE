@@ -25,14 +25,23 @@ const EmotionSelectPage: React.FC = () => {
 	const contentList = emotionData?.data.content_list;
 
 	const handleNext = () => {
+		const handleSendEmotions = async () => {
+			if (emotionData) {
+				try {
+					await API_DIARY.sendSelectedEmotion(
+						emotionData.data.diary_id,
+						curIndex,
+						selectedEmotions
+					);
+				} catch (error: any) {
+					console.error("Error handleSendEmotions: ", error);
+				}
+			}
+		};
 		if (contentList !== undefined) {
 			if (curIndex < contentList.length - 1) {
 				setCurIndex((prevIndex) => prevIndex + 1);
-				console.log(
-					emotionData?.data.diary_id,
-					curIndex,
-					selectedEmotions
-				);
+				handleSendEmotions();
 				setSelectedEmotions([]);
 				setCurDescIndex(null);
 			}

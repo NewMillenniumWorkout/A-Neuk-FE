@@ -76,4 +76,25 @@ export const API_DIARY = {
 			throw error;
 		}
 	},
+	sendSelectedEmotion: async (
+		diary_id: number,
+		order_index: number,
+		emotions: string[]
+	) => {
+		try {
+			const selectedEmotions = {
+				diary_id: diary_id,
+				order_index: order_index,
+				emotions: emotions,
+			};
+			const response = await apiClient.post<void>(
+				`/diary/emotion/save`,
+				selectedEmotions
+			);
+			console.log(response.data);
+		} catch (error: any) {
+			console.error("Error sending selected emotions:", error.message);
+			throw error;
+		}
+	},
 };
