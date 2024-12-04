@@ -3,13 +3,16 @@ import { Message } from "./ChatData.ts";
 import { formatDate } from "../../utils/TimeFormatter.tsx";
 import { ChatPageProvider, useChatPage } from "./ChatPageContext.tsx";
 import { API_CHAT } from "../../api/chat.ts";
+import { API_DIARY } from "../../api/diary.ts";
 import ChatBubble from "./ChatBubble";
 import TopAppBar from "./TopAppBar.tsx";
 import InputArea from "./InputArea.tsx";
 import ToastButton from "./ToastButton.tsx";
 import ImageReceiver from "./ImageReceiver.tsx";
 import SlideArea from "./SlideArea.tsx";
+import { useEmotionSelectPage } from "../EmotionSelect/EmotionSelectPageContext.tsx";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ChatPage: React.FC = () => {
 	const {
@@ -21,19 +24,38 @@ const ChatPage: React.FC = () => {
 		setIsGenAble,
 		isGenStart,
 		setIsGenStart,
+		isGenComplete,
+		setIsGenComplete,
 		isEmotionSelectAble,
 		setIsEmotionSelectAble,
 		addMessage,
 		isLoading,
 		setIsLoading,
+		userImage,
 	} = useChatPage();
+	const { setEmotionData } = useEmotionSelectPage();
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
+	const navigate = useNavigate();
 
 	const autoScroll = () => {
 		if (BubbleContainerRef.current) {
 			BubbleContainerRef.current.scrollTop =
 				BubbleContainerRef.current.scrollHeight;
 		}
+	};
+
+	const handleGenClick = async () => {
+		setIsGenStart(true);
+		try {
+			if (curChatId !== null) {
+				const emotionData = await API_DIARY.getEmotions(curChatId);
+				setEmotionData(emotionData);
+				console.log("gen complete");
+			}
+		} catch (error) {
+			console.log("Error gen");
+		}
+		setIsGenComplete(true);
 	};
 
 	useEffect(() => {
@@ -76,7 +98,6 @@ const ChatPage: React.FC = () => {
 	useEffect(() => {
 		const loadInitialMessage = async () => {
 			try {
-				setIsLoading(true);
 				const response = await API_CHAT.fetchInitialMessage();
 				setCurChatId(response.data.chatId);
 				if (response.data.type === "SYSTEM") {
@@ -111,6 +132,12 @@ const ChatPage: React.FC = () => {
 
 		loadChatHistory();
 	}, [curChatId, setMessages]);
+
+	useEffect(() => {
+		if (isEmotionSelectAble) {
+			navigate("/emotion-select");
+		}
+	}, [isEmotionSelectAble]);
 
 	return (
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
@@ -151,18 +178,12 @@ const ChatPage: React.FC = () => {
 			{isGenAble && !isGenStart && (
 				<div className="min-h-16">
 					<ToastButton
-						onClick={() => {
-							setIsGenStart(true);
-						}}
+						onClick={handleGenClick}
 						label="일기 생성 가능!"
 					/>
 				</div>
 			)}
-			{isEmotionSelectAble ? (
-				<SlideArea />
-			) : (
-				<InputArea onSend={addMessage} />
-			)}
+			{userImage ? <SlideArea /> : <InputArea onSend={addMessage} />}
 		</div>
 	);
 };

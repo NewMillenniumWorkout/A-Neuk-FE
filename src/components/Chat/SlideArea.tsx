@@ -1,18 +1,13 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import { API_CHAT } from "../../api/chat";
 import { useChatPage } from "./ChatPageContext";
-import { API_DIARY } from "../../api/diary";
-import { useEmotionSelectPage } from "../EmotionSelect/EmotionSelectPageContext";
 
 const SlideArea: React.FC = () => {
 	const sliderContainerRef = useRef<HTMLDivElement>(null);
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const [isDragging, setIsDragging] = useState(false);
 	const [sliderPos, setSliderPos] = useState(0);
-	const { curChatId, userImage, isLoading } = useChatPage();
-	const { setEmotionData } = useEmotionSelectPage();
-	const navigate = useNavigate();
+	const { curChatId, userImage, isLoading, setIsLoading } = useChatPage();
 
 	const emojis = [
 		"🙂",
@@ -79,20 +74,12 @@ const SlideArea: React.FC = () => {
 
 		const containerWidth = sliderContainerRef.current.offsetWidth;
 		if (sliderPos >= containerWidth - 44) {
+			setIsLoading(true);
 			try {
 				await API_CHAT.sendImage(curChatId!, userImage!);
 			} catch (error) {
 				console.error("Error sending image:", error);
 			}
-			try {
-				if (curChatId !== null) {
-					const emotionData = await API_DIARY.getEmotions(curChatId);
-					setEmotionData(emotionData);
-				}
-			} catch (error) {
-				console.log("Error gen");
-			}
-			navigate("/emotion-select");
 		} else {
 			setSliderPos(0);
 		}
@@ -130,6 +117,14 @@ const SlideArea: React.FC = () => {
 		};
 	}, [isDragging, sliderPos]);
 
+	useEffect(() => {
+		if (isLoading && sliderContainerRef.current) {
+			const containerWidth = sliderContainerRef.current.offsetWidth;
+			console.log(containerWidth);
+			setSliderPos(containerWidth - 44);
+		}
+	}, [isLoading]);
+
 	return (
 		<div className="relative flex flex-row justify-end items-end p-2 bg-white z-40">
 			<div
@@ -137,14 +132,18 @@ const SlideArea: React.FC = () => {
 				className="relative w-full h-11 pl-4 pr-14 py-2.5 rounded-[22px] bg-white border overflow-hidden"
 			>
 				<span className="absolute inset-0 flex items-center justify-center text-gray-700 font-medium">
-					밀어서 감정 선택하러 가기 →
+					{isLoading
+						? "일기를 생성중입니다..."
+						: "밀어서 감정 선택하러 가기 →"}
 				</span>
 			</div>
 			<div
 				ref={sliderRef}
-				className={`slider absolute left-2.5 top-2.5 h-10 w-10 bg-transparent rounded-full cursor-pointer z-50 flex justify-center items-center text-[2.5rem]
-					${isLoading ? "spinner" : ""}`}
-				style={{ transform: `translateX(${sliderPos}px)` }}
+				className={`absolute top-2.5 slider h-10 w-10 bg-transparent rounded-full cursor-pointer z-50 flex justify-center items-center text-[2.5rem]
+					${isLoading ? "animate-spinner right-2.5" : "left-2.5"}`}
+				style={{
+					transform: `translateX(${sliderPos}px`,
+				}}
 				onMouseDown={handleStart}
 				onTouchStart={handleStart}
 			>
