@@ -143,7 +143,7 @@ const ChatPage: React.FC = () => {
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
 			<TopAppBar />
 			<div
-				className="flex-grow min-h-0 p-2 overflow-y-auto"
+				className="flex-grow min-h-0 px-2 pb-2 overflow-y-auto"
 				ref={BubbleContainerRef}
 			>
 				{messages.map((message: Message, index: number) => {
