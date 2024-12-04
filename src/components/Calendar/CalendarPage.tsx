@@ -10,8 +10,12 @@ const CalendarPage: React.FC = () => {
 	const [diaryDates, setDiaryDates] = useState<string[]>([]);
 	const [curDiary, setCurDiary] = useState<FinalDiary | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [selectedEmotionId, setSelectedEmotionId] = useState<number | null>(
+		null
+	);
 
 	const containerRef = useRef<HTMLDivElement>(null);
+	const descriptionRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const loadInitialData = async () => {
@@ -77,7 +81,31 @@ const CalendarPage: React.FC = () => {
 				behavior: "smooth",
 			});
 		}
+		setSelectedEmotionId(null);
 	}, [date]);
+
+	useEffect(() => {
+		if (
+			selectedEmotionId !== null &&
+			descriptionRef.current &&
+			containerRef.current
+		) {
+			const descriptionPosition = descriptionRef.current.offsetTop;
+			const containerScrollPosition = containerRef.current.scrollTop;
+
+			const extraScroll = 50;
+
+			containerRef.current.scrollTo({
+				top:
+					descriptionPosition - containerScrollPosition + extraScroll,
+				behavior: "smooth",
+			});
+		}
+	}, [selectedEmotionId]);
+
+	const handleEmotionClick = (id: number) => {
+		setSelectedEmotionId((prevId) => (prevId === id ? null : id));
+	};
 
 	return (
 		<div className="flex flex-col w-full h-full bg-white-aneuk">
@@ -92,11 +120,56 @@ const CalendarPage: React.FC = () => {
 			</div>
 			<div
 				ref={containerRef}
-				className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto"
+				className="flex flex-col flex-grow justify-start items-center bg-white-aneuk pb-24 overflow-y-auto"
 			>
 				{!isLoading && <Card curDiary={curDiary} />}
 
-				{!isLoading && <Card curDiary={curDiary} />}
+				<div className="flex flex-row flex-wrap justify-start items-start px-11 pt-6 w-full">
+					{curDiary &&
+						curDiary.data.emotionList.map((emotion, index) => {
+							const isSelected = selectedEmotionId === emotion.id;
+							return (
+								<div
+									key={emotion.id}
+									className="flex flex-col justify-start items-start"
+								>
+									<div
+										onClick={() =>
+											handleEmotionClick(emotion.id)
+										}
+										className={`flex flex-row space-x-2 mr-2 mb-2 justify-start items-center py-0.5 pl-1 pr-2.5 bg-white text-black-aneuk border rounded-full cursor-pointer  ${
+											isSelected
+												? "font-gowun-bold shadow-custom-strong h-12 text-2xl"
+												: "font-gowun-regular text-xl"
+										} transition-all duration-300 ease-in-out`}
+									>
+										<div
+											className={` bg-blue-600 rounded-full ${
+												isSelected
+													? "w-9 h-9"
+													: "w-6 h-6"
+											}`}
+										/>
+										<div>{emotion.title}</div>
+									</div>
+
+									{isSelected && (
+										<div
+											ref={descriptionRef}
+											className="flex flex-col justify-center items-center w-full mt-2 mb-4 text-black-aneuk"
+										>
+											<div className="font-pretendard-regular text-lg text-black-aneuk mb-2 text-center">
+												{emotion.description}
+											</div>
+											<div className="font-pretendard text-base text-zinc-400 text-center">
+												"{emotion.example}"
+											</div>
+										</div>
+									)}
+								</div>
+							);
+						})}
+				</div>
 			</div>
 		</div>
 	);
