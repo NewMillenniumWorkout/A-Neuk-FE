@@ -8,7 +8,6 @@ import { FinalDiary } from "../../api/diary";
 const CalendarPage: React.FC = () => {
 	const [date, setDate] = useState<Date | undefined>(new Date());
 	const [diaryDates, setDiaryDates] = useState<string[]>([]);
-	const [curDiaryId, setCurDiaryId] = useState<number | null>(null);
 	const [curDiary, setCurDiary] = useState<FinalDiary | null>(null);
 
 	useEffect(() => {
@@ -23,7 +22,6 @@ const CalendarPage: React.FC = () => {
 				const diaryDates = diaries.map((diary: any) =>
 					formatToYYYYMMDD(new Date(diary.month))
 				);
-				setCurDiaryId(diaries[diaries.length - 1]?.diary_id || null);
 				setDiaryDates(diaryDates);
 			} catch (error: any) {
 				console.error("Error loading monthly diaries: ", error);
