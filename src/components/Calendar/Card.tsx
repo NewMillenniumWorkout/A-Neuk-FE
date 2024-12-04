@@ -3,6 +3,7 @@ import { FinalDiary } from "../../api/diary";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import sampleImg from "/Users/minsik/Documents/Projects/A-Neuk-FE/src/assets/images/odocat.png";
+import { getEmotionColor } from "../../utils/GetEmotionColor";
 
 interface CardProps {
 	curDiary: FinalDiary | null;
@@ -18,6 +19,15 @@ const Card: React.FC<CardProps> = ({ curDiary }) => {
 	useEffect(() => {
 		setIsFlipped(false);
 	}, [curDiary]);
+
+	const categories = curDiary?.data.emotionList.map(
+		(emotion) => emotion.category
+	);
+	const uniqueCategories = categories
+		? categories.filter(
+				(value, index, self) => self.indexOf(value) === index
+		  )
+		: [];
 
 	if (curDiary === null) {
 		return (
@@ -47,8 +57,14 @@ const Card: React.FC<CardProps> = ({ curDiary }) => {
 						className="flex flex-col justify-center items-center w-[100%] h-[80%] rounded-[24px] object-cover"
 					/>
 					<div className="flex flex-row flex-1 justify-start items-start p-2 space-x-2">
-						<div className="aspect-square w-[8%] rounded-full bg-green-500" />
-						<div className="aspect-square w-[8%] rounded-full bg-blue-500" />
+						{uniqueCategories.map((category, index) => (
+							<div
+								key={index}
+								className={`aspect-square w-6 rounded-full ${getEmotionColor(
+									category
+								)}`}
+							/>
+						))}
 					</div>
 				</div>
 				<div
