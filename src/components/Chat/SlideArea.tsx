@@ -120,7 +120,6 @@ const SlideArea: React.FC = () => {
 	useEffect(() => {
 		if (isLoading && sliderContainerRef.current) {
 			const containerWidth = sliderContainerRef.current.offsetWidth;
-			console.log(containerWidth);
 			setSliderPos(containerWidth - 44);
 		}
 	}, [isLoading]);
