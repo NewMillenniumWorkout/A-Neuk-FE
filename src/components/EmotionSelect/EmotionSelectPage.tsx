@@ -9,6 +9,7 @@ const EmotionSelectPage: React.FC = () => {
 	const navigate = useNavigate();
 	const {
 		emotionData,
+		setCurDescIndex,
 		curIndex,
 		setCurIndex,
 		displayContent,
@@ -25,7 +26,13 @@ const EmotionSelectPage: React.FC = () => {
 		if (contentList !== undefined) {
 			if (curIndex < contentList.length - 1) {
 				setCurIndex((prevIndex) => prevIndex + 1);
+				console.log(
+					emotionData?.data.diary_id,
+					curIndex,
+					selectedEmotions
+				);
 				setSelectedEmotions([]);
+				setCurDescIndex(null);
 			}
 		}
 	};
@@ -43,30 +50,42 @@ const EmotionSelectPage: React.FC = () => {
 	};
 
 	useEffect(() => {
-		if (emotionData !== null && contentList !== undefined) {
-			const fetchContent = async () => {
+		let isLatestRequest = true;
+
+		const fetchContent = async () => {
+			if (emotionData !== null && contentList !== undefined) {
 				if (selectedEmotions.length === 0) {
 					setDisplayContent(contentList[curIndex].original_content);
-				} else {
-					setIsLoading(true);
-					try {
-						const response = await API_DIARY.genNewContent(
-							emotionData.data.diary_id,
-							curIndex,
-							contentList[curIndex].original_content,
-							selectedEmotions
-						);
+					return;
+				}
+
+				setIsLoading(true);
+				try {
+					const response = await API_DIARY.genNewContent(
+						emotionData.data.diary_id,
+						curIndex,
+						contentList[curIndex].original_content,
+						selectedEmotions
+					);
+
+					if (isLatestRequest) {
 						setDisplayContent(response.data.final_content);
-					} catch (error) {
-						console.error("Error fetching new content:", error);
-					} finally {
+					}
+				} catch (error) {
+					console.error("Error fetching new content:", error);
+				} finally {
+					if (isLatestRequest) {
 						setIsLoading(false);
 					}
 				}
-			};
+			}
+		};
 
-			fetchContent();
-		}
+		fetchContent();
+
+		return () => {
+			isLatestRequest = false;
+		};
 	}, [curIndex, selectedEmotions]);
 
 	if (contentList === undefined) {
@@ -85,9 +104,13 @@ const EmotionSelectPage: React.FC = () => {
 						#{curIndex + 1}/{contentList.length}
 					</div>
 					<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
-						<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
-							{displayContent}
-						</div>
+						{isLoading ? (
+							<div>로딩중중주루룽</div>
+						) : (
+							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
+								{displayContent}
+							</div>
+						)}
 					</div>
 					<div className="ml-2 mb-2 font-gowun-regular text-[#6F6F6F] text-sm">
 						추천 단어
