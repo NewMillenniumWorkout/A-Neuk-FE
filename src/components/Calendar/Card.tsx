@@ -7,11 +7,11 @@ import { getEmotionColor } from "../../utils/GetEmotionColor";
 
 interface CardProps {
 	curDiary: FinalDiary | null;
+	isFlipped: boolean;
+	setIsFlipped: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Card: React.FC<CardProps> = ({ curDiary }) => {
-	const [isFlipped, setIsFlipped] = useState(false);
-
+const Card: React.FC<CardProps> = ({ curDiary, isFlipped, setIsFlipped }) => {
 	const handleCardClick = () => {
 		setIsFlipped(!isFlipped);
 	};
