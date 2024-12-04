@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
 import CheckboxGroup from "./CheckBoxGroup";
 import { API_DIARY, FinalDiary } from "../../api/diary";
+import { debounce } from "lodash";
 
 const EmotionSelectPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -49,10 +50,8 @@ const EmotionSelectPage: React.FC = () => {
 		}
 	};
 
-	useEffect(() => {
-		let isLatestRequest = true;
-
-		const fetchContent = async () => {
+	const debouncedFetchContent = useCallback(
+		debounce(async () => {
 			if (emotionData !== null && contentList !== undefined) {
 				if (selectedEmotions.length === 0) {
 					setDisplayContent(contentList[curIndex].original_content);
@@ -67,25 +66,20 @@ const EmotionSelectPage: React.FC = () => {
 						contentList[curIndex].original_content,
 						selectedEmotions
 					);
-
-					if (isLatestRequest) {
-						setDisplayContent(response.data.final_content);
-					}
+					setDisplayContent(response.data.final_content);
 				} catch (error) {
 					console.error("Error fetching new content:", error);
 				} finally {
-					if (isLatestRequest) {
-						setIsLoading(false);
-					}
+					setIsLoading(false);
 				}
 			}
-		};
+		}, 300),
+		[emotionData, contentList, curIndex, selectedEmotions]
+	);
 
-		fetchContent();
-
-		return () => {
-			isLatestRequest = false;
-		};
+	useEffect(() => {
+		debouncedFetchContent();
+		return () => debouncedFetchContent.cancel();
 	}, [curIndex, selectedEmotions]);
 
 	if (contentList === undefined) {
