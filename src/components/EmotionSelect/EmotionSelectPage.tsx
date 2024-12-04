@@ -1,9 +1,9 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
 import CheckboxGroup from "./CheckBoxGroup";
-import { API_DIARY, FinalDiary } from "../../api/diary";
+import { API_DIARY } from "../../api/diary";
 import { debounce } from "lodash";
 
 const EmotionSelectPage: React.FC = () => {
@@ -21,6 +21,7 @@ const EmotionSelectPage: React.FC = () => {
 	} = useEmotionSelectPage();
 
 	const [isLoading, setIsLoading] = useState(false);
+	const latestRequestIdRef = useRef(0);
 	const contentList = emotionData?.data.content_list;
 
 	const handleNext = () => {
@@ -49,10 +50,12 @@ const EmotionSelectPage: React.FC = () => {
 			navigate("/calendar");
 		}
 	};
-
 	const debouncedFetchContent = useCallback(
 		debounce(async () => {
 			if (emotionData !== null && contentList !== undefined) {
+				const requestId = Date.now();
+				latestRequestIdRef.current = requestId;
+
 				if (selectedEmotions.length === 0) {
 					setDisplayContent(contentList[curIndex].original_content);
 					return;
@@ -66,11 +69,16 @@ const EmotionSelectPage: React.FC = () => {
 						contentList[curIndex].original_content,
 						selectedEmotions
 					);
-					setDisplayContent(response.data.final_content);
+
+					if (requestId === latestRequestIdRef.current) {
+						setDisplayContent(response.data.final_content);
+					}
 				} catch (error) {
 					console.error("Error fetching new content:", error);
 				} finally {
-					setIsLoading(false);
+					if (requestId === latestRequestIdRef.current) {
+						setIsLoading(false);
+					}
 				}
 			}
 		}, 300),
