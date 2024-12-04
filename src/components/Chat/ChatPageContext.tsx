@@ -64,7 +64,9 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 			id: chatId,
 			content: content,
 			type: "MEMBER",
-			sentTime: new Date().toISOString(),
+			sentTime: new Date(
+				new Date().getTime() - 9 * 60 * 60 * 1000
+			).toISOString(),
 		};
 		try {
 			setMessages((prevMessages) => [...prevMessages, tempMessage]);

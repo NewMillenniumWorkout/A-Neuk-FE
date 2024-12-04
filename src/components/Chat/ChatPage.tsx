@@ -134,7 +134,7 @@ const ChatPage: React.FC = () => {
 							)}
 							<ChatBubble
 								content={message.content}
-								sendTime={message.sentTime}
+								sendTime={new Date(message.sentTime)}
 								sender={message.type}
 							/>
 						</div>
