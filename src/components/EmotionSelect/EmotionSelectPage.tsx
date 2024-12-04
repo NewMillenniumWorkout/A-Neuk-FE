@@ -99,7 +99,15 @@ const EmotionSelectPage: React.FC = () => {
 					</div>
 					<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
 						{isLoading ? (
-							<div>로딩중중주루룽</div>
+							<div
+								role="status"
+								className="max-w-sm animate-pulse"
+							>
+								<div className="h-5 bg-gray-200 rounded-full mb-4"></div>
+								<div className="h-5 bg-gray-200 rounded-full mb-4"></div>
+								<div className="h-5 bg-gray-200 rounded-full max-w-[280px] mb-4"></div>
+								<span className="sr-only">Loading...</span>
+							</div>
 						) : (
 							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
 								{displayContent}
