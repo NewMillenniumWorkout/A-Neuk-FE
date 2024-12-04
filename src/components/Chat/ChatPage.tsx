@@ -85,7 +85,7 @@ const ChatPage: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (messages.length > 10) {
+		if (messages.length > 3) {
 			setIsGenAble(true);
 		}
 		autoScroll();
@@ -111,7 +111,7 @@ const ChatPage: React.FC = () => {
 		};
 
 		loadInitialMessage();
-	}, [setMessages]);
+	}, []);
 
 	useEffect(() => {
 		const loadChatHistory = async () => {
@@ -131,7 +131,7 @@ const ChatPage: React.FC = () => {
 		};
 
 		loadChatHistory();
-	}, [curChatId, setMessages]);
+	}, [curChatId]);
 
 	useEffect(() => {
 		if (isEmotionSelectAble) {
