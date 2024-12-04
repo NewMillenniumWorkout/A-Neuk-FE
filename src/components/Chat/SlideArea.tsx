@@ -7,7 +7,8 @@ const SlideArea: React.FC = () => {
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const [isDragging, setIsDragging] = useState(false);
 	const [sliderPos, setSliderPos] = useState(0);
-	const { curChatId, userImage, isLoading, setIsLoading } = useChatPage();
+	const { curChatId, userImage, setIsSlide, isLoading, setIsLoading } =
+		useChatPage();
 
 	const emojis = [
 		"🙂",
@@ -79,6 +80,8 @@ const SlideArea: React.FC = () => {
 				await API_CHAT.sendImage(curChatId!, userImage!);
 			} catch (error) {
 				console.error("Error sending image:", error);
+			} finally {
+				setIsSlide(true);
 			}
 		} else {
 			setSliderPos(0);

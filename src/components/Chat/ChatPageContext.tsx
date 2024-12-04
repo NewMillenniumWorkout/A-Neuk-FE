@@ -17,6 +17,8 @@ interface ChatPageContextType {
 	setIsGenAble: React.Dispatch<React.SetStateAction<boolean>>;
 	isGenStart: boolean;
 	setIsGenStart: React.Dispatch<React.SetStateAction<boolean>>;
+	isSlide: boolean;
+	setIsSlide: React.Dispatch<React.SetStateAction<boolean>>;
 	isGenComplete: boolean;
 	setIsGenComplete: React.Dispatch<React.SetStateAction<boolean>>;
 	isEmotionSelectAble: boolean;
@@ -57,6 +59,7 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [isGenAble, setIsGenAble] = useState(false);
 	const [isGenStart, setIsGenStart] = useState(false);
 	const [isGenComplete, setIsGenComplete] = useState(false);
+	const [isSlide, setIsSlide] = useState(false);
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
 	const [userImage, setUserImage] = useState<File | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
@@ -87,14 +90,6 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 		}
 	};
 
-	useEffect(() => {
-		if (userImage && isGenComplete) {
-			setIsEmotionSelectAble(true);
-		} else {
-			setIsEmotionSelectAble(false);
-		}
-	}, [userImage, isGenComplete]);
-
 	return (
 		<ChatPageContext.Provider
 			value={{
@@ -106,6 +101,8 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 				setIsGenAble,
 				isGenStart,
 				setIsGenStart,
+				isSlide,
+				setIsSlide,
 				isGenComplete,
 				setIsGenComplete,
 				isEmotionSelectAble,
