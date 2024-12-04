@@ -62,7 +62,7 @@ const CalendarPage: React.FC = () => {
 					diaryDates={diaryDates}
 				/>
 			</div>
-			<div className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto pb-24">
+			<div className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto">
 				<Card curDiary={curDiary} />
 			</div>
 		</div>
