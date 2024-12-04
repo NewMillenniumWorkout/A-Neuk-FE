@@ -74,7 +74,7 @@ const InputAreaButton: React.FC<InputAreaButtonProps> = ({ onClick }) => {
 	const { isGenStart, isLoading } = useChatPage();
 	return (
 		<button
-			className={`absolute right-2.5 flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full bg-black-aneuk ${
+			className={`absolute right-2.5 flex mb-0.5 items-center justify-center h-10 w-10 min-w-10 rounded-full bg-black-aneuk disabled:opacity-50 ${
 				isGenStart && "scale-0"
 			} transition-all duration-500 ease-in-out`}
 			onClick={onClick}

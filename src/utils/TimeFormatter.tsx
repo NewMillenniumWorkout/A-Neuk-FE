@@ -1,5 +1,7 @@
-export function formatTime(serverDate: Date) {
-	const koreanDate = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000);
+export function formatTime(serverDate: string) {
+	const date = new Date(serverDate);
+	const koreanDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+
 	const hours = koreanDate.getHours();
 	const minutes = koreanDate.getMinutes();
 	const period = hours < 12 ? "오전" : "오후";

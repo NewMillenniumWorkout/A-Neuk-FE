@@ -101,11 +101,17 @@ const ChatPage: React.FC = () => {
 				} finally {
 					setIsLoading(false);
 				}
+			} else {
+				setIsLoading(false);
 			}
 		};
 
 		loadChatHistory();
 	}, [curChatId, setMessages]);
+
+	useEffect(() => {
+		console.log("isLoading updated:", isLoading, new Date());
+	}, [isLoading]);
 
 	return (
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
@@ -135,7 +141,7 @@ const ChatPage: React.FC = () => {
 							)}
 							<ChatBubble
 								content={message.content}
-								sendTime={new Date(message.sentTime)}
+								sendTime={message.sentTime}
 								sender={message.type}
 							/>
 						</div>

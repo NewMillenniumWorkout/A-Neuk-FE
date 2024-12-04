@@ -4,7 +4,7 @@ import profileImg from "../../assets/images/aneuk_profile.png";
 
 interface ChatBubbleProps {
 	content: string;
-	sendTime: Date;
+	sendTime: string;
 	sender: string;
 }
 
