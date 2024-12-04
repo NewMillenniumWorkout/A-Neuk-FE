@@ -16,12 +16,12 @@ const ToastButton: React.FC<ToastButtonProps> = ({ label, onClick }) => {
 
 	return (
 		<div
-			className={`absolute bottom-16 inset-x-0 flex justify-center items-end ${
+			className={`absolute bottom-[4.3rem] inset-x-0 flex justify-center items-end ${
 				isFloating ? "animate-floating" : "animate-slide-up"
 			}`}
 		>
 			<button
-				className="relative flex justify-center items-center rounded-full w-44 h-12 bg-white text-black-aneuk shadow-sm border-2"
+				className="relative flex justify-center items-center rounded-full w-40 h-10 bg-white text-black-aneuk shadow-md border"
 				onClick={onClick}
 			>
 				{label}

@@ -11,19 +11,19 @@ const IconButton: React.FC<IconButtonProps> = ({
 	icon,
 	label,
 	onClick,
-	selected = false,
+	selected,
 }) => {
 	return (
 		<button
 			className={`flex flex-col items-center justify-center w-20 p-2 ${
-				selected ? "text-black" : "text-gray-300"
+				selected ? "text-black-aneuk" : "text-gray-300"
 			}`}
 			onClick={onClick}
 			aria-label={label}
 		>
 			<div
 				className={`h-6 w-6 mb-1 ${
-					selected ? "fill-black" : "fill-gray-300"
+					selected ? "fill-black-aneuk" : "fill-gray-300"
 				}`}
 			>
 				{icon}

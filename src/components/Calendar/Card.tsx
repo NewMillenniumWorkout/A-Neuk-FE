@@ -1,12 +1,30 @@
 import React, { useState } from "react";
-import sampleImg from "../../assets/images/aneuk_profile.png";
+import { FinalDiary } from "../../api/diary";
+import { format } from "date-fns";
+import { ko } from "date-fns/locale";
+import sampleImg from "/Users/minsik/Documents/Projects/A-Neuk-FE/src/assets/images/odocat.png";
 
-const Card: React.FC = () => {
+interface CardProps {
+	curDiary: FinalDiary | null;
+}
+
+const Card: React.FC<CardProps> = ({ curDiary }) => {
 	const [isFlipped, setIsFlipped] = useState(false);
 
 	const handleCardClick = () => {
 		setIsFlipped(!isFlipped);
 	};
+
+	if (curDiary === null) {
+		return (
+			<div className="flex flex-1 justify-center items-center">
+				<div className="font-pretendard-regular text-xl text-black-aneuk">
+					이날은 일기가 없어요~
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div
 			className="group flex flex-col w-[90%] aspect-[2/2.8] mt-[5%] [perspective:1000px]"
@@ -20,8 +38,8 @@ const Card: React.FC = () => {
 					className={`absolute inset-0 flex flex-col w-full h-full p-2 bg-white rounded-[32px] [backface-visibility:hidden]`}
 				>
 					<img
-						src={sampleImg}
-						alt="Profile"
+						src={curDiary.data.imageUrl}
+						alt="Diary Image"
 						className="flex flex-col justify-center items-center w-[100%] h-[80%] rounded-[24px] object-cover"
 					/>
 					<div className="flex flex-row flex-1 justify-start items-start p-2 space-x-2">
@@ -30,9 +48,18 @@ const Card: React.FC = () => {
 					</div>
 				</div>
 				<div
-					className={`absolute inset-0 flex flex-col w-full h-full bg-white rounded-[32px] [transform:rotateY(-180deg)] [backface-visibility:hidden] justify-center items-center`}
+					className={`absolute inset-0 flex flex-col justify-start items-start w-full h-full p-7 bg-white rounded-[32px] [transform:rotateY(-180deg)] [backface-visibility:hidden]`}
 				>
-					<div className="text-center p-4">뒷면</div>
+					<div className="font-gowun-bold text-lg text-black-aneuk mb-2">
+						{format(
+							new Date(curDiary.data.date),
+							"yyyy.MM.dd EEEE",
+							{ locale: ko }
+						)}
+					</div>
+					<div className="font-gowun-regular text-black-aneuk text-base text-start overflow-y-auto">
+						{curDiary.data.content}
+					</div>
 				</div>
 			</div>
 		</div>

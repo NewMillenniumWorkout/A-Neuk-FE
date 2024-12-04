@@ -40,14 +40,20 @@ const LoginPage = () => {
 					bgColor="bg-[#03C75A]"
 				/>
 				<SocialLoginButton
-					handleLogin={() => {}}
+					handleLogin={() => {
+						window.location.href =
+							"https://aneuk-api.dev-lr.com/oauth2/authorization/kakao";
+					}}
 					img={kakaoImg}
 					label="Kakao 로그인"
 					labelColor="text-black"
 					bgColor="bg-[#FEE500]"
 				/>
 				<SocialLoginButton
-					handleLogin={() => {}}
+					handleLogin={() => {
+						window.location.href =
+							"https://aneuk-api.dev-lr.com/oauth2/authorization/google";
+					}}
 					img={googleImg}
 					label="Google 로그인"
 					labelColor="text-black"

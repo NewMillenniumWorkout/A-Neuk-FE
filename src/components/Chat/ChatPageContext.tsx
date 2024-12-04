@@ -17,11 +17,15 @@ interface ChatPageContextType {
 	setIsGenAble: React.Dispatch<React.SetStateAction<boolean>>;
 	isGenStart: boolean;
 	setIsGenStart: React.Dispatch<React.SetStateAction<boolean>>;
+	isGenComplete: boolean;
+	setIsGenComplete: React.Dispatch<React.SetStateAction<boolean>>;
 	isEmotionSelectAble: boolean;
 	setIsEmotionSelectAble: React.Dispatch<React.SetStateAction<boolean>>;
 	addMessage: (chatId: number, content: string) => void;
 	userImage: File | null;
 	setUserImage: React.Dispatch<React.SetStateAction<File | null>>;
+	isLoading: boolean;
+	setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ChatPageContext = createContext<ChatPageContextType | undefined>(
@@ -52,8 +56,10 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [isGenAble, setIsGenAble] = useState(false);
 	const [isGenStart, setIsGenStart] = useState(false);
+	const [isGenComplete, setIsGenComplete] = useState(false);
 	const [isEmotionSelectAble, setIsEmotionSelectAble] = useState(false);
 	const [userImage, setUserImage] = useState<File | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const addMessage = async (chatId: number, content: string) => {
 		const newMessage: MessageSend = {
@@ -64,25 +70,30 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 			id: chatId,
 			content: content,
 			type: "MEMBER",
-			sentTime: new Date().toISOString(),
+			sentTime: new Date(
+				new Date().getTime() - 9 * 60 * 60 * 1000
+			).toISOString(),
 		};
 		try {
+			setIsLoading(true);
 			setMessages((prevMessages) => [...prevMessages, tempMessage]);
 			await API_CHAT.sendMessage(newMessage);
 			const response = await API_CHAT.fetchChatHistory(chatId);
 			setMessages(response.data.data);
 		} catch (error) {
 			console.error("Error sending messages:", error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	useEffect(() => {
-		if (userImage && isGenStart) {
+		if (userImage && isGenComplete) {
 			setIsEmotionSelectAble(true);
 		} else {
 			setIsEmotionSelectAble(false);
 		}
-	}, [userImage, isGenStart]);
+	}, [userImage, isGenComplete]);
 
 	return (
 		<ChatPageContext.Provider
@@ -95,11 +106,15 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 				setIsGenAble,
 				isGenStart,
 				setIsGenStart,
+				isGenComplete,
+				setIsGenComplete,
 				isEmotionSelectAble,
 				setIsEmotionSelectAble,
 				addMessage,
 				userImage,
 				setUserImage,
+				isLoading,
+				setIsLoading,
 			}}
 		>
 			{children}
