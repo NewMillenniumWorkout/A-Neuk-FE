@@ -76,51 +76,50 @@ const EmotionSelectPage: React.FC = () => {
 
 	return (
 		<div className="absolute inset-0 bg-white-aneuk flex flex-col overflow-hidden">
-			<div className="w-full flex-1 flex-col pt-[5%] justify-center items-center">
-				<div className="w-full flex flex-col items-center">
-					<div className="font-pretendard font-bold text-2xl text-[#6F6F6F] mb-8">
-						느꼈던 감정에 가까운 단어가 있나요?
+			<div className="w-full h-full flex flex-col items-center justify-center">
+				<div className="font-pretendard font-bold text-2xl text-[#6F6F6F] mb-8">
+					느꼈던 감정에 가까운 단어가 있나요?
+				</div>
+				<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
+					<div className="mb-5 ml-1 font-gowun-bold text-xl text-black-aneuk text-opacity-80 tracking-widest">
+						#{curIndex + 1}/{contentList.length}
 					</div>
-					<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
-						<div className="mb-5 ml-1 font-gowun-bold text-xl text-black-aneuk text-opacity-80 tracking-widest">
-							#{curIndex + 1}/{contentList.length}
+					<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
+						<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
+							{displayContent}
 						</div>
-						<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
-							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
-								{displayContent}
-							</div>
-						</div>
-						<div className="ml-2 mb-2 font-gowun-regular text-[#6F6F6F] text-sm">
-							추천 단어
-						</div>
-						<div className="flex-1 px-2 overflow-y-auto">
-							<CheckboxGroup />
-						</div>
+					</div>
+					<div className="ml-2 mb-2 font-gowun-regular text-[#6F6F6F] text-sm">
+						추천 단어
+					</div>
+					<div className="flex-1 px-2 overflow-y-auto">
+						<CheckboxGroup />
+					</div>
+				</div>
 
-						<div className="flex justify-end mt-4">
-							{curIndex + 1 === contentList.length ? (
-								<button
-									onClick={() => {
-										setIsSelectComplete(true);
-										setCurIndex(0);
-										handelGen();
-									}}
-									className="pl-2 pr-2.5 py-2.5 text-white bg-black-aneuk border-[1px] rounded-full disabled:opacity-50"
-									disabled={isLoading}
-								>
-									<IconProvider.SendIcon className="ml-0.5" />
-								</button>
-							) : (
-								<button
-									onClick={handleNext}
-									className="pl-2 pr-2.5 py-2.5 text-black-aneuk border-[1px] rounded-full disabled:opacity-50"
-									disabled={isLoading}
-								>
-									<IconProvider.RightArrowIcon className="ml-0.5" />
-								</button>
-							)}
-						</div>
-					</div>
+				<div className="flex w-full justify-center mt-8">
+					{curIndex + 1 === contentList.length ? (
+						<button
+							onClick={() => {
+								setIsSelectComplete(true);
+								setCurIndex(0);
+								handelGen();
+							}}
+							className="px-5 py-5 text-white bg-black-aneuk shadow-custom-strong border-[1px] rounded-full disabled:opacity-50"
+							disabled={isLoading}
+						>
+							<IconProvider.SendIcon className="ml-0.5" />
+						</button>
+					) : (
+						<button
+							onClick={handleNext}
+							className="flex flex-row justify-center items-center pl-6 pr-2.5 py-2.5 text-black-aneuk bg-white shadow-lg border-[1px] rounded-full disabled:opacity-50"
+							disabled={isLoading}
+						>
+							다음 문단
+							<IconProvider.RightArrowIcon className="ml-0.5" />
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
