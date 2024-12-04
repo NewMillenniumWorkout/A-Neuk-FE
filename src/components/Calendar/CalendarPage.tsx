@@ -4,6 +4,7 @@ import Card from "./Card";
 import { API_CALENDAR } from "../../api/calendar";
 import { formatToYYYYMM, formatToYYYYMMDD } from "../../utils/TimeFormatter";
 import { FinalDiary } from "../../api/diary";
+import { getEmotionColor } from "../../utils/GetEmotionColor";
 
 const CalendarPage: React.FC = () => {
 	const [date, setDate] = useState<Date | undefined>(new Date());
@@ -144,7 +145,9 @@ const CalendarPage: React.FC = () => {
 										} transition-all duration-300 ease-in-out`}
 									>
 										<div
-											className={` bg-blue-600 rounded-full ${
+											className={`${getEmotionColor(
+												emotion.category
+											)} rounded-full ${
 												isSelected
 													? "w-9 h-9"
 													: "w-6 h-6"
