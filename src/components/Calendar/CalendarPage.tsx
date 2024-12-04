@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import Card from "./Card";
 import { API_CALENDAR } from "../../api/calendar";
@@ -10,6 +10,8 @@ const CalendarPage: React.FC = () => {
 	const [diaryDates, setDiaryDates] = useState<string[]>([]);
 	const [curDiary, setCurDiary] = useState<FinalDiary | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
+
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const loadInitialData = async () => {
@@ -68,6 +70,15 @@ const CalendarPage: React.FC = () => {
 		}
 	}, [date, diaryDates]);
 
+	useEffect(() => {
+		if (containerRef.current) {
+			containerRef.current.scrollTo({
+				top: 0,
+				behavior: "smooth",
+			});
+		}
+	}, [date]);
+
 	return (
 		<div className="flex flex-col w-full h-full bg-white-aneuk">
 			<div className="flex-shrink-0 w-full px-4 pt-4 pb-6 z-20 rounded-b-xl bg-white shadow-md">
@@ -79,7 +90,12 @@ const CalendarPage: React.FC = () => {
 					diaryDates={diaryDates}
 				/>
 			</div>
-			<div className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto">
+			<div
+				ref={containerRef}
+				className="flex flex-col flex-grow justify-start items-center bg-white-aneuk overflow-y-auto"
+			>
+				{!isLoading && <Card curDiary={curDiary} />}
+
 				{!isLoading && <Card curDiary={curDiary} />}
 			</div>
 		</div>
