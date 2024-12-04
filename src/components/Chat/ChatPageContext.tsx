@@ -72,12 +72,15 @@ export const ChatPageProvider: React.FC<ChatPageProviderProps> = ({
 			).toISOString(),
 		};
 		try {
+			setIsLoading(true);
 			setMessages((prevMessages) => [...prevMessages, tempMessage]);
 			await API_CHAT.sendMessage(newMessage);
 			const response = await API_CHAT.fetchChatHistory(chatId);
 			setMessages(response.data.data);
 		} catch (error) {
 			console.error("Error sending messages:", error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 

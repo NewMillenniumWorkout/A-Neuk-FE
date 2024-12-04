@@ -76,6 +76,7 @@ const ChatPage: React.FC = () => {
 	useEffect(() => {
 		const loadInitialMessage = async () => {
 			try {
+				setIsLoading(true);
 				const response = await API_CHAT.fetchInitialMessage();
 				setCurChatId(response.data.chatId);
 				if (response.data.type === "SYSTEM") {
@@ -83,6 +84,8 @@ const ChatPage: React.FC = () => {
 				}
 			} catch (error) {
 				console.error("Error fetching initial messages:", error);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 
@@ -108,10 +111,6 @@ const ChatPage: React.FC = () => {
 
 		loadChatHistory();
 	}, [curChatId, setMessages]);
-
-	useEffect(() => {
-		console.log("isLoading updated:", isLoading, new Date());
-	}, [isLoading]);
 
 	return (
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
