@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FinalDiary } from "../../api/diary";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -14,6 +14,10 @@ const Card: React.FC<CardProps> = ({ curDiary }) => {
 	const handleCardClick = () => {
 		setIsFlipped(!isFlipped);
 	};
+
+	useEffect(() => {
+		setIsFlipped(false);
+	}, [curDiary]);
 
 	if (curDiary === null) {
 		return (
