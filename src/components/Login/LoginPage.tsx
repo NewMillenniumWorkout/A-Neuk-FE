@@ -5,6 +5,7 @@ import googleImg from "../../assets/images/google.png";
 import aneukImg from "../../assets/images/aneuk_profile.png";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
+import logo from "../../assets/images/logo_bg.png";
 
 const LoginPage = () => {
 	const [searchParams] = useSearchParams();
@@ -23,8 +24,12 @@ const LoginPage = () => {
 
 	return (
 		<div className="absolute inset-0 z-50 bg-white flex flex-col justify-center items-center w-full h-full p-8">
-			<img src={aneukImg} className="w-[25%] rounded-full mb-2" />
-			<div className="font-pretendard-bold text-2xl mb-44">아늑</div>
+			<img
+				src={logo}
+				alt="Profile"
+				className="w-[35%] mr-0.5 object-contain rounded-[40%] mb-4"
+			></img>
+			<div className="font-pretendard-bold text-2xl mb-36">아늑</div>
 			<div className="font-pretendard-light text-gray-aneuk text-base mb-4">
 				- 로그인하여 나의 감정 알아보러 가기 -
 			</div>
