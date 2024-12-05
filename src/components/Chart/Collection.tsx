@@ -65,8 +65,15 @@ const Collection: React.FC<CollectionProgressProps> = ({ data }) => {
 							className={getFractionTextColor(percentageFilled)}
 						>
 							{usedEmotionCount}
-						</span>{" "}
-						/ {totalEmotionCount}
+						</span>
+						<span
+							className={`${
+								percentageFilled === 100 && "text-green-500"
+							}`}
+						>
+							{" "}
+							/ {totalEmotionCount}
+						</span>
 					</div>
 				</div>
 			</div>
@@ -98,8 +105,16 @@ const Collection: React.FC<CollectionProgressProps> = ({ data }) => {
 									)}
 								>
 									{stats.usedCount}
-								</span>{" "}
-								/ {stats.totalCount}
+								</span>
+								<span
+									className={`${
+										stats.usedCount / stats.totalCount ===
+											1 && "text-green-500"
+									}`}
+								>
+									{" "}
+									/ {stats.totalCount}
+								</span>
 							</div>
 						</div>
 					))}
