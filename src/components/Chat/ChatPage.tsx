@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Message } from "./ChatData.ts";
 import { formatDate } from "../../utils/TimeFormatter.tsx";
-import { ChatPageProvider, useChatPage } from "./ChatPageContext.tsx";
+import { useChatPage } from "./ChatPageContext.tsx";
 import { API_CHAT } from "../../api/chat.ts";
 import { API_DIARY } from "../../api/diary.ts";
 import ChatBubble from "./ChatBubble";
@@ -11,7 +11,6 @@ import ToastButton from "./ToastButton.tsx";
 import ImageReceiver from "./ImageReceiver.tsx";
 import SlideArea from "./SlideArea.tsx";
 import { useEmotionSelectPage } from "../EmotionSelect/EmotionSelectPageContext.tsx";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const ChatPage: React.FC = () => {
@@ -36,6 +35,7 @@ const ChatPage: React.FC = () => {
 	const { setEmotionData } = useEmotionSelectPage();
 	const BubbleContainerRef = useRef<HTMLDivElement | null>(null);
 	const navigate = useNavigate();
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const autoScroll = () => {
 		if (BubbleContainerRef.current) {
@@ -55,6 +55,19 @@ const ChatPage: React.FC = () => {
 			console.error("Error get emotions: ", error);
 		}
 		setIsGenComplete(true);
+	};
+
+	const handleBackClick = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleModalConfirm = () => {
+		setIsModalOpen(false);
+		navigate(-1);
+	};
+
+	const handleModalCancel = () => {
+		setIsModalOpen(false);
 	};
 
 	useEffect(() => {
@@ -148,7 +161,7 @@ const ChatPage: React.FC = () => {
 
 	return (
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
-			<TopAppBar />
+			<TopAppBar onBack={handleBackClick} />
 			<div
 				className="flex-grow min-h-0 px-2 pb-2 overflow-y-auto"
 				ref={BubbleContainerRef}
@@ -191,6 +204,31 @@ const ChatPage: React.FC = () => {
 				</div>
 			)}
 			{userImage ? <SlideArea /> : <InputArea onSend={addMessage} />}
+
+			{isModalOpen && (
+				<div className="fixed inset-0 flex items-center justify-center z-50">
+					<div className="fixed inset-0 bg-black opacity-50"></div>
+					<div className="bg-white px-12 pt-8 pb-4 rounded-3xl shadow-lg relative z-10">
+						<div className="text-center mb-8 font-pretendard-medium">
+							채팅이 모두 사라집니다.
+						</div>
+						<div className="flex justify-center">
+							<button
+								className="bg-red-400 text-white px-6 py-2 rounded-full"
+								onClick={handleModalConfirm}
+							>
+								나가기
+							</button>
+							<button
+								className="bg-white border text-gray-600 px-6 py-2 rounded-full ml-2"
+								onClick={handleModalCancel}
+							>
+								취소
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
