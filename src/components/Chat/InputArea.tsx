@@ -51,7 +51,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend }) => {
 						? "지금은 일기를 작성하고 있어요!"
 						: "메시지를 입력하세요"
 				}
-				className={`w-full max-h-32 h-11 min-h-11 pl-4 pr-14 py-2.5 leading-5 box-border rounded-[22px] resize-none overflow-y-auto break-words focus:outline-none scrollbar-hide ${
+				className={`w-full max-h-32 h-11 min-h-11 pl-4 pr-14 py-2.5 leading-5 border-gray-300 box-border rounded-[22px] resize-none overflow-y-auto break-words focus:border-gray-300 focus:ring-0 focus:outline-none scrollbar-hide ${
 					isGenStart ? "bg-gray-100 border-0" : "bg-white border"
 				}`}
 				rows={1}

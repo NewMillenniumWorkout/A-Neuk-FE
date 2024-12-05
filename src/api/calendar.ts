@@ -26,11 +26,11 @@ export const API_CALENDAR = {
 	},
 	getDiaryByDiaryId: async (diaryId: number): Promise<FinalDiary> => {
 		try {
-			console.log(diaryId);
+			// console.log(diaryId);
 			const response = await apiClient.get<FinalDiary>(
 				`/get-diary/diary-id?diary-id=${diaryId}`
 			);
-			console.log(response.data);
+			// console.log(response.data);
 			return response.data;
 		} catch (error: any) {
 			console.error("Error get diary by diary id:", error.message);

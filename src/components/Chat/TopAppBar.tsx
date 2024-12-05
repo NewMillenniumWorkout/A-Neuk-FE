@@ -1,15 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { IconProvider } from "../../utils/IconProvider";
 
-const TopAppBar: React.FC = () => {
-	const navigate = useNavigate();
+interface TopAppBarProps {
+	onBack: () => void;
+}
 
+const TopAppBar: React.FC<TopAppBarProps> = ({ onBack }) => {
 	return (
 		<div className="w-full min-h-14 h-14 bg-white flex justify-center items-center px-4">
 			<button
 				onClick={() => {
-					navigate(-1);
+					onBack();
 				}}
 				className="absolute left-4"
 			>

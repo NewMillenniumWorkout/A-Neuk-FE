@@ -57,7 +57,7 @@ export const API_DIARY = {
 				`/diary/emotion/select`,
 				selectData
 			);
-			console.log(response);
+			// console.log(response);
 			return response.data;
 		} catch (error: any) {
 			console.error("Error generating new content:", error.message);
@@ -69,7 +69,7 @@ export const API_DIARY = {
 			const response = await apiClient.get<FinalDiary>(
 				`/diary/second-generate?diaryId=${diaryId}`
 			);
-			console.log(response.data);
+			// console.log(response.data);
 			return response.data;
 		} catch (error: any) {
 			console.error("Error generating final diary:", error.message);
@@ -91,7 +91,7 @@ export const API_DIARY = {
 				`/diary/emotion/save`,
 				selectedEmotions
 			);
-			console.log(response.data);
+			// console.log(response.data);
 		} catch (error: any) {
 			console.error("Error sending selected emotions:", error.message);
 			throw error;
