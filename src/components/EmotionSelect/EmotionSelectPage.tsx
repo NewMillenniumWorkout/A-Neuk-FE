@@ -2,9 +2,9 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
-import CheckboxGroup from "./CheckBoxGroup";
 import { API_DIARY } from "../../api/diary";
 import { debounce } from "lodash";
+import EmotionCard from "./EmotionCard";
 
 const EmotionSelectPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -13,7 +13,6 @@ const EmotionSelectPage: React.FC = () => {
 		setCurDescIndex,
 		curIndex,
 		setCurIndex,
-		displayContent,
 		setDisplayContent,
 		selectedEmotions,
 		setSelectedEmotions,
@@ -68,8 +67,8 @@ const EmotionSelectPage: React.FC = () => {
 		} catch (error) {
 			console.error("Error fetching new content:", error);
 		} finally {
-			setIsLoading(false);
 			navigate("/calendar");
+			setIsLoading(false);
 		}
 	};
 	const debouncedFetchContent = useCallback(
@@ -123,36 +122,12 @@ const EmotionSelectPage: React.FC = () => {
 				<div className="font-pretendard font-bold text-2xl text-[#6F6F6F] mb-8">
 					느꼈던 감정에 가까운 단어가 있나요?
 				</div>
-				<div className="flex flex-col w-[90%] aspect-[2/2.8] p-5 bg-white rounded-[32px] shadow-custom-strong overflow-hidden">
-					<div className="mb-5 ml-1 font-gowun-bold text-xl text-black-aneuk text-opacity-80 tracking-widest">
-						#{curIndex + 1}/{contentList.length}
-					</div>
-					<div className="min-h-[20%] max-h-[40%] mb-6 overflow-y-auto">
-						{isLoading ? (
-							<div
-								role="status"
-								className="max-w-sm animate-pulse"
-							>
-								<div className="h-5 bg-gray-200 rounded-full mb-4"></div>
-								<div className="h-5 bg-gray-200 rounded-full mb-4"></div>
-								<div className="h-5 bg-gray-200 rounded-full max-w-[280px] mb-4"></div>
-								<span className="sr-only">Loading...</span>
-							</div>
-						) : (
-							<div className="font-gowun-regular text-black-aneuk text-opacity-80 text-xl">
-								{displayContent}
-							</div>
-						)}
-					</div>
-					<div className="ml-2 mb-2 font-gowun-regular text-[#6F6F6F] text-sm">
-						추천 단어
-					</div>
-					<div className="flex-1 px-2 overflow-y-auto">
-						<CheckboxGroup />
-					</div>
-				</div>
-
-				<div className="flex w-full justify-center mt-8">
+				<EmotionCard
+					key={curIndex}
+					contentList={contentList}
+					isLoading={isLoading}
+				/>
+				<div className="flex w-full justify-center">
 					{curIndex + 1 === contentList.length ? (
 						<button
 							onClick={() => {
@@ -160,7 +135,7 @@ const EmotionSelectPage: React.FC = () => {
 								setCurIndex(0);
 								handelGen();
 							}}
-							className="px-5 py-5 text-white bg-black-aneuk shadow-custom-strong border-[1px] rounded-full disabled:opacity-50"
+							className="px-2.5 py-2.5 text-white bg-black-aneuk shadow-custom-strong border-[1px] rounded-full disabled:opacity-50"
 							disabled={isLoading}
 						>
 							<IconProvider.CheckIcon className="ml-0.5 w-8 size-8" />
@@ -176,6 +151,12 @@ const EmotionSelectPage: React.FC = () => {
 						</button>
 					)}
 				</div>
+				{curIndex < contentList.length - 2 && !isLoading && (
+					<div className="absolute top-[19.5%] rotate-2 w-[90%] aspect-[2/2.8] bg-white rounded-[32px] shadow-custom-strong"></div>
+				)}
+				{curIndex < contentList.length - 1 && !isLoading && (
+					<div className="absolute top-[19.5%] -rotate-2 w-[90%] aspect-[2/2.8] bg-white rounded-[32px] shadow-custom-strong"></div>
+				)}
 			</div>
 		</div>
 	);

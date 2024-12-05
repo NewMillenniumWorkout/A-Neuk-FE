@@ -28,6 +28,7 @@
 		"react-router-dom": "^6.28.0",
 		"react-script": "^2.0.5",
 		"react-scripts": "^5.0.1",
+		"react-transition-group": "^4.4.5",
 		"serve": "^14.2.4",
 		"tailwind-merge": "^2.5.5",
 		"tailwindcss-animate": "^1.0.7",
@@ -62,6 +63,7 @@
 	"devDependencies": {
 		"@types/js-cookie": "^3.0.6",
 		"@types/lodash": "^4.17.13",
+		"@types/react-transition-group": "^4.4.11",
 		"autoprefixer": "^10.4.20",
 		"postcss": "^8.4.49",
 		"postcss-loader": "^8.1.1",
