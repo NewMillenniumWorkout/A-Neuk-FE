@@ -22,7 +22,7 @@ const BottomAppBar: React.FC = () => {
 	}, [navigate]);
 
 	return (
-		<div className="w-full h-16 bg-white text-black-aneuk flex flex-shrink-0 justify-around items-center">
+		<div className="absolute bottom-0 w-full h-16 bg-white text-black-aneuk flex flex-shrink-0 justify-around items-center">
 			<IconButton
 				icon={<IconProvider.HomeIcon />}
 				label="Home"
