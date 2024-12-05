@@ -1,7 +1,7 @@
-import profileImg from "../../assets/images/aneuk_profile.png";
 import { IconProvider } from "../../utils/IconProvider";
 import { formatTime } from "../../utils/TimeFormatter";
 import { useChatPage } from "./ChatPageContext";
+import profileImg from "../../assets/images/logo.png";
 
 const ImageReceiver: React.FC = () => {
 	const formattedTime = formatTime(new Date().toISOString());
@@ -19,11 +19,16 @@ const ImageReceiver: React.FC = () => {
 			<img
 				src={profileImg}
 				alt="Profile"
-				className="self-start w-9 h-9 mr-1 rounded-[16px] clip-round-40"
-			/>
+				className="self-start w-12 mr-0.5 object-contain"
+			></img>
 			<div className="flex flex-col min-w-60">
 				<div className="ml-1.5 mb-1 mt-0.5 text-black-aneuk text-sm">
 					아늑
+				</div>
+				<div
+					className={`pt-2 pb-2.5 px-4 mb-2 rounded-3xl break-words whitespace-pre-wrap box-border bg-black-aneuk text-white`}
+				>
+					일기에 오늘의 사진을 추가해줘~!
 				</div>
 				<div className="min-w-60 min-h-80 pt-2 px-2 rounded-2xl break-words box-border bg-white shadow-custom-strong">
 					<div className="relative flex flex-col justify-center items-center min-w-56 min-h-64 w-56 h-64 rounded-xl bg-gray-aneuk opacity">
