@@ -17,7 +17,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
 	return (
 		<div
 			className={`flex flex-row ${
-				sender === "MEMBER" ? "justify-end" : "justify-start"
+				sender === "MEMBER" ? "justify-end" : "justify-start ml-0.5"
 			} items-end mb-4`}
 		>
 			{sender === "ASSISTANT" && (

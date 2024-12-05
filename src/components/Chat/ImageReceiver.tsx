@@ -57,7 +57,7 @@ const ImageReceiver: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-row justify-start items-end mb-4">
+		<div className="flex flex-row justify-start items-end mb-4 ml-0.5">
 			<img
 				src={profileImg}
 				alt="Profile"
