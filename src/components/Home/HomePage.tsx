@@ -74,6 +74,11 @@ const HomePage: React.FC = () => {
 					randomDiary ? "justify-start" : "justify-center"
 				} items-center bg-white-aneuk mt-8 mb-44`}
 			>
+				{!randomDiary && (
+					<div className="font-pretendard-bold text-2xl text-black-aneuk mb-8">
+						오늘의 일기를 뽑아보세요
+					</div>
+				)}
 				{!isLoading && (
 					<HomeCard
 						key={randomDiary?.data.diary_id || Math.random()}
