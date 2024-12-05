@@ -12,6 +12,7 @@ import { ReactComponent as SendIcon } from "../assets/icons/Send_Up_Right.svg";
 import { ReactComponent as ImageIcon } from "../assets/icons/Image.svg";
 import { ReactComponent as HomeIcon } from "../assets/icons/Home.svg";
 import { ReactComponent as ExitIcon } from "../assets/icons/Exit.svg";
+import { ReactComponent as CheckIcon } from "../assets/icons/Check.svg";
 
 export const IconProvider = {
 	ChatIcon,
@@ -28,4 +29,5 @@ export const IconProvider = {
 	ImageIcon,
 	HomeIcon,
 	ExitIcon,
+	CheckIcon,
 };
