@@ -51,10 +51,7 @@ const ChartPage: React.FC = () => {
 	}
 
 	return (
-		<div className="w-full h-full bg-white-aneuk">
-			<div className="w-full min-h-14 h-14 bg-white flex justify-center items-center px-4">
-				<h1 className="text-lg font-bold text-black-aneuk">아늑</h1>
-			</div>
+		<div className="w-full h-full bg-white-aneuk pt-6">
 			<div className="flex flex-col justify-start items-center w-full">
 				{lastMonthData && (
 					<div className="my-8">

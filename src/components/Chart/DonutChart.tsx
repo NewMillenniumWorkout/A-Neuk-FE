@@ -16,17 +16,17 @@ const emotionColors: Record<
 	| "흥미",
 	string
 > = {
-	공포: "#3498DB",
-	기쁨: "#FF6384",
-	기타: "#FFCE56",
-	놀람: "#8E44AD",
-	분노: "#E74C3C",
-	슬픔: "#36A2EB",
-	중성: "#F1C40F",
-	지루: "#2ECC71",
-	통증: "#95A5A6",
-	혐오: "#9B59B6",
-	흥미: "#1ABC9C",
+	기쁨: "#F4ABE2",
+	흥미: "#FFEF93",
+	놀람: "#F6B567",
+	중성: "#B0E0E6",
+	슬픔: "#7D8FF1",
+	지루: "#B08AF1",
+	공포: "#AD89F0",
+	분노: "#CD5D5D",
+	통증: "#F08080",
+	혐오: "#6B8E23",
+	기타: "#808080",
 };
 
 interface LastMonthData {
@@ -36,30 +36,32 @@ interface LastMonthData {
 interface DonutChartProps {
 	data: LastMonthData;
 }
-
 const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
-	const labels = Object.keys(data) as (keyof typeof emotionColors)[];
-	const series = Object.values(data);
+	const labels = Object.keys(emotionColors) as (keyof typeof emotionColors)[];
+	const series = labels.map((label) => data[label] || 0);
 	const colors = labels.map((label) => emotionColors[label]);
 
 	const chartOptions: ApexOptions = {
 		chart: {
-			height: 320,
-			width: "100%",
 			type: "donut",
+			fontFamily: "Pretendard-Bold",
+			foreColor: "#333333",
 		},
 		labels: labels,
 		colors: colors,
 		plotOptions: {
 			pie: {
+				expandOnClick: false,
+
 				donut: {
-					size: "80%",
+					size: "70%",
 					labels: {
 						show: true,
 						total: {
 							showAlways: true,
 							show: true,
-							label: "Total",
+							label: "총 감정단어 사용 횟수",
+							fontFamily: "Pretendard-Bold",
 							formatter: function () {
 								return `${series.reduce((a, b) => a + b, 0)}`;
 							},
@@ -80,7 +82,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 	return (
 		<div className="w-full bg-white rounded-lg shadow p-4">
 			<div className="font-pretendard-bold text-lg text-black-aneuk mb-4">
-				최근 30일 동안 사용한 감정은?
+				최근 30일 감정 추이
 			</div>
 			<ApexCharts
 				options={chartOptions}
