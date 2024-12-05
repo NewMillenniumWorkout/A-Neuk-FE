@@ -163,7 +163,7 @@ const EmotionSelectPage: React.FC = () => {
 							className="px-5 py-5 text-white bg-black-aneuk shadow-custom-strong border-[1px] rounded-full disabled:opacity-50"
 							disabled={isLoading}
 						>
-							<IconProvider.SendIcon className="ml-0.5" />
+							<IconProvider.CheckIcon className="ml-0.5 w-8 size-8" />
 						</button>
 					) : (
 						<button
