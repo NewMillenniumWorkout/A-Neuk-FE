@@ -1,16 +1,58 @@
+import React, { useState } from "react";
 import { IconProvider } from "../../utils/IconProvider";
 import { formatTime } from "../../utils/TimeFormatter";
 import { useChatPage } from "./ChatPageContext";
 import profileImg from "../../assets/images/logo.png";
+import heic2any from "heic2any";
 
 const ImageReceiver: React.FC = () => {
 	const formattedTime = formatTime(new Date().toISOString());
 	const { userImage, setUserImage } = useChatPage();
 
-	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+	const MAX_FILE_SIZE = 50 * 1024 * 1024;
+
+	const handleImageChange = async (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
 		if (event.target.files && event.target.files[0]) {
 			const file = event.target.files[0];
-			setUserImage(file);
+
+			if (file.size > MAX_FILE_SIZE) {
+				console.log(
+					"파일 크기가 너무 큽니다. 최대 50MB까지 업로드할 수 있습니다."
+				);
+				return;
+			} else {
+				console.log("");
+			}
+
+			const fileExtension = file.name.split(".").pop()?.toLowerCase();
+
+			if (fileExtension === "heic" || fileExtension === "heif") {
+				try {
+					const convertedBlob = await heic2any({
+						blob: file,
+						toType: "image/jpeg",
+						quality: 0.3,
+					});
+
+					const convertedFile = new File(
+						[convertedBlob as BlobPart],
+						file.name.replace(/\.(heic|heif)$/i, ".jpg"),
+						{
+							type: "image/jpeg",
+						}
+					);
+					setUserImage(convertedFile);
+					setPreviewUrl(URL.createObjectURL(convertedFile));
+				} catch (error) {
+					console.error("HEIC 변환 오류:", error);
+				}
+			} else {
+				setUserImage(file);
+				setPreviewUrl(URL.createObjectURL(file));
+			}
 		}
 	};
 
@@ -36,16 +78,16 @@ const ImageReceiver: React.FC = () => {
 							id="file-upload"
 							className="mt-2 w-52 hidden"
 							type="file"
-							accept="image/*"
+							accept=".heic, .heif, image/*"
 							onChange={handleImageChange}
 						/>
 						<label
 							htmlFor="file-upload"
 							className="cursor-pointer w-full h-full"
 						>
-							{userImage ? (
+							{previewUrl ? (
 								<img
-									src={URL.createObjectURL(userImage)}
+									src={previewUrl}
 									alt="Preview"
 									className="w-full h-full object-cover rounded-xl"
 								/>
