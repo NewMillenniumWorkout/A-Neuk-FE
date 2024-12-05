@@ -122,7 +122,7 @@ const CalendarPage: React.FC = () => {
 			</div>
 			<div
 				ref={containerRef}
-				className="flex flex-col flex-grow min-h-0 justify-start items-center bg-white-aneuk pb-24 overflow-y-auto"
+				className="flex flex-col flex-grow min-h-0 justify-start items-center bg-white-aneuk pb-40 overflow-y-auto"
 			>
 				{!isLoading && (
 					<Card
