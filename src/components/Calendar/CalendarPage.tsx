@@ -111,7 +111,7 @@ const CalendarPage: React.FC = () => {
 
 	return (
 		<div className="flex flex-col w-full h-full bg-white-aneuk">
-			<div className="flex-shrink-0 w-full px-4 pt-4 pb-6 z-20 rounded-b-xl bg-white shadow-md">
+			<div className="flex-shrink-0 w-full p-4 z-20 rounded-b-xl bg-white shadow-md">
 				<WeeklyCalendar
 					mode="single"
 					selectedDate={date}
