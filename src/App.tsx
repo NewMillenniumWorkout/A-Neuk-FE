@@ -62,10 +62,9 @@ function App() {
 						<Route path="/chart" element={<ChartPage />} />
 						<Route path="/profile" element={<ProfilePage />} />
 					</Routes>
-					{location.pathname !== "/home" &&
-						location.pathname !== "/profile" && (
-							<FloatingActionButton />
-						)}
+					{location.pathname === "/calendar" && (
+						<FloatingActionButton />
+					)}
 				</div>
 
 				{location.pathname === "/login" && <LoginPage />}
