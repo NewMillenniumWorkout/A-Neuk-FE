@@ -11,7 +11,7 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({}) => {
 			onClick={() => {
 				navigate("/chat");
 			}}
-			className="flex justify-center items-center w-14 bg-white text-black-aneuk rounded-full shadow-lg transition duration-300 ease-in-out absolute bottom-4 right-4"
+			className="flex justify-center items-center w-14 bg-white text-black-aneuk rounded-full shadow-lg transition duration-300 ease-in-out absolute bottom-20 right-4"
 			style={{ aspectRatio: "1 / 1" }}
 		>
 			<IconProvider.FileEditIcon className="w-[28px] h-[28px]" />

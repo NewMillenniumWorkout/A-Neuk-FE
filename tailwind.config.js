@@ -8,7 +8,7 @@ module.exports = {
 				"white-aneuk": "#F7F4EE",
 				"text-aneuk": "#2c3e50",
 				"gray-aneuk": "#cccccc",
-				horror: "#AD89F0",
+				horror: "#5F36DA",
 				joy: "#F4ABE2",
 				surprise: "#F6B567",
 				anger: "#CD5D5D",
@@ -41,6 +41,7 @@ module.exports = {
 			},
 			boxShadow: {
 				"custom-strong": "0 4px 8px rgba(0, 0, 0, 0.2)",
+				"inner-strong": "inset 0 3px 8px rgba(0, 0, 0, 0.05)",
 			},
 			height: {
 				"screen-dynamic": "calc(var(--vh, 1vh) * 100)",

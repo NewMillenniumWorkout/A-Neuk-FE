@@ -49,8 +49,8 @@ export function WeeklyCalendar({
 
 	return (
 		<div>
-			<div className="flex justify-between h-16 items-center mb-2 px-3">
-				<span className="font-pretendard-bold text-xl">
+			<div className="flex justify-between h-16 items-center px-3">
+				<span className="font-pretendard-bold text-2xl">
 					{format(endWeek, "yyyy년 M월")}
 				</span>
 				<div className="flex flex-row space-x-6">
@@ -84,7 +84,7 @@ export function WeeklyCalendar({
 					<button
 						key={index}
 						onClick={() => onDateChange(date)}
-						className={`m-2 w-[90%] aspect-square rounded-xl
+						className={`mb-2 w-[90%] aspect-square rounded-xl
 							${
 								selectedDate &&
 								date.toDateString() ===

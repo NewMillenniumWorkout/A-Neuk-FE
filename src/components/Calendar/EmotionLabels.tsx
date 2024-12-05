@@ -32,17 +32,17 @@ export const EmotionLabels: React.FC<EmotionLabelsProps> = ({
 						>
 							<div
 								onClick={() => handleEmotionClick(emotion.id)}
-								className={`flex flex-row space-x-2 mr-2 mb-2 justify-start items-center py-0.5 pl-1 pr-2.5 bg-white text-black-aneuk border rounded-full cursor-pointer  ${
+								className={`flex flex-row space-x-2 mr-2 mb-2 justify-start items-center py-0.5 pl-1 pr-2.5 bg-white border rounded-full cursor-pointer  ${
 									isSelected
-										? "font-gowun-bold shadow-custom-strong h-12 text-2xl"
-										: "font-gowun-regular text-xl"
+										? "text-black font-gowun-regular shadow-md h-9 text-lg"
+										: "text-black-aneuk  font-gowun-regular text-base"
 								} transition-all duration-300 ease-in-out`}
 							>
 								<div
 									className={`${getEmotionColor(
 										emotion.category
 									)} rounded-full ${
-										isSelected ? "w-9 h-9" : "w-6 h-6"
+										isSelected ? "w-7 h-7" : "w-5 h-5"
 									}`}
 								/>
 								<div>{emotion.title}</div>
@@ -53,10 +53,10 @@ export const EmotionLabels: React.FC<EmotionLabelsProps> = ({
 									ref={descriptionRef}
 									className="flex flex-col justify-center items-center w-full mt-2 mb-4 text-black-aneuk"
 								>
-									<div className="font-pretendard-regular text-lg text-black-aneuk mb-2 text-center">
+									<div className="font-pretendard-regular text-base text-black-aneuk mb-2 text-center">
 										{emotion.description}
 									</div>
-									<div className="font-pretendard text-base text-zinc-400 text-center">
+									<div className="font-pretendard text-base text-[#AFAFAF] text-center">
 										"{emotion.example}"
 									</div>
 								</div>
