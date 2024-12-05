@@ -60,6 +60,8 @@ const EmotionSelectPage: React.FC = () => {
 				} catch (error: any) {
 					console.error("Error handleSendEmotions: ", error);
 				}
+				setSelectedEmotions([]);
+				setCurDescIndex(null);
 				await API_DIARY.genFinalDiary(emotionData.data.diary_id);
 			}
 		} catch (error) {
