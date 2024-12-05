@@ -99,7 +99,7 @@ const CalendarPage: React.FC = () => {
 			const descriptionPosition = descriptionRef.current.offsetTop;
 			const containerScrollPosition = containerRef.current.scrollTop;
 
-			const extraScroll = 50;
+			const extraScroll = 100;
 
 			containerRef.current.scrollTo({
 				top:
@@ -122,7 +122,7 @@ const CalendarPage: React.FC = () => {
 			</div>
 			<div
 				ref={containerRef}
-				className="flex flex-col flex-grow justify-start items-center bg-white-aneuk pb-24 overflow-y-auto"
+				className="flex flex-col flex-grow min-h-0 justify-start items-center bg-white-aneuk pb-24 overflow-y-auto"
 			>
 				{!isLoading && (
 					<Card
