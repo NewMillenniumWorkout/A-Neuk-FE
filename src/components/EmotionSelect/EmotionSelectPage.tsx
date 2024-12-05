@@ -49,6 +49,7 @@ const EmotionSelectPage: React.FC = () => {
 	};
 
 	const handelGen = async () => {
+		setIsLoading(true);
 		try {
 			if (emotionData !== null) {
 				try {
@@ -67,6 +68,7 @@ const EmotionSelectPage: React.FC = () => {
 		} catch (error) {
 			console.error("Error fetching new content:", error);
 		} finally {
+			setIsLoading(false);
 			navigate("/calendar");
 		}
 	};
