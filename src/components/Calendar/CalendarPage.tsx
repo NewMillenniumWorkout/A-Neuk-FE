@@ -118,6 +118,7 @@ const CalendarPage: React.FC = () => {
 					onDateChange={setDate}
 					className="w-full"
 					diaryDates={diaryDates}
+					setDiaryDates={setDiaryDates}
 				/>
 			</div>
 			<div
