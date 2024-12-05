@@ -58,7 +58,7 @@ const CheckboxGroup: React.FC = () => {
 								onChange={() =>
 									handleCheckboxChange(option.title)
 								}
-								className={`form-checkbox rounded-md size-6 focus:outline-none focus:ring-0 focus:border-transparent  ${getEmotionTextColor(
+								className={`form-checkbox rounded-md size-6 focus:outline-none focus:ring-0  ${getEmotionTextColor(
 									option.category
 								)}`}
 							/>
