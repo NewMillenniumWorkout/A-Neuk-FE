@@ -51,6 +51,15 @@ const EmotionSelectPage: React.FC = () => {
 	const handelGen = async () => {
 		try {
 			if (emotionData !== null) {
+				try {
+					await API_DIARY.sendSelectedEmotion(
+						emotionData.data.diary_id,
+						curIndex,
+						selectedEmotions
+					);
+				} catch (error: any) {
+					console.error("Error handleSendEmotions: ", error);
+				}
 				await API_DIARY.genFinalDiary(emotionData.data.diary_id);
 			}
 		} catch (error) {
