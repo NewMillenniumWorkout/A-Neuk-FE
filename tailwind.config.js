@@ -33,11 +33,31 @@ module.exports = {
 					"0%": { transform: "rotate(0deg)" },
 					"100%": { transform: "rotate(360deg)" },
 				},
+				"fly-in": {
+					"0%": {
+						transform: "translateY(100%) scale(0.5)",
+						opacity: "0",
+					},
+					"100%": {
+						transform: "translateY(0) scale(1)",
+						opacity: "1",
+					},
+				},
+				flip: {
+					"0%": {
+						transform: "rotateZ(0deg)",
+					},
+					"100%": {
+						transform: "rotateZ(360deg)",
+					},
+				},
 			},
 			animation: {
 				"slide-up": "slide-up 0.5s ease-out",
 				floating: "floating 2.5s ease-in-out infinite",
 				spinner: "spinner 1s linear infinite",
+				"fly-in": "fly-in 0.5s ease-out",
+				flip: "flip 0.2s ease-in-out",
 			},
 			boxShadow: {
 				"custom-strong": "0 4px 8px rgba(0, 0, 0, 0.2)",

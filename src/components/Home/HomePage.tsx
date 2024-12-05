@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import apiClient from "../../api";
 import { FinalDiary } from "../../api/diary";
 import Card from "../Calendar/Card";
+import HomeCard from "./HomeCard";
 import { EmotionLabels } from "../Calendar/EmotionLabels";
 
 const HomePage: React.FC = () => {
 	const [randomDiary, setRandomDiary] = useState<FinalDiary | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isFlipped, setIsFlipped] = useState(false);
+	const [isFlipping, setIsFlipping] = useState(false);
+
 	const [selectedEmotionId, setSelectedEmotionId] = useState<number | null>(
 		null
 	);
@@ -18,15 +21,21 @@ const HomePage: React.FC = () => {
 	const handleRandomButton = () => {
 		const getRandomDiary = async () => {
 			try {
+				setIsFlipping(true);
 				const response = await apiClient.get("/home/random");
-				setRandomDiary(response.data);
+
 				setIsLoading(false);
 				setIsFlipped(false);
+
+				setIsFlipping(false);
 				setSelectedEmotionId(null);
+				setRandomDiary(response.data);
 			} catch (error: any) {
 				console.error("Error getting random diary:", error.message);
 				setIsLoading(false);
+				setIsFlipping(false);
 				throw error;
+			} finally {
 			}
 		};
 		getRandomDiary();
@@ -66,9 +75,11 @@ const HomePage: React.FC = () => {
 				} items-center bg-white-aneuk mt-8 mb-44`}
 			>
 				{!isLoading && (
-					<Card
+					<HomeCard
+						key={randomDiary?.data.diary_id || Math.random()}
 						curDiary={randomDiary}
 						isFlipped={isFlipped}
+						isFlipping={isFlipping}
 						setIsFlipped={setIsFlipped}
 					/>
 				)}
