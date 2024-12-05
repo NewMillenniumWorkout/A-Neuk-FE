@@ -112,9 +112,6 @@ const ChatPage: React.FC = () => {
 			try {
 				const response = await API_CHAT.fetchInitialMessage();
 				setCurChatId(response.data.chatId);
-				if (response.data.type === "SYSTEM") {
-					console.log(response.data.message);
-				}
 			} catch (error) {
 				console.error("Error fetching initial messages:", error);
 			} finally {

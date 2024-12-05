@@ -119,7 +119,6 @@ export function WeeklyCalendar({
 				);
 
 				setDiaryDates(newDiaryDates);
-				console.log("점 찍기", newDiaryDates);
 			} catch (error: any) {
 				console.error("Error loading initial data: ", error);
 			}
