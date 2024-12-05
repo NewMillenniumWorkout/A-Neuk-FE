@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IconProvider } from "../../utils/IconProvider";
 import { useEmotionSelectPage } from "./EmotionSelectPageContext";
+import { getEmotionTextColor } from "../../utils/GetEmotionColor";
 
 const MAX_SELECTION = 4;
 
@@ -57,10 +58,12 @@ const CheckboxGroup: React.FC = () => {
 								onChange={() =>
 									handleCheckboxChange(option.title)
 								}
-								className="form-checkbox size-4 text-blue-600"
+								className={`form-checkbox rounded-md size-6 focus:outline-none focus:ring-0 focus:border-transparent  ${getEmotionTextColor(
+									option.category
+								)}`}
 							/>
 							<div className="h-6 justify-between items-center">
-								<span className="text-black-aneuk text-xl font-gowun-regular">
+								<span className="leading-tight text-black-aneuk text-xl font-gowun-regular">
 									{option.title}
 								</span>
 							</div>
