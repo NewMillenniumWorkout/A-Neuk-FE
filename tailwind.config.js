@@ -8,6 +8,17 @@ module.exports = {
 				"white-aneuk": "#F7F4EE",
 				"text-aneuk": "#2c3e50",
 				"gray-aneuk": "#cccccc",
+				horror: "#AD89F0",
+				joy: "#F4ABE2",
+				surprise: "#F6B567",
+				anger: "#CD5D5D",
+				sadness: "#7D8FF1",
+				neutral: "#B0E0E6",
+				boredom: "#B08AF1",
+				pain: "#F08080",
+				disgust: "#6B8E23",
+				interest: "#FFEF93",
+				other: "#808080",
 			},
 			keyframes: {
 				"slide-up": {

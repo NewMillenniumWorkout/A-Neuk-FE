@@ -24,12 +24,12 @@ const ChatPage: React.FC = () => {
 		setIsGenAble,
 		isGenStart,
 		setIsGenStart,
+		isSlide,
 		isGenComplete,
 		setIsGenComplete,
 		isEmotionSelectAble,
 		setIsEmotionSelectAble,
 		addMessage,
-		isLoading,
 		setIsLoading,
 		userImage,
 	} = useChatPage();
@@ -50,10 +50,9 @@ const ChatPage: React.FC = () => {
 			if (curChatId !== null) {
 				const emotionData = await API_DIARY.getEmotions(curChatId);
 				setEmotionData(emotionData);
-				console.log("gen complete");
 			}
 		} catch (error) {
-			console.log("Error gen");
+			console.error("Error get emotions: ", error);
 		}
 		setIsGenComplete(true);
 	};
@@ -138,6 +137,14 @@ const ChatPage: React.FC = () => {
 			navigate("/emotion-select");
 		}
 	}, [isEmotionSelectAble]);
+
+	useEffect(() => {
+		if (userImage && isGenComplete && isSlide) {
+			setIsEmotionSelectAble(true);
+		} else {
+			setIsEmotionSelectAble(false);
+		}
+	}, [userImage, isGenComplete, isSlide]);
 
 	return (
 		<div className="absolute inset-0 bg-white flex flex-col overflow-hidden">
