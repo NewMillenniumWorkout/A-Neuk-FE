@@ -22,7 +22,7 @@ const emotionColors: Record<
 	중성: "#B0E0E6",
 	슬픔: "#7D8FF1",
 	지루: "#B08AF1",
-	공포: "#AD89F0",
+	공포: "#5F36DA",
 	분노: "#CD5D5D",
 	통증: "#F08080",
 	혐오: "#6B8E23",
@@ -80,17 +80,19 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 	};
 
 	return (
-		<div className="w-full bg-white rounded-lg shadow p-4">
-			<div className="font-pretendard-bold text-lg text-black-aneuk mb-4">
+		<div className="w-full bg-white rounded-2xl shadow-md p-4">
+			<div className="font-pretendard-bold text-2xl text-black-aneuk mb-4 ml-1">
 				최근 30일 감정 추이
 			</div>
-			<ApexCharts
-				options={chartOptions}
-				series={series}
-				type="donut"
-				height={320}
-				width={310}
-			/>
+			<div className="w-full">
+				<ApexCharts
+					options={chartOptions}
+					series={series}
+					type="donut"
+					height={320}
+					width="100%"
+				/>
+			</div>
 		</div>
 	);
 };

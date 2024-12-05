@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_CHART } from "../../api/chart";
 import DonutChart from "./DonutChart";
+import Collection from "./Collection";
 
 interface LastMonthData {
 	[key: string]: number;
@@ -35,7 +36,7 @@ const ChartPage: React.FC = () => {
 				const collectionData = await API_CHART.getCollection();
 
 				setLastMonthData(lastMonthData.data.data);
-				setCollectionData(collectionData.data);
+				setCollectionData(collectionData.data.data);
 			} catch (error) {
 				console.error("Error fetching chart data:", error);
 			} finally {
@@ -47,17 +48,18 @@ const ChartPage: React.FC = () => {
 	}, []);
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return <div className="w-full h-full bg-white-aneuk" />;
 	}
 
 	return (
-		<div className="w-full h-full bg-white-aneuk pt-6">
-			<div className="flex flex-col justify-start items-center w-full">
+		<div className="w-full h-full bg-white-aneuk">
+			<div className="flex flex-col justify-start items-center w-full h-full px-4 pb-36 overflow-y-auto">
 				{lastMonthData && (
-					<div className="my-8">
+					<div className="w-full my-8 mt-10">
 						<DonutChart data={lastMonthData} />
 					</div>
 				)}
+				{collectionData && <Collection data={collectionData} />}
 			</div>
 		</div>
 	);
