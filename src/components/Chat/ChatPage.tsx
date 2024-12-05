@@ -97,7 +97,7 @@ const ChatPage: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (messages.length > 3) {
+		if (messages.length > 10) {
 			setIsGenAble(true);
 		}
 		autoScroll();
