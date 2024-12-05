@@ -73,7 +73,7 @@ export function WeeklyCalendar({
 				{dayNames.map((dayName, index) => (
 					<div
 						key={index}
-						className={`font-pretendard-regular text-center text-xs 
+						className={`mb-0.5 font-pretendard-regular text-center text-xs 
 							${index === 0 || index === 6 ? "text-[#ED6A5B]" : "text-black-aneuk"}`}
 					>
 						{dayName}
