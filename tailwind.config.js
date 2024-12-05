@@ -55,7 +55,7 @@ module.exports = {
 			animation: {
 				"slide-up": "slide-up 0.5s ease-out",
 				floating: "floating 2.5s ease-in-out infinite",
-				spinner: "spinner 1s linear infinite",
+				spinner: "spinner 1.3s ease-in-out infinite",
 				flip: "flip 0.2s ease-in-out",
 				"small-spin-l": "small-spin-l 0.5s ease-in-out",
 				"small-spin-r": "small-spin-r 0.5s ease-in-out",
