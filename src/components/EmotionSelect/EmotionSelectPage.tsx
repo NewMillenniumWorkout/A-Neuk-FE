@@ -151,12 +151,6 @@ const EmotionSelectPage: React.FC = () => {
 						</button>
 					)}
 				</div>
-				{curIndex < contentList.length - 2 && !isLoading && (
-					<div className="absolute top-[19.5%] rotate-2 w-[90%] aspect-[2/2.8] bg-white rounded-[32px] shadow-custom-strong"></div>
-				)}
-				{curIndex < contentList.length - 1 && !isLoading && (
-					<div className="absolute top-[19.5%] -rotate-2 w-[90%] aspect-[2/2.8] bg-white rounded-[32px] shadow-custom-strong"></div>
-				)}
 			</div>
 		</div>
 	);
