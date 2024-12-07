@@ -10,8 +10,7 @@ const ImageReceiver: React.FC = () => {
 	const { userImage, setUserImage } = useChatPage();
 
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-	const MAX_FILE_SIZE = 50 * 1024 * 1024;
-
+	const MAX_FILE_SIZE = 1 * 1024 * 1024;
 	const handleImageChange = async (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
@@ -19,12 +18,15 @@ const ImageReceiver: React.FC = () => {
 			const file = event.target.files[0];
 			const fileExtension = file.name.split(".").pop()?.toLowerCase();
 
+			const isLargeFile = file.size > MAX_FILE_SIZE;
+			const quality = isLargeFile ? 0.1 : 0.5;
+
 			if (fileExtension === "heic" || fileExtension === "heif") {
 				try {
 					const convertedBlob = await heic2any({
 						blob: file,
 						toType: "image/jpeg",
-						quality: 0.1,
+						quality,
 					});
 					let blobParts: BlobPart[];
 					if (Array.isArray(convertedBlob)) {
@@ -82,7 +84,7 @@ const ImageReceiver: React.FC = () => {
 							}
 						},
 						"image/jpeg",
-						0.5
+						quality
 					);
 				};
 				img.src = e.target.result as string;
