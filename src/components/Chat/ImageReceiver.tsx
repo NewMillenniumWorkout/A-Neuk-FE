@@ -17,14 +17,6 @@ const ImageReceiver: React.FC = () => {
 	) => {
 		if (event.target.files && event.target.files[0]) {
 			const file = event.target.files[0];
-
-			if (file.size > MAX_FILE_SIZE) {
-				console.log(
-					"파일 크기가 너무 큽니다. 최대 50MB까지 업로드할 수 있습니다."
-				);
-				return;
-			}
-
 			const fileExtension = file.name.split(".").pop()?.toLowerCase();
 
 			if (fileExtension === "heic" || fileExtension === "heif") {
@@ -32,11 +24,16 @@ const ImageReceiver: React.FC = () => {
 					const convertedBlob = await heic2any({
 						blob: file,
 						toType: "image/jpeg",
-						quality: 0.3,
+						quality: 0.1,
 					});
-
+					let blobParts: BlobPart[];
+					if (Array.isArray(convertedBlob)) {
+						blobParts = convertedBlob;
+					} else {
+						blobParts = [convertedBlob];
+					}
 					const convertedFile = new File(
-						[convertedBlob as BlobPart],
+						blobParts,
 						file.name.replace(/\.(heic|heif)$/i, ".jpg"),
 						{
 							type: "image/jpeg",
@@ -47,10 +44,50 @@ const ImageReceiver: React.FC = () => {
 				} catch (error) {
 					console.error("HEIC 변환 오류:", error);
 				}
-			} else {
-				setUserImage(file);
-				setPreviewUrl(URL.createObjectURL(file));
+				return;
 			}
+
+			const reader = new FileReader();
+			reader.onload = (e: ProgressEvent<FileReader>) => {
+				if (!e.target || !e.target.result) return;
+
+				const img = new Image();
+				img.onload = () => {
+					const canvas = document.createElement("canvas");
+					canvas.width = img.width;
+					canvas.height = img.height;
+
+					const ctx = canvas.getContext("2d");
+					if (!ctx) return;
+
+					ctx.drawImage(img, 0, 0);
+
+					canvas.toBlob(
+						(blob) => {
+							if (blob) {
+								const convertedFile = new File(
+									[blob],
+									file.name.replace(
+										/\.(png|jpg|jpeg)$/i,
+										".jpg"
+									),
+									{
+										type: "image/jpeg",
+									}
+								);
+								setUserImage(convertedFile);
+								setPreviewUrl(
+									URL.createObjectURL(convertedFile)
+								);
+							}
+						},
+						"image/jpeg",
+						0.5
+					);
+				};
+				img.src = e.target.result as string;
+			};
+			reader.readAsDataURL(file);
 		}
 	};
 
