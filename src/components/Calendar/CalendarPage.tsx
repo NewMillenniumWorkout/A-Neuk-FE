@@ -126,11 +126,13 @@ const CalendarPage: React.FC = () => {
 				className="flex flex-col flex-grow min-h-0 justify-start items-center bg-white-aneuk pb-40 overflow-y-auto"
 			>
 				{!isLoading && (
-					<Card
-						curDiary={curDiary}
-						isFlipped={isFlipped}
-						setIsFlipped={setIsFlipped}
-					/>
+					<div className="w-full h-full px-3">
+						<Card
+							curDiary={curDiary}
+							isFlipped={isFlipped}
+							setIsFlipped={setIsFlipped}
+						/>
+					</div>
 				)}
 				{isFlipped && (
 					<EmotionLabels
