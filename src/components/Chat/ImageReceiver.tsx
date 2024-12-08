@@ -109,7 +109,7 @@ const ImageReceiver: React.FC = () => {
 				>
 					일기에 오늘의 사진을 추가해줘~!
 				</div>
-				<div className="min-w-60 min-h-80 pt-2 px-2 rounded-2xl break-words box-border bg-white shadow-custom-strong">
+				<div className="min-w-60 min-h-80 max-w-60 pt-2 px-2 rounded-2xl break-words box-border bg-white shadow-custom-strong">
 					<div className="relative flex flex-col justify-center items-center min-w-56 min-h-64 w-56 h-64 rounded-xl bg-gray-aneuk opacity">
 						<input
 							id="file-upload"
