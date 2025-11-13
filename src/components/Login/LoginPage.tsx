@@ -34,7 +34,7 @@ const LoginPage = () => {
 				- 로그인하여 나의 감정 알아보러 가기 -
 			</div>
 			<div className="flex flex-col w-full space-y-2">
-				<SocialLoginButton
+				{/* <SocialLoginButton
 					handleLogin={() => {
 						window.location.href =
 							"https://aneuk-api.dev-lr.com/oauth2/authorization/kakao";
@@ -43,7 +43,7 @@ const LoginPage = () => {
 					label="Kakao 로그인"
 					labelColor="text-black"
 					bgColor="bg-[#FEE500]"
-				/>
+				/> */}
 				<SocialLoginButton
 					handleLogin={() => {
 						window.location.href =
