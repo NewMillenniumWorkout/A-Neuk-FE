@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const apiClient = axios.create({
-	baseURL: "https://aneuk-api.dev-lr.com",
+	baseURL: "https://aneuk-api.dodae.me",
 	withCredentials: true,
 	headers: {
 		"Content-Type": "application/json",

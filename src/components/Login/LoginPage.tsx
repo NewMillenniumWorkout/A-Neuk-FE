@@ -37,7 +37,7 @@ const LoginPage = () => {
 				{/* <SocialLoginButton
 					handleLogin={() => {
 						window.location.href =
-							"https://aneuk-api.dev-lr.com/oauth2/authorization/kakao";
+							"https://aneuk-api.dodae.me/oauth2/authorization/kakao";
 					}}
 					img={kakaoImg}
 					label="Kakao 로그인"
@@ -47,7 +47,7 @@ const LoginPage = () => {
 				<SocialLoginButton
 					handleLogin={() => {
 						window.location.href =
-							"https://aneuk-api.dev-lr.com/oauth2/authorization/google";
+							"https://aneuk-api.dodae.me/oauth2/authorization/google";
 					}}
 					img={googleImg}
 					label="Google 로그인"

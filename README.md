@@ -22,7 +22,7 @@
 
 ## 🌐 서비스 링크
 
-🔗 **[서비스 바로가기](https://aneuk.dev-lr.com/)**
+🔗 **[서비스 바로가기](https://aneuk.dodae.me/)**
 
 ---
 
